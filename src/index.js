@@ -15,10 +15,8 @@ const io = new Server(server, {
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-app.use(express.static(join(__dirname, "public")));
-
 app.get('/', (req, res) => {
-  res.sendFile(join(__dirname, "public", "index.html"));
+  res.sendFile(join(__dirname, "../public/index.html"));
 });
 
 io.on("connection", (socket) => {

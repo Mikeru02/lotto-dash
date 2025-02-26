@@ -1,1 +1,36 @@
-<!-- Put the code here -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"
+    <title>Lotto Dash</title>
+  </head>
+  <body>
+    <h1>Test Communication</h1>
+    <ul id="messages"></ul>
+    <input id="msgInput">
+    <button onclick="sendMessage()">Send</button>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io("http://localhost:3000");
+
+      socket.on("connect", () => {
+        console.log(socket.id);
+      });
+
+      socket.on("chat", (msg) => {
+        const li = document.createElement("li");
+        li.textContent = msg;
+        document.getElementById("messages").appendChild(li);
+      });
+
+      function sendMessage() {
+        const msgInput = document.getElementById("msgInput");
+        socket.emit("chat", msgInput.value);
+        msgInput.value = "";
+      }
+
+    </script>
+  </body>
+</html>

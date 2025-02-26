@@ -2,7 +2,6 @@
   "name": "lotto-dash",
   "version": "1.0.0",
   "description": "In partial fullfilment for Parallel and Distributed Systems",
-  "main": "index.js",
   "type": "module",
   "scripts": {
     "dev": "nodemon --watch src src/index.js",

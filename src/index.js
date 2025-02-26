@@ -1,16 +1,11 @@
-import SPA from "./core/spa";
 import express from "express";
+import path from "path";
 import { createServer } from "node:http";
 import { fileURLToPath } from "node:url";
-import { dirname,join } from "node:path";
+import { dirname } from "node:path";
 import { Server } from "socket.io";
-import PageNotFound from "./pages/pageNotFound";
-import Home from "./pages/home";
 
-const app = new SPA({
-  root: document.getElementById("app"),
-  defaultRoute: PageNotFound
-});
+const app = express();
 const server = createServer(app);
 const io = new Server(server, {
   cors: {
@@ -19,10 +14,13 @@ const io = new Server(server, {
   }
 });
 
-// const __dirname = dirname(fileURLToPath(import.meta.url));
-app.use("/", Home);
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
-app.handleRouteChanges();
+app.use(express.static(path.join(__dirname, "../public")))
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/index.html"))
+});
 
 io.on("connection", (socket) => {
   console.log(`User connected at ${socket.id}`);

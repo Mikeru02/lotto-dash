@@ -1,5 +1,6 @@
-import SPA from "./core/spa";
-import PageNotFound from "./pages/pageNotFound";
+import SPA from "./core/spa.js";
+import PageNotFound from "./pages/pageNotFound.js";
+import Home from "./pages/home.js";
 
 const app = new SPA ({
   root: document.getElementById("app"),
@@ -8,6 +9,6 @@ const app = new SPA ({
 
 window.app = app;
 
-app.add("/")
+app.add("/", Home);
 
 app.handleRouteChanges();

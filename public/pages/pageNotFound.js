@@ -1,4 +1,4 @@
-import Layout from "../layouts/default";
+import Layout from "../layouts/default.js";
 
 export default function PageNotFound() {
   const { header, main, footer } = Layout(this.root);

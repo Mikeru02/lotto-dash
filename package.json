@@ -4,8 +4,9 @@
   "description": "In partial fullfilment for Parallel and Distributed Systems",
   "type": "module",
   "scripts": {
+    "parcelBuild": "rm -rf dist .parcel-cache && parcel build public/index.html",
     "dev": "nodemon --watch src src/index.js",
-    "start": "PORT=3000 npm run dev & PORT=3001 npm run dev & PORT=3002 npm run dev",
+    "start": "npm run parcelBuild & PORT=3000 npm run dev & PORT=3001 npm run dev & PORT=3002 npm run dev",
     "vt": "vite",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,6 +19,7 @@
     "socket.io": "^4.8.1"
   },
   "devDependencies": {
+    "parcel": "^2.13.3",
     "vite": "^6.2.0"
   }
 }

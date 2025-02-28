@@ -6,6 +6,7 @@ import { dirname } from "node:path";
 import { Server } from "socket.io";
 
 import drawNumbers from "./utils/drawNumbers.js";
+// import startCount from "./utils/startCount.js";
 
 const app = express();
 const server = createServer(app);
@@ -24,26 +25,34 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../dist/index.html"))
 });
 
-let countDown = 3;
+let countDown = 10;
 let interval;
+let pastNumber = null;
+let currentNumber = null;
 
 io.on("connection", (socket) => {
   console.log(`User connected at ${socket.id}`);
 
   socket.emit("updateTime", countDown);
 
-  if (!interval) {
-    interval = setInterval(() => {
-      if (countDown > 0) {
-        countDown--;
-        io.emit("updateTime", countDown);
-      } else {
-        clearInterval(interval);
-        interval = null;
-        io.emit("finish", "Times up");
-      }
-    }, 1000);
+  if (pastNumber){
+    socket.emit("draw", pastNumber);
   }
+
+  setInterval(() => {
+    if (countDown > 0) {
+      countDown--;
+      io.emit("updateTime", countDown);
+    } else {
+      if (!currentNumber) {
+        currentNumber = drawNumbers();
+        pastNumber = currentNumber;
+        currentNumber = null;
+      }
+      io.emit("draw", pastNumber);
+      countDown = 10;
+    }
+  }, 1000);
 })
 
 server.listen(process.env.PORT, () => {

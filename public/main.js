@@ -26,6 +26,7 @@ socket.on("finish", (msg) => {
   document.getElementById("time-display").textContent = msg;
 })
 
-socket.on("drawnNumbers", (numbers) => {
+socket.on("draw", (numbers) => {
+  console.log(numbers)
   document.getElementById("drawn-numbers").textContent = numbers;
 })

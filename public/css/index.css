@@ -1,0 +1,45 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('https://res.cloudinary.com/dakq2u8n0/image/upload/v1740571700/Screenshot_2025-02-26_200554_esfirn.png') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Lalezar';
+}
+
+.container {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    width: 50%; 
+    height: auto;    
+    margin-bottom: 20px;
+}
+
+.play-button {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #CF8F00;
+    color: white;
+    border: 1px solid #976800;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: 'Lalezar';
+}
+
+.play-button:hover {
+    background-color: #e49c00;
+}

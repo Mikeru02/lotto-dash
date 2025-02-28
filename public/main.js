@@ -14,3 +14,18 @@ window.app = app;
 app.add("/", Home);
 
 app.handleRouteChanges();
+ 
+// Socket
+const socket = io("http://localhost:3000");
+
+socket.on("updateTime", (time) => {
+  document.getElementById("time-display").textContent = time;
+})
+
+socket.on("finish", (msg) => {
+  document.getElementById("time-display").textContent = msg;
+})
+
+socket.on("drawnNumbers", (numbers) => {
+  document.getElementById("drawn-numbers").textContent = numbers;
+})

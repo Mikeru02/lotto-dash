@@ -6,6 +6,7 @@
   "scripts": {
     "parcelBuild": "rm -rf dist .parcel-cache && parcel build public/index.html",
     "dev": "nodemon --watch src src/index.js",
+    "api": "parcel build api/index.js",
     "build": "vite build --emptyOutDir",
     "start": "npm run build & PORT=3000 npm run dev & PORT=3001 npm run dev & PORT=3002 npm run dev",
     "vt": "vite",
@@ -15,12 +16,24 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.20.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.2.0",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "mysql2": "^3.12.0",
     "nodemon": "^3.1.9",
     "socket.io": "^4.8.1"
   },
   "devDependencies": {
+    "buffer": "^6.0.3",
+    "events": "^3.3.0",
     "parcel": "^2.13.3",
+    "path-browserify": "^1.0.1",
+    "url": "^0.11.4",
     "vite": "^6.2.0"
   }
 }

@@ -9,12 +9,12 @@ class AccountController() {
   // Create account 
   async create(req, res) {
     try {
-      const { username, password } = req.body || {};
-      const response = await this.user.create(username, password);
+      const { username, fullname, email, password } = req.body || {};
+      const response = await this.user.create(username, fullname, email, password);
       res.json({
         success: true,
         data: {
-          userId: response?.userId,
+          userId: response?.insertId,
           token: jwt.sign({ "username": username }, process.env.API_SECRET_KEY, {
             expiresIn: "1d",
           }),
@@ -56,6 +56,47 @@ class AccountController() {
           message: err.toString(),
         });
         res.end();
+    }
+  }
+
+  // Profile
+  async profile(req, res) {
+    try {
+      const userDetails = await this.user.get(res.locals.username);
+      res.json({
+        success: true,
+        data: {
+          username: userDetails?.username,
+          fullname: userDetails?.fullname,
+          email: userDetails?.email,
+        }
+      });
+      res.end();
+    } catch(err) {
+      res.json({
+        success: false,
+        message: err.toString(),
+      });
+      res.end();
+    }
+  }
+
+  // Update profile
+  aysnc update(req, res) {
+    try {
+      const { username, fullname, email, password } = req.body || {};
+      const currentData = await this.user.get(res.locals.username);
+      const upUsername = username ?? currentData.username;
+      const upFullname = fullname ?? currentData.fullname;
+      const upEmail = email ?? currentData.email;
+      const upPassword = password ?? currentData.password;
+      const response = await this.user.upate(username, fullname, e)
+    } catch(err) {
+      res.json({
+        success: false,
+        message: err.toString(),
+      });
+      res.end();
     }
   }
 }

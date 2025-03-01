@@ -5,7 +5,7 @@ import Footer from "../components/home/footer.js";
 
 export default function Home() {
   const { header, main, footer } = Layout(this.root);
-
+  
   Header(header);
   Main(main);
   Footer(footer);

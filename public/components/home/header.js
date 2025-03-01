@@ -2,13 +2,11 @@ import styles from "./component.module.css";
 
 export default function Header(root){
   root.innerHTML = `
-    <div>
-      <h1>Lotto Dash</h1>
+    <img src="https://res.cloudinary.com/dakq2u8n0/image/upload/v1740572539/image-removebg-preview_2_crxbfh.png" alt="Logo" class="logo">
+    <div class="profile-container">
+      <img src="https://res.cloudinary.com/dakq2u8n0/image/upload/v1740663929/ppp_tdpbik.jpg" alt="Profile" class="profile"> 
     </div>
-    <div class="${styles['login-btns']}">
-      <a>Login</a>
-      <a>Sign Up</a>
-    </div>
+
   `;
 
   root.className = styles['header']

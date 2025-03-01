@@ -12,6 +12,7 @@ const app = new SPA ({
 window.app = app;
 
 app.add("/", Home);
+app.add("/landing",)
 
 app.handleRouteChanges();
  

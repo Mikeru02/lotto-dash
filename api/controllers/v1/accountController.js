@@ -35,7 +35,7 @@ class AccountController {
     try {
       const { username, password } = req.body || {};
       const response = await this.user.verify(username, password);
-      if (!response.id) {
+      if (!response.userId) {
         return res.json({
           success: false,
           message: 'Invalid username or password!',

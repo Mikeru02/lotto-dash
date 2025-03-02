@@ -7,7 +7,6 @@ import morgan from "morgan";
 
 import v1 from "./routes/v1/index.js";
 
-
 const app = express();
 const port = process.env.PORT || 4000;
 

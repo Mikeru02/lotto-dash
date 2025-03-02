@@ -13,6 +13,7 @@ class User {
         "INSERT INTO users(username, fullname, emailaddress, password, created_at, updated_at) VALUES (?, ?, ?, ?, NOW(), NOW())",
         [username, fullname, email, encryptPassword(password)]
       );
+      console.log(encryptPassword(password));
       return results
     } catch(err) {
       console.error("<error> user.create", err);
@@ -20,11 +21,11 @@ class User {
     }
   }
 
-  // Login user
+  // Verify user
   async verify(username, password) {
     try {
       const [results, ] = await this.db.execute(
-        "SELECT * FROM users WHERE username=? AND password=?",
+        'SELECT * FROM users WHERE username=? AND password=?',
         [username, encryptPassword(password)]
       );
       return results?.[0];

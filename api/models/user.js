@@ -1,7 +1,7 @@
 import { connection } from "../core/database.js";
 import { encryptPassword } from "../utils/hash.js";
 
-class User() {
+class User {
   constructor() {
     this.db = connection;
   }
@@ -10,7 +10,7 @@ class User() {
   async create(username, fullname, email, password) {
     try {
       const [results, ] = await this.db.execute(
-        "INSERT INTO users(username, fullname, email, password, created_at, updated_at) VALUES (?, ?, ?, ?, NOW(), NOW())",
+        "INSERT INTO users(username, fullname, emailaddress, password, created_at, updated_at) VALUES (?, ?, ?, ?, NOW(), NOW())",
         [username, fullname, email, encryptPassword(password)]
       );
       return results
@@ -34,7 +34,7 @@ class User() {
     }
   }
 
-  // Get profile
+  // Get user
   async get(username) {
     try{
       const [results, ] = await this.db.execute(
@@ -42,9 +42,19 @@ class User() {
         [username]
       );
       return results?.[0];
+    } catch(err) {
+        console.error("<error> user.get", err);
+        throw err;
     }
-  } catch(err) {
-    console.error("<error> user.get", err);
-    throw err;
+  }
+
+  // Update user
+  async update(username, fullname, email, password) {
+    const [results, ] = await this.db.execute(
+      "UPDATE users SET username=?, fullname=?, emailaddress=?, password=?, updated_at=NOW()",
+      [username, fullname, email, encryptPassword(password)]
+    )
   }
 }
+
+export default User;

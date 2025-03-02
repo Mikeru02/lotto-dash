@@ -11,6 +11,7 @@ accountRouter.use(authorization);
 // Get Methods
 
 // Post Methods
+accountRouter.post("/", account.create.bind(account));
 
 
 export default accountRouter;

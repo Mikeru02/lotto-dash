@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import User from "../../models/user.js";
 
-class AccountController() {
+class AccountController {
   constructor() {
     this.user = new User();
   }
@@ -82,7 +82,7 @@ class AccountController() {
   }
 
   // Update profile
-  aysnc update(req, res) {
+  async update(req, res) {
     try {
       const { username, fullname, email, password } = req.body || {};
       const currentData = await this.user.get(res.locals.username);
@@ -90,7 +90,7 @@ class AccountController() {
       const upFullname = fullname ?? currentData.fullname;
       const upEmail = email ?? currentData.email;
       const upPassword = password ?? currentData.password;
-      const response = await this.user.upate(username, fullname, e)
+      const response = await this.user.upate(username, fullname, email, password);
     } catch(err) {
       res.json({
         success: false,
@@ -100,3 +100,5 @@ class AccountController() {
     }
   }
 }
+
+export default AccountController;

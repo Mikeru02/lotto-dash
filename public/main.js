@@ -1,7 +1,8 @@
 import SPA from "./core/spa";
 import PageNotFound from "./pages/pageNotFound";
 // TODO: Add pages here!
-
+import Landing from "./pages/landing.js";
+import Home from "./pages/home.js";
 
 // Uncomment this to implement styling
 //import "./styles/common.css";
@@ -14,8 +15,5 @@ const app = new SPA({
 window.app = app;
 
 // Add routes here!
-app.get("/", (req, res) => {
-  res.send("<h1>HEllo</h1>");
-});
 
 app.handleRouteChanges();

@@ -99,6 +99,19 @@ class AccountController {
       res.end();
     }
   }
+
+  // Cash in simulation
+  async cashIn(req, res) {
+    try {
+      
+    } catch(err) {
+      res.json({
+        success: false,
+        message: err.toString(),
+      });
+      res.end();
+    }
+  }
 }
 
 export default AccountController;

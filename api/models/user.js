@@ -56,6 +56,20 @@ class User {
       [username, fullname, email, encryptPassword(password)]
     )
   }
+
+  // Add cash to wallet 
+  async cashIn(username, amount) {
+    try {
+      const [results, ] = await this.db.execute(
+        "UPDATE users SET walletbalance=? WHERE username=?",
+        [amount, username]
+      );
+      return results;
+    } catch(err) {
+      console.error("<error> user.cashIn", err);
+      throw err;
+    }
+  }
 }
 
 export default User;

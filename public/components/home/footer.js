@@ -9,4 +9,5 @@ export default function Footer(root) {
 
   // If may design ka sa footer uncomment mo yung next line 
   // root.className = styles['footer'];
+
 }

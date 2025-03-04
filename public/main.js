@@ -7,10 +7,16 @@ import Home from "./pages/home.js";
 // Uncomment this to implement styling
 //import "./styles/common.css";
 
-const app = new SPA({
+
+import SPA from "./core/spa.js";
+import PageNotFound from "./pages/pageNotFound.js";
+import Home from "./pages/home.js";
+import Landing from "./pages/landing.js";
+
+const app = new SPA ({
   root: document.getElementById("app"),
   defaultRoute: PageNotFound
-})
+});
 
 window.app = app;
 

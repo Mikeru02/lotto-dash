@@ -13,6 +13,6 @@ export default function Home() {
   Main(main);
   Footer(footer);
 
-  // If may events ka sa landing page kindly uncomment the next line 
+  // If may events ka sa home page kindly uncomment the next line 
   // Events();
 }

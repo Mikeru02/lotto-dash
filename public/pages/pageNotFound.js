@@ -13,7 +13,7 @@ export default function PageNotFound() {
   Main(main);
   Footer(footer);
 
-  // If may events ka sa landing page kindly uncomment the next line 
+  // If may events ka sa page not found kindly uncomment the next line 
   // Events();
 }
 

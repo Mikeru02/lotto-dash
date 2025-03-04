@@ -1,4 +1,4 @@
-// Main to ng home page
+// Main to ng start page
 
 import styles from "./component.module.css";
 

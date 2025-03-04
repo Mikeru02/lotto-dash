@@ -1,35 +1,21 @@
-import SPA from "./core/spa.js";
-import PageNotFound from "./pages/pageNotFound.js";
-import Home from "./pages/home.js";
+import SPA from "./core/spa";
+import PageNotFound from "./pages/pageNotFound";
+// TODO: Add pages here!
 import Landing from "./pages/landing.js";
+import Home from "./pages/home.js";
+import Profile from "./pages/profile.js";
+import Start from "./pages/start.js";
 
-import "./styles/common.css";
+// Uncomment this to implement styling
+//import "./styles/common.css";
 
 const app = new SPA ({
   root: document.getElementById("app"),
   defaultRoute: PageNotFound
-})
+});
 
 window.app = app;
 
-app.add("/", Home);
-app.add("/landing", Landing)
+// Add routes here!
 
 app.handleRouteChanges();
- 
-// Socket
-const socket = io("http://localhost:3000");
-/*
-socket.on("updateTime", (time) => {
-  document.getElementById("time-display").textContent = time;
-})
-
-socket.on("finish", (msg) => {
-  document.getElementById("time-display").textContent = msg;
-})
-
-socket.on("draw", (numbers) => {
-  console.log(numbers)
-  document.getElementById("drawn-numbers").textContent = numbers;
-})
-*/

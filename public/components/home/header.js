@@ -1,13 +1,13 @@
+// Header to ng home page
+
 import styles from "./component.module.css";
 
-export default function Header(root){
+export default function Header(root) {
   root.innerHTML = `
-    <img src="https://res.cloudinary.com/dakq2u8n0/image/upload/v1740572539/image-removebg-preview_2_crxbfh.png" alt="Logo" class="logo">
-    <div class="profile-container">
-      <img src="https://res.cloudinary.com/dakq2u8n0/image/upload/v1740663929/ppp_tdpbik.jpg" alt="Profile" class="profile"> 
-    </div>
-
+    <!-- Lagay mo here yung elements mo sa header -->
   `;
-
-  root.className = styles['header']
+  
+  // If need mo ng css sa mismong header, uncomment mo yung next line 
+  // root.className = styles['header'];
 }
+

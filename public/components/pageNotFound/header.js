@@ -1,4 +1,4 @@
-// Header to ng landing page
+// Header to ng page not found
 
 import styles from "./component.module.css";
 
@@ -10,3 +10,4 @@ export default function Header(root) {
   // If need mo ng css sa mismong header, uncomment mo yung next line 
   // root.className = styles['header'];
 }
+

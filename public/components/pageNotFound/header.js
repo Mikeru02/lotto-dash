@@ -1,5 +1,13 @@
-export default function Header(root){
+// Header to ng page not found
+
+import styles from "./component.module.css";
+
+export default function Header(root) {
   root.innerHTML = `
-    <h1>Header</h1>
-  `
+    <!-- Lagay mo here yung elements mo sa header -->
+  `;
+  
+  // If need mo ng css sa mismong header, uncomment mo yung next line 
+  // root.className = styles['header'];
 }
+

@@ -19,15 +19,17 @@ CREATE TABLE `Users` (
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`userId`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSETutf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-DROP TABLE IF EXISTS `TranscationHistory`;
-CREATE TABLE `TranscationHistory` (
+DROP TABLE IF EXISTS `TransactionHistory`;
+CREATE TABLE `TransactionHistory` (
   `transactionId` int NOT NULL AUTO_INCREMENT,
   `userId` int NOT NULL,
   `type` varchar(100) NOT NULL,
   `amount` decimal(10, 2) NOT NULL DEFAULT '0.00',
   `transactionDate` datetime NOT NULL,
+  PRIMARY KEY (`transactionId`),
+  FOREIGN KEY (`userId`) REFERENCES `Users` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 

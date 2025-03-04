@@ -88,9 +88,24 @@ class AccountController {
       const currentData = await this.user.get(res.locals.username);
       const upUsername = username ?? currentData.username;
       const upFullname = fullname ?? currentData.fullname;
-      const upEmail = email ?? currentData.email;
+      const upEmail = email ?? currentData.emailaddress;
       const upPassword = password ?? currentData.password;
-      const response = await this.user.upate(username, fullname, email, password);
+      // console.log("username", upUsername, "fullname", upFullname, "email", upEmail, "pass", upPassword);
+      const response = await this.user.update(currentData.userId, upUsername, upFullname, upEmail, upPassword);
+      
+      if (response?.affectedRows > 0) {
+        res.json({
+          success: true,
+          message: "Profile updated succesfully"
+        });
+      } else {
+        res.json({
+          success: false,
+          message: "Profile update failed"
+        });
+      }
+      res.end();
+
     } catch(err) {
       res.json({
         success: false,
@@ -101,9 +116,10 @@ class AccountController {
   }
 
   // Cash in simulation
-  async cashIn(req, res) {
+  async deposit(req, res) {
     try {
-      
+      const { amount } = req.body || {};
+      const response = await this.user.deposit(res.locals.username, amount);
     } catch(err) {
       res.json({
         success: false,

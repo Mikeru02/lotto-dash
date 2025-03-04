@@ -13,10 +13,10 @@ accountRouter.get("/", authentication, account.profile.bind(account));
 
 // Post Methods
 accountRouter.post("/login", account.login.bind(account));
-// cash in method here
 accountRouter.post("/", account.create.bind(account));
+accountRouter.post("/deposit", authentication, account.deposit.bind(account));
 
 // Patch Methods
-accountRouter.patch("/", account.update.bind(account));
+accountRouter.patch("/", authentication, account.update.bind(account));
 
 export default accountRouter;

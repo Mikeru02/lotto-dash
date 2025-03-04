@@ -10,11 +10,10 @@ class User {
   async create(username, fullname, email, password) {
     try {
       const [results, ] = await this.db.execute(
-        "INSERT INTO users(username, fullname, emailaddress, password, created_at, updated_at) VALUES (?, ?, ?, ?, NOW(), NOW())",
+        "INSERT INTO Users (username, fullname, emailaddress, password, created_at, updated_at) VALUES (?, ?, ?, ?, NOW(), NOW())",
         [username, fullname, email, encryptPassword(password)]
       );
-      console.log(encryptPassword(password));
-      return results
+      return results;
     } catch(err) {
       console.error("<error> user.create", err);
       throw err;
@@ -25,7 +24,7 @@ class User {
   async verify(username, password) {
     try {
       const [results, ] = await this.db.execute(
-        'SELECT * FROM users WHERE username=? AND password=?',
+        'SELECT * FROM Users WHERE username=? AND password=?',
         [username, encryptPassword(password)]
       );
       return results?.[0];
@@ -39,7 +38,7 @@ class User {
   async get(username) {
     try{
       const [results, ] = await this.db.execute(
-        "SELECT * FROM users WHERE username=?",
+        "SELECT * FROM Users WHERE username=?",
         [username]
       );
       return results?.[0];
@@ -50,23 +49,36 @@ class User {
   }
 
   // Update user
-  async update(username, fullname, email, password) {
-    const [results, ] = await this.db.execute(
-      "UPDATE users SET username=?, fullname=?, emailaddress=?, password=?, updated_at=NOW()",
-      [username, fullname, email, encryptPassword(password)]
-    )
-  }
-
-  // Add cash to wallet 
-  async cashIn(username, amount) {
+  async update(userId, username, fullname, email, password) {
     try {
       const [results, ] = await this.db.execute(
-        "UPDATE users SET walletbalance=? WHERE username=?",
-        [amount, username]
+        "UPDATE Users SET username=?, fullname=?, emailaddress=?, password=?, updated_at=NOW() WHERE userId=?",
+        [username, fullname, email, encryptPassword(password), userId]
       );
       return results;
     } catch(err) {
-      console.error("<error> user.cashIn", err);
+      console.error("<error> user.update", err);
+    }
+  }
+
+  // Add cash to wallet 
+  async deposit(username, amount) {
+    try {
+      const [results, ] = await this.db.execute(
+        "UPDATE Users SET walletbalance=walletbalance+? WHERE username=?",
+        [amount, username]
+      );
+      const user = await this.get(username);
+      console.log(user);
+
+      const [results1, ] = await this.db.execute(
+        "INSERT INTO TransactionHistory (userId, type, amount) VALUES (?, ?, ?)",
+        [user.userId, "deposit", amount]
+      );
+
+      
+    } catch(err) {
+      console.error("<error> user.deposit", err);
       throw err;
     }
   }

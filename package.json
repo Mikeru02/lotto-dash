@@ -9,7 +9,7 @@
     "runApi": "nodemon --watch api api/index.js",
     "api": "parcel build api/index.js",
     "build": "vite build --emptyOutDir",
-    "start": "npm run build & PORT=3000 npm run dev & PORT=3001 npm run dev & PORT=3002 npm run dev",
+    "start": "npm run build & npm run runApi & PORT=3000 npm run dev & PORT=3001 npm run dev & PORT=3002 npm run dev",
     "vt": "vite",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

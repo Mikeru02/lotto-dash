@@ -4,14 +4,12 @@
   "description": "In partial fullfilment for Parallel and Distributed Systems",
   "type": "module",
   "scripts": {
-    "parcelBuild": "rm -rf dist .parcel-cache && parcel build public/index.html",
     "dev": "nodemon --watch src src/index.js",
-    "runApi": "nodemon --watch api api/index.js",
-    "api": "parcel build api/index.js",
-    "build": "vite build --emptyOutDir",
-    "start": "npm run build & npm run runApi & PORT=3000 npm run dev & PORT=3001 npm run dev & PORT=3002 npm run dev",
-    "vt": "vite",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "api": "nodemon --watch api api/index.js",
+    "build_api": "parcel build api/index.js",
+    "build_vite": "vite build --emptyOutDir",
+    "start": "npm run build_vite & npm run api & PORT=3000 npm run dev & PORT=3001 npm run dev & PORT=3002 npm run dev",
+    "test": "echo \"Error: not test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",

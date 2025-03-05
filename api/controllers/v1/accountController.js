@@ -120,6 +120,66 @@ class AccountController {
     try {
       const { amount } = req.body || {};
       const response = await this.user.deposit(res.locals.username, amount);
+      res.json({
+        succes: true,
+        data: {
+          transactionId: response
+        }
+      })
+    } catch(err) {
+      res.json({
+        success: false,
+        message: err.toString(),
+      });
+      res.end();
+    }
+  }
+
+  // Get all deposits of user
+  async getDeposit(req, res) {
+    try {
+      const data = await this.user.getDeposits(res.locals.username);
+      res.json({
+        success: true,
+        data
+      })
+    } catch(err) {
+      res.json({
+        success: false,
+        message: err.toString(),
+      });
+      res.end();
+    }
+  }
+
+  // Cash out simulation
+  async withdraw(req, res) {
+    try {
+      const { amount } = req.body || {};
+      const response = await this.user.withdraw(res.locals.username, amount);
+      res.json({
+        succes: true,
+        data: {
+          transactionId: response
+        }
+      })
+    } catch(err) {
+      res.json({
+        success: false,
+        message: err.toString(),
+      });
+      res.end();
+    }
+  }
+
+  // Get withdrawals of user
+  async getWithdrawwal(req, res) {
+    try {
+      const data = await this.user.getWithdrawals(res.locals.username);
+      res.json({
+        success: true,
+        data
+      })
     } catch(err) {
       res.json({
         success: false,

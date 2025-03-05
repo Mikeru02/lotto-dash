@@ -61,24 +61,83 @@ class User {
     }
   }
 
+  async updateTranscation(userId, type, amount) {
+    try {
+      const [results, ] = await this.db.execute(
+        "INSERT INTO TransactionHistory (userId, type, amount, transactionDate) VALUES (?, ?, ?, NOW())",
+        [userId, type, amount]
+      );
+      return results.insertId;
+    } catch(err) {
+      console.error("<error> user.updateTranscation", err);
+      throw err;
+    }
+  }
+
   // Add cash to wallet 
   async deposit(username, amount) {
     try {
+      const user = await this.get(username);
+
       const [results, ] = await this.db.execute(
         "UPDATE Users SET walletbalance=walletbalance+? WHERE username=?",
         [amount, username]
       );
-      const user = await this.get(username);
-      console.log(user);
 
-      const [results1, ] = await this.db.execute(
-        "INSERT INTO TransactionHistory (userId, type, amount) VALUES (?, ?, ?)",
-        [user.userId, "deposit", amount]
-      );
+      const transaction = await this.updateTranscation(user.userId, "deposit", amount);
 
+      return transaction;
       
     } catch(err) {
       console.error("<error> user.deposit", err);
+      throw err;
+    }
+  }
+
+  // Get all deposits of user
+  async getDeposits(username) {
+    try {
+      const user = await this.get(username);
+      const [results, ] = await this.db.execute(
+        "SELECT transactionId, amount, transactionDate FROM TransactionHistory WHERE type=? AND userId=?",
+        ["deposit", user.userId]
+      );
+      return results;
+    } catch(err) {
+      console.error("<error> user.getDeposit", err);
+      throw err;
+    }
+  }
+
+  // Withdraw cash to wallet
+  async withdraw(username, amount) {
+    try {
+      const user = await this.get(username);
+      const [results, ] = await this.db.execute(
+        "UPDATE Users SET walletbalance=walletbalance-? WHERE username=?",
+        [amount, username]
+      );
+
+      const transaction = await this.updateTranscation(user.userId, "withdraw", amount);
+
+      return transaction;
+    } catch(err) {
+      console.error("<error> user.withdraw", err);
+      throw err;
+    }
+  }
+
+  // Get withdrawals of user
+  async getWithdrawals(username) {
+    try {
+      const user = await this.get(username);
+      const [results, ] = await this.db.execute(
+        "SELECT transactionId, amount, transactionDate FROM TransactionHistory WHERE type=? AND userId=?",
+        ["withdraw", user.userId]
+      );
+      return results;
+    } catch(err) {
+      console.error("<error> user.getDeposit", err);
       throw err;
     }
   }

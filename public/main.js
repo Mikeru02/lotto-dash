@@ -1,6 +1,5 @@
-import SPA from "./core/spa";
-import PageNotFound from "./pages/pageNotFound";
-// TODO: Add pages here!
+import SPA from "./core/spa.js";
+import PageNotFound from "./pages/pageNotFound.js";
 import Landing from "./pages/landing.js";
 import Home from "./pages/home.js";
 import Profile from "./pages/profile.js";
@@ -17,5 +16,9 @@ const app = new SPA ({
 window.app = app;
 
 // Add routes here!
+app.add("/", Start);
+app.add("/landing", Landing);
+app.add("/home", Home); // TODO: Add true to the parameters after developing to incorporate user authentication
+app.add("/profile", Profile) // TODO: Add true to the parameters after developing to incorporate user authentication
 
 app.handleRouteChanges();

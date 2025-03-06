@@ -2,7 +2,7 @@
 
 import styles from "./component.module.css";
 
-export default functio Main(root) {
+export default function Main(root) {
   root.innerHTML = `
     <!-- Lagay mo here lahat ng elements mo sa main -->
   `;

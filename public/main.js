@@ -1,6 +1,5 @@
-import SPA from "./core/spa";
-import PageNotFound from "./pages/pageNotFound";
-// TODO: Add pages here!
+import SPA from "./core/spa.js";
+import PageNotFound from "./pages/pageNotFound.js";
 import Landing from "./pages/landing.js";
 import Home from "./pages/home.js";
 import Profile from "./pages/profile.js";

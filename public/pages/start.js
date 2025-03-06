@@ -1,7 +1,7 @@
 // Start page
 
 import Layout from "../layouts/default.js";
-import Header from "../components/star/theader.js";
+import Header from "../components/start/header.js";
 import Main from "../components/start/main.js";
 import Footer from "../components/start/footer.js";
 import Events from "../components/start/event.js";

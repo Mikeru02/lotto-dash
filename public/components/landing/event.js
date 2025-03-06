@@ -3,4 +3,13 @@
 
 export default function Events() {
   // Lagay mo her eyung events mo sa landing page
+  const socket = io("http://localhost:3000");
+
+  socket.on("updateTime", (time) => {
+    document.getElementById("time-display").textContent = time;
+  })
+
+  socket.on("draw", (numbers) => {
+    document.getElementById("drawn-numbers").textContent = numbers;
+  })
 }

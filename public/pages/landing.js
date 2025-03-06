@@ -14,5 +14,5 @@ export default function Landing() {
   Footer(footer);
 
   // If may events ka sa landing page kindly uncomment the next line 
-  // Events();
+  Events();
 }

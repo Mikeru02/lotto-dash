@@ -1,6 +1,6 @@
 // Footer to ng start page
 
-import styles from "./component.module.css";
+// import styles from "./component.module.css";
 
 export default function Footer(root) {
   root.innerHTML = `

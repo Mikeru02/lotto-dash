@@ -1,37 +1,76 @@
+/* Uncomment mo to if may design ka sa header
+.header {
+  display: flex;
+}
+*/
+
+/* Uncomment mo to if may design ka sa main */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('https://res.cloudinary.com/dakq2u8n0/image/upload/v1740929924/Screenshot_2025-03-02_233215_oc6hc2.png') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Lalezar';
+}
+
+.container {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    width: 30%; 
+    height: auto;    
+    margin-bottom: 20px;
+}
+
+/* ========== BUTTON ======== */
+
 @font-face {
-    font-family: "Mona Sans";
-    src: url("https://assets.codepen.io/64/Mona-Sans.woff2") format("woff2 supports variations"),
-         url("https://assets.codepen.io/64/Mona-Sans.woff2") format("woff2-variations");
-    font-weight: 100 1000;
+  font-family: "Mona Sans";
+  src: url("https://assets.codepen.io/64/Mona-Sans.woff2") format("woff2 supports variations"),
+       url("https://assets.codepen.io/64/Mona-Sans.woff2") format("woff2-variations");
+  font-weight: 100 1000;
+}
+
+@layer properties {
+  @property --bg-position {
+    syntax: "<number>";
+    inherits: true;
+    initial-value: 100;
   }
-  
-  @layer properties {
-    @property --bg-position {
-      syntax: "<number>";
-      inherits: true;
-      initial-value: 100;
-    }
-    @property --after-blur {
-      syntax: "<number>";
-      inherits: true;
-      initial-value: 0;
-    }
-    @property --after-opacity {
-      syntax: "<number>";
-      inherits: true;
-      initial-value: 1;
-    }
-    @property --before-opacity {
-      syntax: "<number>";
-      inherits: true;
-      initial-value: 0.3;
-    }
-    @property --btn-scale {
-      syntax: "<number>";
-      inherits: true;
-      initial-value: 1;
-    }
+  @property --after-blur {
+    syntax: "<number>";
+    inherits: true;
+    initial-value: 0;
   }
+  @property --after-opacity {
+    syntax: "<number>";
+    inherits: true;
+    initial-value: 1;
+  }
+  @property --before-opacity {
+    syntax: "<number>";
+    inherits: true;
+    initial-value: 0.3;
+  }
+  @property --btn-scale {
+    syntax: "<number>";
+    inherits: true;
+    initial-value: 1;
+  }
+}
 
 :root {
   --btn-bg: #262834;
@@ -47,19 +86,6 @@
   --color-blue: #1B1487;
 }
 
-.container {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.logo {
-  width: 30%; 
-  height: auto;    
-  margin-bottom: 20px;
-}
-
 .play-button {
   position: relative;
   padding: 10px 50px;
@@ -72,7 +98,6 @@
   font-family: 'Lalezar';
   border: none;
   z-index: 1;
-  width: inherit;
 }
 
 .play-button::before {
@@ -143,3 +168,12 @@
   0% { background-position: 0% 50%; }
   100% { background-position: 100% 50%; }
 }
+
+
+/* Uncomment mo to if may design ka sa footer
+.footer {
+  display: flex;
+}
+*/ 
+
+/* Insert your style here */

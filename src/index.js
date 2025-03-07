@@ -35,6 +35,10 @@ io.on("connection", (socket) => {
   if (pastNumber) {
     io.emit("draw", pastNumber);
   }
+
+  socket.on("setUsername", (username) => {
+    socket.data.username = username;
+  })
 })
 
 setInterval(() => {

@@ -14,5 +14,5 @@ export default function Home() {
   Footer(footer);
 
   // If may events ka sa home page kindly uncomment the next line 
-  // Events();
+  Events();
 }

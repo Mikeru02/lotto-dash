@@ -2,7 +2,7 @@
 // import styles from "./component.module.css";
 
 
-export default function addEventListeners() {
+export default function Events() {
   // Panel switch elements
   const signUpButton = document.getElementById('signUp');
   const signInButton = document.getElementById('signIn');
@@ -22,7 +22,7 @@ export default function addEventListeners() {
   // Modal elements
   const modal = document.getElementById("authModal");
   const openModalBtn = document.getElementById("openModalBtn");
-  const closeModalBtn = document.querySelector(".close-btn");
+  const closeModalBtn = document.getElementById("closeModalBtn");
 
   if (openModalBtn && modal) {
     // Open modal

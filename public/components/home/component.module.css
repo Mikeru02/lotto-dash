@@ -120,12 +120,15 @@
 
 .empty {
   background: #EB5C63;
-  padding: 12px 20px;
+  /* padding: 12px 20px; */
   border-radius: 50%;
   width: 70px;
   height: 70px;
   display: flex;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  font-size: 2.5rem;
+  justify-content: center;
+  align-items: center;
 
 }
 
@@ -278,7 +281,6 @@
   height: 100%; 
   background-color: rgba(0, 0, 0, 0.4); 
   overflow: hidden; 
-  display: flex; 
   transform: translate(0, 0); 
 }
 

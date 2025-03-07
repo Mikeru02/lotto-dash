@@ -1,18 +1,40 @@
 // If need mo ng styles here kindly uncomment this 
-import styles from "./component.module.css";
+// import styles from "./component.module.css";
 
 export default function Events() {
-  document.querySelectorAll(`.${styles['empty']}`).forEach((div) => {
+  const cancelBtn = document.getElementById("cancel");
+  const saveBtn = document.getElementById("save");
+  const resetSelectionBtn = document.getElementById("reset-selection");
+  const submitSelectionBtn = document.getElementById("submit-selection");
+
+  cancelBtn.addEventListener("click", function() {
+    closeModal();
+  });
+
+  saveBtn.addEventListener("click", function() {
+    saveNumber();
+  });
+  
+  resetSelectionBtn.addEventListener("click", function() {
+    resetSelection();
+  });
+
+  submitSelectionBtn.addEventListener("click", function() {
+    // TODO Add function to submit numbers here!
+  })
+
+  document.querySelectorAll("#input-num").forEach((div) => {
     div.addEventListener("click", function() {
       const index = this.getAttribute("data-index");
-      openModal(index)
-    })
-  })
+      openModal(index);
+    });
+  });
 
   document.getElementById("close-btn").addEventListener('click', function() {
     closeModal();
   })
 }
+
 let selectedSlot = null;
 
 function openModal(index) {
@@ -20,43 +42,43 @@ function openModal(index) {
     document.getElementById("numberModal").style.display = "flex"; 
 }
 
-export function closeModal() {
+function closeModal() {
     document.getElementById("numberModal").style.display = "none";
     document.getElementById("lottoNumber").value = ""; 
 }
 
-// export function saveNumber() {
-//     const input = document.getElementById("lottoNumber").value;
-//     const numberSelection = document.querySelectorAll(".number-selection div");
+function saveNumber() {
+    const input = document.getElementById("lottoNumber").value;
+    const numberSelection = document.querySelectorAll(".number-selection div");
 
-//     let existingNumbers = Array.from(numberSelection).map(div => div.textContent.trim()).filter(num => num !== "");
+    let existingNumbers = Array.from(numberSelection).map(div => div.textContent.trim()).filter(num => num !== "");
 
-//     if (input >= 1 && input <= 45) {
-//         if (existingNumbers.includes(input.toString())) {
-//             alert("This number is already selected. Please choose a different number.");
-//             return;
-//         }
+    if (input >= 1 && input <= 45) {
+        if (existingNumbers.includes(input.toString())) {
+            alert("This number is already selected. Please choose a different number.");
+            return;
+        }
 
-//         numberSelection[selectedSlot].textContent = input;
-//         numberSelection[selectedSlot].classList.remove("empty");
-//         numberSelection[selectedSlot].classList.add("selected");
-//         closeModal(); 
-//     } else {
-//         alert("Please enter a number between 1 and 45.");
-//     }
-// }
+        numberSelection[selectedSlot].textContent = input;
+        numberSelection[selectedSlot].classList.remove("empty");
+        numberSelection[selectedSlot].classList.add("selected");
+        closeModal(); 
+    } else {
+        alert("Please enter a number between 1 and 45.");
+    }
+}
 
-// export function resetSelection() {
-//     const numberSelection = document.querySelectorAll(".number-selection div");
+function resetSelection() {
+    const numberSelection = document.querySelectorAll(".number-selection div");
 
-//     numberSelection.forEach(function (div) {
-//         div.textContent = ""; 
-//         div.classList.remove("selected"); 
-//         div.classList.add("empty"); 
-//     });
+    numberSelection.forEach(function (div) {
+        div.textContent = ""; 
+        div.classList.remove("selected"); 
+        div.classList.add("empty"); 
+    });
 
-//     document.getElementById("lottoNumber").value = ""; 
-// }
+    document.getElementById("lottoNumber").value = ""; 
+}
 
 // function generateWinningNumbers() {
 //     let numbers = new Set();

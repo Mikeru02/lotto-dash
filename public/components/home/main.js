@@ -8,18 +8,18 @@ export default function Main(root) {
     <div class="${styles['main-content']}">
         <div class="${styles['contents']}">
             <h3>Numbers</h3>
-            <div class="${styles['number-selection']}">
-                <div class="${styles['empty']}" data-index="0"></div>
-                <div class="${styles['empty']}" data-index="1"></div>
-                <div class="${styles['empty']}" data-index="2"></div>
-                <div class="${styles['empty']}" data-index="3"></div>
-                <div class="${styles['empty']}" data-index="4"></div>
-                <div class="${styles['empty']}" data-index="5"></div>
+            <div class="${styles['number-selection']} number-selection">
+                <div class="${styles['empty']}" id="input-num" data-index="0"></div>
+                <div class="${styles['empty']}" id="input-num" data-index="1"></div>
+                <div class="${styles['empty']}" id="input-num" data-index="2"></div>
+                <div class="${styles['empty']}" id="input-num" data-index="3"></div>
+                <div class="${styles['empty']}" id="input-num" data-index="4"></div>
+                <div class="${styles['empty']}" id="input-num" data-index="5"></div>
             </div>
             
             <div class="${styles['buttons']}">
-                <button class="${styles['reset-btn']}" onclick="resetSelection()"></button>
-                <button class="${styles['submit-btn']}" onclick="submitSelection()"></button>
+                <button class="${styles['reset-btn']}" id="reset-selection" onclick="resetSelection()"></button>
+                <button class="${styles['submit-btn']}" id="submit-selection" onclick="submitSelection()"></button>
             </div>
             
             <h3 class="${styles['h3_player']}">Players</h3>
@@ -55,8 +55,8 @@ export default function Main(root) {
                 <h3>Select a Number</h3>
                 <input type="number" id="lottoNumber" min="1" max="45" placeholder="Enter number (1-45)">
                 <div class="${styles['btns']}">
-                    <button class="${styles['cancel-btn']}" onclick="closeModal()">CANCEL</button>
-                    <button class="${styles['save-btn']}" onclick="saveNumber()">SAVE</button>
+                    <button class="${styles['cancel-btn']}" id="cancel">CANCEL</button>
+                    <button class="${styles['save-btn']}" id="save">SAVE</button>
                 </div>           
             </div>
     </div>

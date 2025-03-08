@@ -11,7 +11,7 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: ["http://localhost:3000"],
+    origin: ["http://localhost:3000", "http://localhost:3001", "http://localhost:3002"],
     methods: ["GET", "POST"]
   }
 }); 
@@ -29,7 +29,7 @@ app.get("*", (req, res) => {
 const uniCount = 60; // Change this to adjust countdown
 
 let countDown = uniCount;
-let pastNumber = [9, 22, 3, 7, 2, 4];
+let pastNumber = ['09', '22', '03', '07', '02', '04'];
 let currentNumber = null;
 
 io.on("connection", (socket) => {

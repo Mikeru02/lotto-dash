@@ -7,8 +7,11 @@ import { checkExpiration } from "../../utils/checkExpiration.js";
 
 export default function Events() {
   // Lagay mo her eyung events mo sa landing page
+  const drawContainer = document.getElementById("draw-container");
+  const drawChildren = drawContainer.children;
   const socket = io("http://localhost:3000");
-  const loginBtn = document.getElementById('login-button');
+  // TODO: I'll fix this later
+  const loginBtn = document.getElementById('login-btn');
 
   if (localStorage.getItem('token')) {
     const isExpired = checkExpiration(localStorage.getItem('token'));
@@ -22,8 +25,8 @@ export default function Events() {
     loginBtn.addEventListener("click", async function() {
       try {
         const response = await axios.post("http://localhost:4000/v1/account/login", {
-          username: document.getElementById("username").value,
-          password: document.getElementById("pass").value
+          username: document.getElementById("email-login").value,
+          password: document.getElementById("pass-login").value
         }, {
           headers: {
             "apikey": "lotto_dash",
@@ -41,11 +44,15 @@ export default function Events() {
 
   // Socket Part
   socket.on("updateTime", (time) => {
-    document.getElementById("time-display").textContent = time;
+    document.getElementById("countdown").textContent = time;
   })
 
+  // TODO: I'll fix this later
   socket.on("draw", (numbers) => {
-    document.getElementById("drawn-numbers").textContent = numbers;
+    console.log(numbers)
+    for (let i = 0; i < 6; i++) {
+      drawChildren[i].textContent = numbers[i];
+    }
   })
 
   // Panel switch elements

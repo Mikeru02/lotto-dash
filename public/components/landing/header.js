@@ -13,7 +13,7 @@ export default function Header(root) {
         </div>
     </div>
 
-    <div class="${styles['last-winning-draw']}">
+    <div class="${styles['last-winning-draw']}" id="draw-container">
         <div class="${styles['number-box']}">09</div>
         <div class="${styles['number-box']}">22</div>
         <div class="${styles['number-box']}">03</div>

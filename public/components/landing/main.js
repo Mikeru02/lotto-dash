@@ -34,20 +34,20 @@ export default function Main(root) {
             <div class="${styles['container']}">
                 <div class="container" id="container">
                     <div class="form-container sign-up-container">
-                        <form action="#">
+                        <form>
                             <h1>Sign Up</h1>
-                            <input type="text" placeholder="Name" />
-                            <input type="email" placeholder="Email" />
-                            <input type="password" placeholder="Password" />
-                            <button class="${styles['ghost1']}">Sign Up</button>
+                            <input type="text" placeholder="Name" id="name-signup"/>
+                            <input type="email" placeholder="Email" id="email-signup"/>
+                            <input type="password" placeholder="Password" id="password-signup"/>
+                            <button class="${styles['ghost1']}" id="signup-btn">Sign Up</button>
                         </form>
                     </div>
                     <div class="form-container sign-in-container">
-                        <form action="#">
+                        <form>
                             <h1>Log in</h1>
-                            <input type="email" placeholder="Email" />
-                            <input type="password" placeholder="Password" />
-                            <button class="${styles['ghost1']}">Log In</button>
+                            <input type="email" placeholder="Email" id="email-login"/>
+                            <input type="password" placeholder="Password" id="pass-login"/>
+                            <button class="${styles['ghost1']}" id="login-btn">Log In</button>
                         </form>
                     </div>
                     <div class="overlay-container">

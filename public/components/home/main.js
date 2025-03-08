@@ -9,17 +9,17 @@ export default function Main(root) {
         <div class="${styles['contents']}">
             <h3>Numbers</h3>
             <div class="${styles['number-selection']} number-selection">
-                <div class="${styles['empty']}" id="input-num" data-index="0"></div>
-                <div class="${styles['empty']}" id="input-num" data-index="1"></div>
-                <div class="${styles['empty']}" id="input-num" data-index="2"></div>
-                <div class="${styles['empty']}" id="input-num" data-index="3"></div>
-                <div class="${styles['empty']}" id="input-num" data-index="4"></div>
-                <div class="${styles['empty']}" id="input-num" data-index="5"></div>
+                <div class="${styles['empty']} input-num" data-index="0"></div>
+                <div class="${styles['empty']} input-num" data-index="1"></div>
+                <div class="${styles['empty']} input-num" data-index="2"></div>
+                <div class="${styles['empty']} input-num" data-index="3"></div>
+                <div class="${styles['empty']} input-num" data-index="4"></div>
+                <div class="${styles['empty']} input-num" data-index="5"></div>
             </div>
             
             <div class="${styles['buttons']}">
-                <button class="${styles['reset-btn']}" id="reset-selection" onclick="resetSelection()"></button>
-                <button class="${styles['submit-btn']}" id="submit-selection" onclick="submitSelection()"></button>
+                <button class="${styles['reset-btn']}" id="reset-selection"></button>
+                <button class="${styles['submit-btn']}" id="submit-selection"></button>
             </div>
             
             <h3 class="${styles['h3_player']}">Players</h3>

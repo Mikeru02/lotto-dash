@@ -45,7 +45,7 @@ export default function Main(root) {
                     <div class="form-container sign-in-container">
                         <form>
                             <h1>Log in</h1>
-                            <input type="email" placeholder="Email" id="email-login"/>
+                            <input type="test" placeholder="Username" id="username-login"/>
                             <input type="password" placeholder="Password" id="pass-login"/>
                             <button class="${styles['ghost1']}" id="login-btn">Log In</button>
                         </form>
@@ -53,12 +53,12 @@ export default function Main(root) {
                     <div class="overlay-container">
                         <div class="overlay">
                             <div class="overlay-panel overlay-left">
-                                <h1>Welcome Back!</h1>
+                                <h1 class="${styles['header-overlay']}">Welcome Back!</h1>
                                 <p>Enter your personal details<br>and let your lucky journey start here!</p>
                                 <button class="${styles['ghost']}" id="signIn">Log In</button>
                             </div>
                             <div class="overlay-panel overlay-right">
-                                <h1>Join with us</h1>
+                                <h1 class="${styles['header-overlay']}">Join with us</h1>
                                 <p>Get ready for fortune, start your journey with us today!</p>
                                 <button class="${styles['ghost']}" id="signUp">Sign Up</button>
                             </div>

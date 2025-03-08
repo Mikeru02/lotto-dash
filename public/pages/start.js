@@ -14,5 +14,5 @@ export default function Start() {
   Footer(footer);
 
   // If may events ka sa start page kindly uncomment the next line 
-  // Events();
+  Events();
 }

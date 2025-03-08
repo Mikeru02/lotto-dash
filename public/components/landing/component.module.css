@@ -124,12 +124,17 @@ hr {
   color: #363A50;
 }
 
-/* h1 {
+h1 {
 	margin: 0;
 	font-size: 25px;
 	color:#FFFFFF;
 }
 
+.header-overlay{
+  color:#FFFFFF;
+}
+
+/*
 h2 {
 	text-align: center;
 }
@@ -361,7 +366,7 @@ input {
 /* ============ Modal =========== */
 
 .modal {
-  display: none; 
+  display: flex; 
   position: fixed;
   z-index: 1000; 
   left: 0;
@@ -392,7 +397,7 @@ input {
   border-radius: 25px;
   width:50px;
   height:50px;
-  padding-top: 8px;
+  padding-top: 4px;
   z-index: 1100; 
   text-align: center;
   font-weight: bold;
@@ -496,8 +501,7 @@ input {
   display: block;
 }
 
-
-#countdown {
+.countdown {
   color: #EFB343;  
   text-align: center;
   font-size: 25px;

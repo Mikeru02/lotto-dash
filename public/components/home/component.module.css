@@ -410,3 +410,9 @@ input[type="number"] {
   margin: 0 auto;
   display: block;
 }
+
+.countdown {
+  color: #EFB343;  
+  text-align: center;
+  font-size: 25px;
+}

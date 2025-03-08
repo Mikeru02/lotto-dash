@@ -2,12 +2,14 @@
 // import styles from "./component.module.css";
 
 export default function Events() {
+  const socket = io("http://localhost:3000");
   const drawContainer = document.getElementById("draw-container");
   const drawChildren = drawContainer.children;
   const cancelBtn = document.getElementById("cancel");
   const saveBtn = document.getElementById("save");
   const resetSelectionBtn = document.getElementById("reset-selection");
   const submitSelectionBtn = document.getElementById("submit-selection");
+  const bets = [];
 
   cancelBtn.addEventListener("click", function() {
     closeModal();
@@ -22,10 +24,14 @@ export default function Events() {
   });
 
   submitSelectionBtn.addEventListener("click", function() {
-    // TODO Add function to submit numbers here!
+    document.querySelectorAll(".input-num").forEach((div) => {
+      bets.push(div.innerHTML);
+    })
+    socket.emit("bet", bets);
+    submitSelectionBtn.disable = true;
   })
 
-  document.querySelectorAll("#input-num").forEach((div) => {
+  document.querySelectorAll(".input-num").forEach((div) => {
     div.addEventListener("click", function() {
       const index = this.getAttribute("data-index");
       openModal(index);
@@ -37,7 +43,6 @@ export default function Events() {
   })
 
   // Socket Part
-  const socket = io("http://localhost:3000");
 
   socket.on("updateTime", (time) => {
     document.getElementById("countdown").textContent = time;

@@ -19,6 +19,7 @@ export default function Events() {
     const isExpired = checkExpiration(localStorage.getItem('token'));
     if (isExpired) {
       window.alert("Seesion expired! Please Login again!");
+      localStorage.removeItem('token')
       window.app.pushRoute("/landing");
     } else {
       window.app.pushRoute("/home")
@@ -28,7 +29,7 @@ export default function Events() {
       event.preventDefault();
       try {
         const response = await axios.post("http://localhost:4000/v1/account/login", {
-          username: document.getElementById("email-login").value,
+          username: document.getElementById("username-login").value,
           password: document.getElementById("pass-login").value
         }, {
           headers: {
@@ -36,7 +37,7 @@ export default function Events() {
             "Content-type": "application/json"
           }
         });
-
+        console.log(response)
         localStorage.setItem("token", response.data.data.token);
         window.app.pushRoute("/home");
       } catch(err) {
@@ -60,6 +61,7 @@ export default function Events() {
           "Content-type": "application/json"
         }
       });
+      console.log(response)
       localStorage.setItem("token", response.data.data.token);
       window.app.pushRoute("/home");
     } catch(err) {
@@ -76,6 +78,10 @@ export default function Events() {
     for (let i = 0; i < 6; i++) {
       drawChildren[i].textContent = numbers[i];
     }
+  });
+
+  socket.on("jackpot", (jackpot) => {
+    document.getElementById("jackpot").textContent = jackpot;
   })
 
   // Panel switch elements

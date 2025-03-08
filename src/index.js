@@ -5,6 +5,7 @@ import { dirname,join } from "node:path";
 import { Server } from "socket.io";
 
 import drawNumbers from "./utils/drawNumbers.js";
+import checkBets from "./utils/checkBets.js";
 import { createDraw } from "./utils/updateDatabase.js";
 
 const app = express();
@@ -28,41 +29,89 @@ app.get("*", (req, res) => {
 
 const uniCount = 60; // Change this to adjust countdown
 
+const bets = [];
+let jackpot = 100.00
+const jackpotIncrement = 100.00
 let countDown = uniCount;
 let pastNumber = ['09', '22', '03', '07', '02', '04'];
 let currentNumber = null;
 
 io.on("connection", (socket) => {
-  console.log(`User connected at ${socket.id}`);
-
-  io.emit("updateTime", countDown);
-
   if (pastNumber) {
     io.emit("draw", pastNumber);
+    io.emit("jackpot", jackpot)
   }
+
+  socket.on("bet", (numbers) => {
+    bets.push(numbers);
+  })
 
   socket.on("setUsername", (username) => {
     socket.data.username = username;
   })
 })
 
+// This block is for emergency use only
+// if (process.env.PRIMARY_INSTANCE === "true") {
+//   setInterval(() => {
+//     if (countDown > 0) {
+//       countDown--;
+//       io.emit("updateTime", countDown);
+//     } else {
+//       if (!currentNumber) {
+//         currentNumber = drawNumbers();
+//         pastNumber = currentNumber;
+//         currentNumber = null;
+//       }
+//       io.emit("draw", pastNumber);
+//       const strPastNumber = pastNumber.toString();
+//       createDraw(strPastNumber, 50000)
+//       countDown = uniCount;
+//       }
+//     }, 1000);
+// }
+
 if (process.env.PRIMARY_INSTANCE === "true") {
   setInterval(() => {
-    if (countDown > 0) {
-      countDown--;
-      io.emit("updateTime", countDown);
-    } else {
+    const now = new Date();
+    const seconds = now.getSeconds();
+
+    const countdownTime = countDown - seconds;
+
+    if (countdownTime === 60) {
       if (!currentNumber) {
         currentNumber = drawNumbers();
         pastNumber = currentNumber;
         currentNumber = null;
       }
       io.emit("draw", pastNumber);
-      const strPastNumber = pastNumber.toString();
-      createDraw(strPastNumber, 50000)
-      countDown = uniCount;
+      let addJackpot = checkBets(bets, pastNumber);
+      if (!addJackpot) {
+        jackpot += jackpotIncrement
+      } else {
+        jackpot = 100.00
       }
-    }, 1000);
+      io.emit("jackpot", jackpot);
+      const strPastNumber = pastNumber.toString();
+      createDraw(strPastNumber, jackpot)
+    }
+
+    const nextDraw = new Date(now.getTime() + countdownTime * 1000);
+    nextDraw.setSeconds(0);
+
+    const options = {
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric', 
+        hour: '2-digit', 
+        minute: '2-digit', 
+        hour12: true 
+    };
+    const formattedDate = new Intl.DateTimeFormat('en-US', options).format(nextDraw);
+    const format = `${formattedDate} in ${countdownTime} second/s`;
+    io.emit("updateTime", format);
+  }, 1000);
 }
 
 server.listen(process.env.PORT, () => {

@@ -1,7 +1,6 @@
 // Header to ng home page
 
 import styles from "./component.module.css";
-console.log(styles)
 
 export default function Header(root) {
   root.innerHTML = `
@@ -23,7 +22,8 @@ export default function Header(root) {
         <div class="${styles['number-box']}">02</div>
         <div class="${styles['number-box']}">04</div>
     </div>
-    <p class="${styles['next-draw']}">Next Draw: <span id="countdown"></span></p>
+    <p class="${styles['next-draw']}"> Jackpot: <span id="jackpot"</p>
+    <p class="${styles['next-draw']}">Next Draw: <span class="${styles['countdown']}" id="countdown"></span></p>
   `;
   
   // If need mo ng css sa mismong header, uncomment mo yung next line 

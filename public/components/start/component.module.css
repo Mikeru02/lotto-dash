@@ -47,6 +47,11 @@
   --color-blue: #1B1487;
 }
 
+.main{
+  height: 100vh;
+  display: grid;
+}
+
 .container {
   text-align: center;
   display: flex;

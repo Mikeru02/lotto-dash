@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lalezar&display=swap" rel="stylesheet">
+
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dakq2u8n0/image/upload/v1740928683/DALL_E_2025-03-02_01.09.35_-_A_high-energy_and_modern_logo_for_Lotto_Dash_an_online_lottery_platform._The_design_should_feature_sleek_futuristic_typography_with_a_motion_effec_zqtv9e.png">
+    <link rel="stylesheet" href="css/profile.css">
+</head>
+<body>
+
+    <div class="background"></div>
+    <div class="main-container">
+
+        <!-- Left Section (20%) -->
+        <div class="left-section">
+            <img src="https://res.cloudinary.com/dakq2u8n0/image/upload/v1740931230/image-removebg-preview_8_vjfdkm.png" alt="Logo" class="logo">
+        </div>
+
+        <!-- Center Content Section (60%) -->
+        <div class="center-section">
+            <main class="content">
+                <!-- Profile Section -->
+                <div class="profile">
+                    <div class="cover-photo"></div>
+                    <img src="https://res.cloudinary.com/dakq2u8n0/image/upload/v1740663929/ppp_tdpbik.jpg" alt="Profile" class="avatar">
+                    <h2 class="name">Hatdog Cheesedog</h2>
+                    <button class="edit-btn">Edit Profile</button>
+                </div>                
+
+                <div class="wallet">
+                    <p class="wallet-title">Wallet Balance</p>
+                    <p class="wallet-amount">₱ 500.00</p>
+                    <div class="wallet-actions">
+                        <button class="wallet-btn" id="cash-in-btn">Cash In</button>
+                        <span>|</span>
+                        <button class="wallet-btn" id="withdraw-btn">Withdraw</button>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>Winning History</h3>
+                    <p class="no-wins">No wins yet</p>
+                </div>
+
+                <!-- Play History -->
+                <div class="section">
+                    <h3>Play History</h3>
+                    <div class="history-card">
+                        <p>Ticket Details: Draw Date & Time</p>
+                        <p>Winning Numbers: --</p>
+                        <p>Selected Numbers: --</p>
+                        <p>Match Status: Matched 3 out of 6</p>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Right Empty Section (20%) -->
+        <div class="right-section"></div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <img src="https://res.cloudinary.com/dakq2u8n0/image/upload/v1741104321/Screenshot_2025-03-05_000458_usyza2.png" alt="barcode" class="barcode"> 
+        <p>Ellorando, Rodien Jillian | Ponce, Michael Alexis</p>
+        <p>For educational purposes only | BSCS 3</p>
+        <p>All Rights Reserved 2025</p>
+    </div>
+
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2>Edit Profile</h2>
+            <div class="modal-body">
+                <img src="https://res.cloudinary.com/dakq2u8n0/image/upload/v1740663929/ppp_tdpbik.jpg" alt="Profile" class="avatar">
+                <button class="change-photo-btn">Change Photo</button>
+                <div>
+                    <label for="newName">New Name:</label>
+                    <input type="text" id="newName" name="newName" placeholder="Enter new name">
+                </div>
+                <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+                <button id="saveBtn" class="save-btn" disabled>Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="withdraw-modal">
+        <div class="modal-content">
+            <span class="close-btn" id="close-withdraw-modal">&times;</span>
+            <h2>Withdraw</h2>
+            <div class="modal-body">
+                <h3>Wallet Balance: ₱500.00</h3>
+                <input type="number" id="#" name="#" placeholder="Enter Amount">
+                <button id="withdraw-action-btn" class="withdraw-btn">Withdraw</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/profile.js"></script>
+
+</body>
+</html>

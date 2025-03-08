@@ -1,0 +1,164 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('https://res.cloudinary.com/dakq2u8n0/image/upload/v1740929924/Screenshot_2025-03-02_233215_oc6hc2.png') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Lalezar';
+}
+
+.container {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    width: 30%; 
+    height: auto;    
+    margin-bottom: 20px;
+}
+
+/* ========== BUTTON ======== */
+
+@font-face {
+    font-family: "Mona Sans";
+    src: url("https://assets.codepen.io/64/Mona-Sans.woff2") format("woff2 supports variations"),
+         url("https://assets.codepen.io/64/Mona-Sans.woff2") format("woff2-variations");
+    font-weight: 100 1000;
+  }
+  
+  @layer properties {
+    @property --bg-position {
+      syntax: "<number>";
+      inherits: true;
+      initial-value: 100;
+    }
+    @property --after-blur {
+      syntax: "<number>";
+      inherits: true;
+      initial-value: 0;
+    }
+    @property --after-opacity {
+      syntax: "<number>";
+      inherits: true;
+      initial-value: 1;
+    }
+    @property --before-opacity {
+      syntax: "<number>";
+      inherits: true;
+      initial-value: 0.3;
+    }
+    @property --btn-scale {
+      syntax: "<number>";
+      inherits: true;
+      initial-value: 1;
+    }
+  }
+  
+  :root {
+    --btn-bg: #262834;
+    --btn-border-width: 3;
+    --btn-scale: 1;
+    --before-opacity: 0.3;
+    --after-opacity: 1;
+    --after-blur: 10;
+    --after-pos-y: 10;
+    --bg-position: 100;  
+    --color-red: #FD0004;
+    --color-white: #FFF8F8;
+    --color-blue: #1B1487;
+  }
+  
+  .play-button {
+    position: relative;
+    padding: 10px 50px;
+    font-size: 18px;
+    background-color: var(--btn-bg);
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-family: 'Lalezar';
+    border: none;
+    z-index: 1;
+  }
+  
+  .play-button::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: 20px; 
+    padding: 3px; 
+    background: linear-gradient(to right, var(--color-red), var(--color-white), var(--color-blue));
+    -webkit-mask: linear-gradient(white 0 0) content-box, linear-gradient(white 0 0);
+    mask: linear-gradient(white 0 0) content-box, linear-gradient(white 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: destination-out;
+    z-index: -1;
+  }
+  
+  .play-button:hover {
+    --btn-scale: 1.05;
+    --bg-position: 0;
+    --before-opacity: 1;
+    --after-opacity: 0.3;
+    --after-blur: 30;
+    --after-pos-y: 0;
+    transform: scale(var(--btn-scale));
+  }
+  
+  .play-button:hover::before {
+    content: "";
+    position: absolute;
+    inset: 0; 
+    border-radius: 20px;
+    padding: 3px;
+    background: linear-gradient(
+      to right,
+      var(--color-red),
+      var(--color-white),
+      var(--color-blue),
+      var(--color-red),
+      var(--color-white),
+      var(--color-blue)
+    );
+    background-size: 300% 100%;
+    animation: border-move 3s infinite linear;
+    -webkit-mask: linear-gradient(white 0 0) content-box, linear-gradient(white 0 0);
+    mask: linear-gradient(white 0 0) content-box, linear-gradient(white 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: destination-out;
+    z-index: -1;
+  }
+ 
+  .play-button:hover::after {
+    content: "";
+    position: absolute;
+    inset: 0; 
+    border-radius: 20px;
+    background: linear-gradient(to right, var(--color-red), var(--color-white), var(--color-blue));
+    opacity: var(--after-opacity);
+    filter: blur(var(--after-blur) * 1px);
+    z-index: -2;
+    pointer-events: none; 
+  }
+  
+  .play-button:active {
+    transform: scale(0.98);
+  }
+  
+  @keyframes border-move {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+  }
+  

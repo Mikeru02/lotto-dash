@@ -2,19 +2,38 @@
   "name": "lotto-dash",
   "version": "1.0.0",
   "description": "In partial fullfilment for Parallel and Distributed Systems",
-  "main": "index.js",
   "type": "module",
   "scripts": {
     "dev": "nodemon --watch src src/index.js",
-    "start": "PORT=3000 npm run dev & PORT=3001 npm run dev & PORT=3002 npm run dev",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "api": "nodemon --watch api api/index.js",
+    "build_api": "parcel build api/index.js",
+    "build_vite": "vite build --emptyOutDir",
+    "start": "npm run build_vite & npm run api & PRIMARY_INSTANCE=true PORT=3000 npm run dev & PORT=3001 npm run dev & PORT=3002 npm run dev",
+    "test": "echo \"Error: not test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.8.1",
+    "body-parser": "^1.20.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.2.0",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "jwt-decode": "^4.0.0",
+    "morgan": "^1.10.0",
+    "mysql2": "^3.12.0",
     "nodemon": "^3.1.9",
-    "socket.io": "^4.8.1"
+    "socket.io": "^4.8.1",
+    "vite-plugin-css": "^1.0.4"
+  },
+  "devDependencies": {
+    "buffer": "^6.0.3",
+    "parcel": "^2.13.3",
+    "process": "^0.11.10",
+    "vite": "^6.2.0"
   }
 }

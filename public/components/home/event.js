@@ -2,6 +2,8 @@
 // import styles from "./component.module.css";
 
 export default function Events() {
+  const drawContainer = document.getElementById("draw-container");
+  const drawChildren = drawContainer.children;
   const cancelBtn = document.getElementById("cancel");
   const saveBtn = document.getElementById("save");
   const resetSelectionBtn = document.getElementById("reset-selection");
@@ -38,11 +40,13 @@ export default function Events() {
   const socket = io("http://localhost:3000");
 
   socket.on("updateTime", (time) => {
-    document.getElementById("time-display").textContent = time;
+    document.getElementById("countdown").textContent = time;
   })
 
   socket.on("draw", (numbers) => {
-    document.getElementById("drawn-numbers").textContent = numbers;
+    for (let i = 0; i < 6; i++) {
+      drawChildren[i].textContent = numbers[i];
+    }
   })
 }
 

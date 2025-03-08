@@ -1,5 +1,6 @@
 import axios from "axios";
 import { checkExpiration } from "../../utils/checkExpiration.js";
+import { generateUsername } from "unique-username-generator";
 
 // If need mo ng styles here kindly uncomment this 
 // import styles from "./component.module.css";
@@ -10,9 +11,10 @@ export default function Events() {
   const drawContainer = document.getElementById("draw-container");
   const drawChildren = drawContainer.children;
   const socket = io("http://localhost:3000");
-  // TODO: I'll fix this later
   const loginBtn = document.getElementById('login-btn');
+  const signupBtn = document.getElementById('signup-btn');
 
+  // This part handles login process
   if (localStorage.getItem('token')) {
     const isExpired = checkExpiration(localStorage.getItem('token'));
     if (isExpired) {
@@ -22,7 +24,8 @@ export default function Events() {
       window.app.pushRoute("/home")
     }
   } else {
-    loginBtn.addEventListener("click", async function() {
+    loginBtn.addEventListener("click", async function(event) {
+      event.preventDefault();
       try {
         const response = await axios.post("http://localhost:4000/v1/account/login", {
           username: document.getElementById("email-login").value,
@@ -42,14 +45,34 @@ export default function Events() {
     })
   }
 
+  // This part handles signup process
+  signupBtn.addEventListener("click", async function(event) {
+    event.preventDefault()
+    try {
+      const response = await axios.post("http://localhost:4000/v1/account", {
+        username: generateUsername(),
+        fullname: document.getElementById("name-signup").value,
+        email: document.getElementById("email-signup").value,
+        password: document.getElementById("password-signup").value
+      }, {
+        headers: {
+          "apikey": "lotto_dash",
+          "Content-type": "application/json"
+        }
+      });
+      localStorage.setItem("token", response.data.data.token);
+      window.app.pushRoute("/home");
+    } catch(err) {
+      console.error("Signup error:", err);
+    }
+  });
+
   // Socket Part
   socket.on("updateTime", (time) => {
     document.getElementById("countdown").textContent = time;
   })
 
-  // TODO: I'll fix this later
   socket.on("draw", (numbers) => {
-    console.log(numbers)
     for (let i = 0; i < 6; i++) {
       drawChildren[i].textContent = numbers[i];
     }

@@ -32,14 +32,32 @@ class DrawController {
       res.json({
         success: true,
         response
-      })
+      });
+      res.end();
     } catch(err) {
       res.json({
         success: false,
         message: err.toString(),
       });
       res.end();
+    }
   }
+
+  async getLastData(req, res) {
+    try {
+      const response = await this.draw.getLastData();
+      res.json({
+        success: true,
+        response
+      });
+      res.end();
+    } catch(err) {
+      res.json({
+        success: false,
+        message: err.toString(),
+      });
+      res.end();
+    }
   }
 }
 

@@ -3,9 +3,11 @@ import { createServer } from "node:http";
 import { fileURLToPath } from "node:url";
 import { dirname,join } from "node:path";
 import { Server } from "socket.io";
+import { jwtDecode } from "jwt-decode";
 
 import drawNumbers from "./utils/drawNumbers.js";
 import checkBets from "./utils/checkBets.js";
+import getLastData from "./utils/getLastData.js";
 import { createDraw } from "./utils/updateDatabase.js";
 
 const app = express();
@@ -29,25 +31,31 @@ app.get("*", (req, res) => {
 
 const uniCount = 60; // Change this to adjust countdown
 
-const bets = [];
-let jackpot = 100.00
+const bets = {};
+const lastData = await getLastData();
+const data = lastData.data;
+let jackpot = data.response.prizeMoney != null ? Number(data.response.prizeMoney) : 100;
 const jackpotIncrement = 10
 let countDown = uniCount;
-let pastNumber = ['09', '22', '03', '07', '02', '04'];
+let pastNumber = (data.response.winningNumber && data.response.winningNumber.split(",")) || ["09", "22", "03", "07", "02", "04"];
 let currentNumber = null;
 
 io.on("connection", (socket) => {
+  console.log(`User connected at ${socket.id}`)
   if (pastNumber) {
     io.emit("draw", pastNumber);
     io.emit("jackpot", jackpot)
   }
 
   socket.on("bet", (numbers) => {
-    bets.push(numbers);
+    bets[socket.data.username] = numbers;
   })
 
-  socket.on("setUsername", (username) => {
-    socket.data.username = username;
+  socket.on("setUsername", (token) => {
+    console.log("HIT")
+    const decoded = jwtDecode(token);
+    socket.data.username = decoded.username;
+    console.log(socket.data.username)
   })
 })
 
@@ -88,12 +96,12 @@ if (process.env.PRIMARY_INSTANCE === "true") {
       let addJackpot = checkBets(bets, pastNumber);
       if (!addJackpot) {
         jackpot += jackpotIncrement
+        createDraw(pastNumber.toString(), jackpot)
       } else {
+        createDraw(pastNumber.toString(), jackpot)
         jackpot = 100.00
       }
       io.emit("jackpot", jackpot);
-      const strPastNumber = pastNumber.toString();
-      createDraw(strPastNumber, jackpot)
     }
 
     const nextDraw = new Date(now.getTime() + countdownTime * 1000);

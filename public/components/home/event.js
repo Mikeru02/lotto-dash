@@ -44,6 +44,8 @@ export default function Events() {
 
   // Socket Part
 
+  socket.emit("setUsername", localStorage.getItem("token"));
+
   socket.on("updateTime", (time) => {
     document.getElementById("countdown").textContent = time;
   })

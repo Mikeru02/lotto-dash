@@ -1,5 +1,9 @@
 export default function checkBets(allBets, winningNumbers) {
-    return allBets.some(bet => {
-        winningNumbers.every(num => bet.includes(num))
-    })
+  for (let key in allBets) {
+    if (JSON.stringify(allBets[key]) === JSON.stringify(winningNumbers)){
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

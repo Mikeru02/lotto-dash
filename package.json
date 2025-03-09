@@ -8,7 +8,8 @@
     "api": "nodemon --watch api api/index.js",
     "build_api": "parcel build api/index.js",
     "build_vite": "vite build --emptyOutDir",
-    "start": "npm run build_vite & npm run api & PRIMARY_INSTANCE=true PORT=3000 npm run dev & PORT=3001 npm run dev & PORT=3002 npm run dev",
+    "start": "npm run build_vite & PRIMARY_INSTANCE=true PORT=3000 npm run dev & PORT=3001 npm run dev & PORT=3002 npm run dev",
+    "multi": "PRIMARY_INSTANCE=true PORT=3000 npm run dev & PORT=3001 npm run dev & PORT=3002 npm run dev",
     "test": "echo \"Error: not test specified\" && exit 1"
   },
   "keywords": [],
@@ -35,6 +36,7 @@
     "buffer": "^6.0.3",
     "parcel": "^2.13.3",
     "process": "^0.11.10",
-    "vite": "^6.2.0"
+    "vite": "^6.2.0",
+    "wait-on": "^8.0.2"
   }
 }

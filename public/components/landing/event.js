@@ -37,7 +37,6 @@ export default function Events() {
             "Content-type": "application/json"
           }
         });
-        console.log(response)
         localStorage.setItem("token", response.data.data.token);
         window.app.pushRoute("/home");
       } catch(err) {
@@ -61,7 +60,6 @@ export default function Events() {
           "Content-type": "application/json"
         }
       });
-      console.log(response)
       localStorage.setItem("token", response.data.data.token);
       window.app.pushRoute("/home");
     } catch(err) {

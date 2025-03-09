@@ -30,6 +30,19 @@ class Draw {
       throw err;
     }
   }
+
+  async getLastData(){
+    try {
+      const [result, ] = await this.db.execute(
+        "SELECT * FROM DrawHistory ORDER BY drawId DESC LIMIT 1",
+        []
+      );
+      return result?.[0];
+    } catch(err) {
+      console.error("<error> draw.getLastData", err);
+      throw err;
+    }
+  }
 }
 
 export default Draw;

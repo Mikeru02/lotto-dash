@@ -1,6 +1,6 @@
 // Main to ng page not found
 
-import styles from "./pageNotFound.module.css"; 
+// import styles from "./pageNotFound.module.css"; 
 import '/styles/common.css';
 
 

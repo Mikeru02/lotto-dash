@@ -33,15 +33,15 @@ export default function Main(root) {
                     </div>
                 </div>
 
-                <div class="section">
+                <div class="${styles['section']}">
                     <h3>Winning History</h3>
-                    <p class="no-wins">No wins yet</p>
+                    <p class="${styles['no-wins']}">No wins yet</p>
                 </div>
 
                 <!-- Play History -->
-                <div class="section">
+                <div class="${styles['section']}">
                     <h3>Play History</h3>
-                    <div class="history-card">
+                    <div class="${styles['history-card']}">
                         <p>Ticket Details: Draw Date & Time</p>
                         <p>Winning Numbers: --</p>
                         <p>Selected Numbers: --</p>

@@ -20,7 +20,7 @@ export default function Main(root) {
                     <div class="${styles['cover-photo']}"></div>
                     <img src="https://res.cloudinary.com/dakq2u8n0/image/upload/v1740663929/ppp_tdpbik.jpg" alt="Profile" class="${styles['avatar']}">
                     <h2 class="${styles['name']}">Hatdog Cheesedog</h2>
-                    <button class="${styles['edit-btn']}">Edit Profile</button>
+                    <button class="${styles['edit-btn']} edit-btn">Edit Profile</button>
                 </div>                
 
                 <div class="${styles['wallet']}">
@@ -54,6 +54,35 @@ export default function Main(root) {
         <!-- Right Empty Section (20%) -->
         <div class="right-section"></div>
 
+    </div>
+
+    <div id="editModal" class="${styles['modal']}">
+        <div class="${styles['modal-content']}">
+            <span class="${styles['close-btn']} close-btn" >&times;</span>
+            <h2>Edit Profile</h2>
+            <div class="${styles['modal-body']}">
+                <img src="https://res.cloudinary.com/dakq2u8n0/image/upload/v1740663929/ppp_tdpbik.jpg" alt="Profile" class="${styles['avatar']}">
+                <button class="change-photo-btn">Change Photo</button>
+                <div>
+                    <label for="newName">New Name:</label>
+                    <input type="text" id="newName" name="newName" placeholder="Enter new name">
+                </div>
+                <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+                <button id="saveBtn" class="save-btn" disabled>Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="${styles['modal']}" id="withdraw-modal">
+        <div class="${styles['modal-content']}">
+            <span class="${styles['close-btn']}" id="close-withdraw-modal">&times;</span>
+            <h2>Withdraw</h2>
+            <div class="${styles['modal-body']}">
+                <h3>Wallet Balance: ₱500.00</h3>
+                <input type="number" id="#" name="#" placeholder="Enter Amount">
+                <button id="withdraw-action-btn" class="${styles['withdraw-btn']}">Withdraw</button>
+            </div>
+        </div>
     </div>
   `;
 

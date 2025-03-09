@@ -31,7 +31,7 @@ const uniCount = 60; // Change this to adjust countdown
 
 const bets = [];
 let jackpot = 100.00
-const jackpotIncrement = 100.00
+const jackpotIncrement = 10
 let countDown = uniCount;
 let pastNumber = ['09', '22', '03', '07', '02', '04'];
 let currentNumber = null;
@@ -76,9 +76,9 @@ if (process.env.PRIMARY_INSTANCE === "true") {
     const now = new Date();
     const seconds = now.getSeconds();
 
-    const countdownTime = countDown - seconds;
+    const countdownTime = (countDown - seconds).toString().padStart(2, "0");
 
-    if (countdownTime === 60) {
+    if (countdownTime === "60") {
       if (!currentNumber) {
         currentNumber = drawNumbers();
         pastNumber = currentNumber;

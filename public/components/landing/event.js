@@ -81,7 +81,7 @@ export default function Events() {
   });
 
   socket.on("jackpot", (jackpot) => {
-    document.getElementById("jackpot").textContent = jackpot;
+    document.getElementById("jackpot").textContent = `\u20B1 ${jackpot}.00`;
   })
 
   // Panel switch elements

@@ -53,6 +53,9 @@ export default function Events() {
       drawChildren[i].textContent = numbers[i];
     }
   })
+  socket.on("jackpot", (jackpot) => {
+    document.getElementById("jackpot").textContent = `\u20B1 ${jackpot}.00`;
+  })
 }
 
 let selectedSlot = null;

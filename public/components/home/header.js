@@ -22,7 +22,7 @@ export default function Header(root) {
         <div class="${styles['number-box']}">02</div>
         <div class="${styles['number-box']}">04</div>
     </div>
-    <p class="${styles['next-draw']}"> Jackpot: <span id="jackpot"</p>
+    <p class="${styles['jackpot-container']}"> Jackpot: <span class="${styles['jackpot']}" id="jackpot"></span></p>
     <p class="${styles['next-draw']}">Next Draw: <span class="${styles['countdown']}" id="countdown"></span></p>
   `;
   

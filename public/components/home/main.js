@@ -24,16 +24,7 @@ export default function Main(root) {
             
             <h3 class="${styles['h3_player']}">Players</h3>
             <div class="${styles['players-winners-container']}">
-                <div class="${styles['players']}">
-                    <div class="player">
-                        <div class="player-name">Hatdog Cheesedog</div>
-                    </div>
-                    <div class="player">
-                        <div class="player-name">Jillian Cutie</div>
-                    </div>
-                    <div class="player">
-                        <div class="player-name">Mwehehehe</div>
-                    </div>
+                <div class="${styles['players']}" id="players-container">
                 </div>
 
                 <div class="${styles['winners']}">

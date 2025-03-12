@@ -192,6 +192,7 @@
 
 .players {
   gap: 30px;
+  width: 50%;
 }
 
 .player {

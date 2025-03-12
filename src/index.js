@@ -8,6 +8,7 @@ import { jwtDecode } from "jwt-decode";
 import drawNumbers from "./utils/drawNumbers.js";
 import checkBets from "./utils/checkBets.js";
 import getLastData from "./utils/getLastData.js";
+import checkPlayers from "./utils/players.js";
 import { createDraw } from "./utils/updateDatabase.js";
 
 const app = express();
@@ -31,13 +32,14 @@ app.get("*", (req, res) => {
 
 const uniCount = 60; // Change this to adjust countdown
 
-const bets = {};
+let bets = {};
+let currentPlayers = [];
 const lastData = await getLastData();
 const data = lastData.data;
-let jackpot = data.response.prizeMoney != null ? Number(data.response.prizeMoney) : 100;
+let jackpot = Number(data.response.prizeMoney);
 const jackpotIncrement = 10
 let countDown = uniCount;
-let pastNumber = (data.response.winningNumber && data.response.winningNumber.split(",")) || ["09", "22", "03", "07", "02", "04"];
+let pastNumber = data.response.winningNumber.split(",");
 let currentNumber = null;
 
 io.on("connection", (socket) => {
@@ -52,11 +54,11 @@ io.on("connection", (socket) => {
   })
 
   socket.on("setUsername", (token) => {
-    console.log("HIT")
     const decoded = jwtDecode(token);
     socket.data.username = decoded.username;
-    console.log(socket.data.username)
   })
+
+  
 })
 
 // This block is for emergency use only
@@ -98,10 +100,14 @@ if (process.env.PRIMARY_INSTANCE === "true") {
         jackpot += jackpotIncrement
         createDraw(pastNumber.toString(), jackpot)
       } else {
+        jackpot += jackpotIncrement
         createDraw(pastNumber.toString(), jackpot)
         jackpot = 100.00
       }
       io.emit("jackpot", jackpot);
+      io.emit("reset", true);
+      bets = {} // This resets the bets
+      currentPlayers = [] // This resets the players
     }
 
     const nextDraw = new Date(now.getTime() + countdownTime * 1000);
@@ -119,6 +125,8 @@ if (process.env.PRIMARY_INSTANCE === "true") {
     const formattedDate = new Intl.DateTimeFormat('en-US', options).format(nextDraw);
     const format = `${formattedDate} in ${countdownTime} second/s`;
     io.emit("updateTime", format);
+    checkPlayers(io, bets, currentPlayers);
+    
   }, 1000);
 }
 

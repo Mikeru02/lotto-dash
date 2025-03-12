@@ -1,5 +1,5 @@
 // If need mo ng styles here kindly uncomment this 
-// import styles from "./component.module.css";
+import styles from "./component.module.css";
 
 export default function Events() {
   const socket = io("http://localhost:3000");
@@ -9,6 +9,7 @@ export default function Events() {
   const saveBtn = document.getElementById("save");
   const resetSelectionBtn = document.getElementById("reset-selection");
   const submitSelectionBtn = document.getElementById("submit-selection");
+  const playerContainer = document.getElementById("players-container");
   const bets = [];
 
   cancelBtn.addEventListener("click", function() {
@@ -58,6 +59,16 @@ export default function Events() {
   socket.on("jackpot", (jackpot) => {
     document.getElementById("jackpot").textContent = `\u20B1 ${jackpot}.00`;
   })
+
+  socket.on("reset", (arg) => {
+    resetSelection(); 
+  });
+  
+  socket.on("addPlayer", (player) => {
+    const div = document.createElement("div");
+    div.innerHTML = player;
+    playerContainer.appendChild(div)
+  })
 }
 
 let selectedSlot = null;
@@ -85,8 +96,8 @@ function saveNumber() {
         }
 
         numberSelection[selectedSlot].textContent = input;
-        numberSelection[selectedSlot].classList.remove("empty");
-        numberSelection[selectedSlot].classList.add("selected");
+        numberSelection[selectedSlot].classList.remove(`${styles['empty']}`);
+        numberSelection[selectedSlot].classList.add(`${styles['selected']}`);
         closeModal(); 
     } else {
         alert("Please enter a number between 1 and 45.");
@@ -98,8 +109,8 @@ function resetSelection() {
 
     numberSelection.forEach(function (div) {
         div.textContent = ""; 
-        div.classList.remove("selected"); 
-        div.classList.add("empty"); 
+        div.classList.remove(`${styles['selected']}`); 
+        div.classList.add(`${styles['empty']}`); 
     });
 
     document.getElementById("lottoNumber").value = ""; 

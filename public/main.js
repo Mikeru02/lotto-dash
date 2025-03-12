@@ -6,7 +6,7 @@ import Profile from "./pages/profile.js";
 import Start from "./pages/start.js";
 
 // Uncomment this to implement styling
-//import "./styles/common.css";
+import "./styles/common.css";
 
 const app = new SPA ({
   root: document.getElementById("app"),

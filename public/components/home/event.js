@@ -68,6 +68,15 @@ export default function Events() {
     const div = document.createElement("div");
     div.innerHTML = player;
     playerContainer.appendChild(div)
+  });
+
+  socket.on("currentPlayers", (players) => {
+    const div = document.createElement("div");
+    
+    for (const player in players) {
+      div.innerHTML = players[player];
+      playerContainer.appendChild(div);
+    }
   })
 }
 

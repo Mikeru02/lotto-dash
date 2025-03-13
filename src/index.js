@@ -58,6 +58,8 @@ io.on("connection", (socket) => {
     socket.data.username = decoded.username;
   })
 
+  io.emit("currentPlayers", currentPlayers);
+
   
 })
 

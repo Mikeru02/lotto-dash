@@ -10,7 +10,17 @@ export default function Events() {
   const resetSelectionBtn = document.getElementById("reset-selection");
   const submitSelectionBtn = document.getElementById("submit-selection");
   const playerContainer = document.getElementById("players-container");
+  const numberBtn = document.getElementById("number-btn");
   const bets = [];
+
+  generateBtn(numberBtn);
+
+  document.querySelectorAll(".numbers-btn").forEach((div) => {
+    div.addEventListener("click", () => {
+      const input = document.getElementById("lottoNumber");
+      input.value = div.getAttribute("data-val");
+    }) 
+  })
 
   cancelBtn.addEventListener("click", function() {
     closeModal();
@@ -81,6 +91,16 @@ export default function Events() {
 }
 
 let selectedSlot = null;
+
+function generateBtn(numberBtn) {
+  for (let i = 0; i < 45; i++) {
+    const numberDiv = document.createElement("button");
+    numberDiv.innerHTML = i + 1;
+    numberDiv.classList.add("numbers-btn", `${styles['numbers-btn']}`);
+    numberDiv.setAttribute("data-val", i+1);
+    numberBtn.appendChild(numberDiv)
+  }
+}
 
 function openModal(index) {
     selectedSlot = index;

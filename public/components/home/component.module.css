@@ -423,3 +423,20 @@ input[type="number"] {
   text-align: center;
   font-size: 25px;
 }
+
+.number-btn {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.numbers-btn {
+  width: 2rem;
+  height: 2rem;
+  font-family: "Lalezar";
+  margin: .5rem .5rem;
+  background-color: #82181F;
+  color: white;
+  border-radius: .5rem;
+  border: none;
+}

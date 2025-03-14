@@ -13,6 +13,7 @@ drawRouter.get("/lastdraw", draw.getLastData.bind(draw));
 
 // Post Methods
 drawRouter.post("/", draw.create.bind(draw));
+drawRouter.post("/winner", draw.payout.bind(draw));
 
 // Patch Methods
 drawRouter.patch("/", draw.updateDraw.bind(draw));

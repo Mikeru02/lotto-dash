@@ -26,6 +26,8 @@ export default async function Events() {
   const nameInput = document.getElementById("newName");
   const backBtn = document.getElementById("backhome-btn");
   const walletBalanceSpan = document.getElementById("walletbalance");
+  const customAmount = document.getElementById("custom-amount");
+  const customAmountBtn = document.getElementById("custom-amount-btn");
 
   const logoutBtn = document.getElementById("logout-btn")
   logoutBtn.addEventListener("click", function() {
@@ -42,7 +44,17 @@ export default async function Events() {
         let updatedbalance = await getBalance();
         walletBalanceSpan.innerHTML = updatedbalance;
     })
-  })
+  });
+
+  customAmountBtn.addEventListener("click", async function() {
+    await deposit(customAmount.value);
+    depositModal.style.display = "none"
+
+    let updatedbalance = await getBalance();
+    walletBalanceSpan.innerHTML = updatedbalance;
+  });
+
+
   walletBalanceSpan.innerHTML = walletBalance;
 
   backBtn.addEventListener("click", function() {

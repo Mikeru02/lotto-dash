@@ -17,6 +17,7 @@ export default async function Events() {
   const submitSelectionBtn = document.getElementById("submit-selection");
   const playerContainer = document.getElementById("players-container");
   const numberBtn = document.getElementById("number-btn");
+  const winnersContainer = document.getElementById("winners")
   let bets = [];
 
   balanceContainer.innerHTML = walletBalance;
@@ -47,7 +48,6 @@ export default async function Events() {
 
   submitSelectionBtn.addEventListener("click", async function() {
     const balance = await getBalance();
-    console.log('Balance Var', balance)
     const numberSelection = document.querySelectorAll(".number-selection div");
     const selectedNumbers = [];
     numberSelection.forEach(div => {
@@ -105,10 +105,12 @@ export default async function Events() {
     document.getElementById("jackpot").textContent = `\u20B1 ${jackpot}.00`;
   })
 
-  socket.on("reset", (arg) => {
+  socket.on("reset", async (arg) => {
     resetSelection();
     playerContainer.innerHTML = "";
     bets = [];
+    let updatedbalance = await getBalance();
+    balanceContainer.innerHTML = updatedbalance;
     resetSelectionBtn.removeAttribute("disabled");
     submitSelectionBtn.removeAttribute("disabled");
   });
@@ -125,6 +127,20 @@ export default async function Events() {
     for (const player in players) {
       div.innerHTML = players[player];
       playerContainer.appendChild(div);
+    }
+  });
+
+  socket.on("winners", (winners) => {
+    winnersContainer.innerHTML = "";
+    if (winners < 0) {
+      const div = document.createElement("div");
+      div.innerHTML = 'No Winners';
+      winnersContainer.appendChild(div);
+    }
+    for (const key in winners) {
+      const div = document.createElement("div");
+      div.innerHTML = winners[key];
+      winnersContainer.appendChild(div);
     }
   })
 }

@@ -64,8 +64,25 @@ class DrawController {
 
   async getLastData(req, res) {
     try {
-      console.log(req.query)
       const response = await this.draw.getLastData(req.query.offset);
+      res.json({
+        success: true,
+        response
+      });
+      res.end();
+    } catch(err) {
+      res.json({
+        success: false,
+        message: err.toString(),
+      });
+      res.end();
+    }
+  }
+
+  async payout(req, res) {
+    try {
+      const { username } = req.body || {};
+      const response = await this.draw.winner(username);
       res.json({
         success: true,
         response

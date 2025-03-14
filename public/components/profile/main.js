@@ -117,11 +117,11 @@ export default function Main(root) {
 
                     <div class="${styles['custom-amount']}">
                         <p>Enter Amount</p>
-                        <input type="number" class="amount-input" placeholder="Enter Amount" min="1">
+                        <input type="number" id="custom-amount" class="amount-input" placeholder="Enter Amount" min="1">
                     </div>
 
                     <div class="${styles['submit-container']}">
-                        <button class="${styles['submit-btn']}">SUBMIT</button>
+                        <button class="${styles['submit-btn']}" id="custom-amount-btn">SUBMIT</button>
                     </div>
             </div>
         </div>

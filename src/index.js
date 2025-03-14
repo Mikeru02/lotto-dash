@@ -10,6 +10,7 @@ import checkBets from "./utils/checkBets.js";
 import getLastData from "./utils/getLastData.js";
 import checkPlayers from "./utils/players.js";
 import { createDraw, updateDraw } from "./utils/updateDatabase.js";
+import payout from "./utils/winnerPayout.js";
 
 const app = express();
 const server = createServer(app);
@@ -42,6 +43,7 @@ let countDown = uniCount;
 let pastNumber = data.response.winningNumber.split(",");
 let currentNumber = null;
 let drawId = null;
+let socketVar = null;
 
 io.on("connection", (socket) => {
   console.log(`User connected at ${socket.id}`)
@@ -65,7 +67,7 @@ io.on("connection", (socket) => {
 
   socket.emit("currentPlayers", currentPlayers);
 
-  
+
 })
 
 // This block is for emergency use only
@@ -113,8 +115,10 @@ if (process.env.PRIMARY_INSTANCE === "true") {
         jackpot += jackpotIncrement
         updateDraw(drawId, pastNumber.toString(), jackpot)
       } else {
-        jackpot += jackpotIncrement
-        updateDraw(drawId, pastNumber.toString(), jackpot)
+        jackpot += jackpotIncrement;
+        updateDraw(drawId, pastNumber.toString(), jackpot);
+        io.emit("winners", addJackpot);
+        await payout(addJackpot);
         jackpot = 100.00
       }
       io.emit("jackpot", jackpot);

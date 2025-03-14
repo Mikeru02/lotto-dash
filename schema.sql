@@ -62,4 +62,4 @@ INSERT INTO `DrawHistory` (`drawDate`, `winningNumber`, `prizeMoney`) VALUES (NO
 INSERT INTO `DrawHistory` (`drawDate`, `winningNumber`, `prizeMoney`) VALUES (NOW(), NULL, 110.00);
 
 
-INSERT INTO `Users` (`username`, `fullname`, `emailaddress`, `password`, `created_at`, `updated_at`) VALUES ('test', 'test', 'test@test.com', 'e0aaacccc142dd2e3235385a90d5bfc2c682a2cae0be4d1b631031276605d811', NOW(), NOW())
+INSERT INTO `Users` (`username`, `fullname`, `emailaddress`, `password`, `walletBalance`, `created_at`, `updated_at`) VALUES ('test', 'test', 'test@test.com', 'e0aaacccc142dd2e3235385a90d5bfc2c682a2cae0be4d1b631031276605d811', 1000.00, NOW(), NOW())

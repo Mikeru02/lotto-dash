@@ -16,7 +16,7 @@ export default async function Events() {
   const submitSelectionBtn = document.getElementById("submit-selection");
   const playerContainer = document.getElementById("players-container");
   const numberBtn = document.getElementById("number-btn");
-  const bets = [];
+  let bets = [];
 
   balanceContainer.innerHTML = walletBalance;
   generateBtn(numberBtn);
@@ -45,15 +45,32 @@ export default async function Events() {
   });
 
   submitSelectionBtn.addEventListener("click", async function() {
-    document.querySelectorAll(".input-num").forEach((div) => {
-      bets.push(div.innerHTML);
-    })
-    socket.emit("bet", bets);
-    submitSelectionBtn.disable = true;
-    const updatedBalance = parseInt(walletBalance) - 20;
-    await updateBalance(updatedBalance)
-    let updatedbalance = await getBalance();
-    balanceContainer.innerHTML = updatedbalance;
+    const balance = await getBalance();
+    const numberSelection = document.querySelectorAll(".number-selection div");
+    const selectedNumbers = [];
+    numberSelection.forEach(div => {
+      if (div.textContent.trim() !== "") {
+          selectedNumbers.push(div.textContent.trim());
+      }
+    });
+    if (selectedNumbers.length < 6) {
+      window.alert("Please complete your 6-number combination before submitting!");
+      return;
+    }
+    else if (balance < 20) {
+      window.alert("Please cash in first before betting!")
+    } else {
+      document.querySelectorAll(".input-num").forEach((div) => {
+        bets.push(div.innerHTML);
+      })
+      socket.emit("bet", bets);
+      submitSelectionBtn.setAttribute("disabled", "true");
+      resetSelectionBtn.setAttribute("disabled", "true");
+      const updatedBalance = parseInt(walletBalance) - 20;
+      await updateBalance(updatedBalance)
+      let updatedbalance = await getBalance();
+      balanceContainer.innerHTML = updatedbalance;
+    }
   })
 
   document.querySelectorAll(".input-num").forEach((div) => {
@@ -87,6 +104,9 @@ export default async function Events() {
   socket.on("reset", (arg) => {
     resetSelection();
     playerContainer.innerHTML = "";
+    bets = [];
+    resetSelectionBtn.removeAttribute("disabled");
+    submitSelectionBtn.removeAttribute("disabled");
   });
   
   socket.on("addPlayer", (player) => {

@@ -43,9 +43,29 @@ class DrawController {
     }
   }
 
+  async updateDraw(req, res) {
+    try {
+      const { drawId, winningNumber, prizeMoney } = req.body || {};
+      console.log(req.body)
+      const response = this.draw.update(drawId, winningNumber, prizeMoney);
+      res.json({
+        success: true,
+        response
+      });
+      res.end();
+    } catch(err) {
+      res.json({
+        success: false,
+        message: err.toString(),
+      });
+      res.end();
+    }
+  }
+
   async getLastData(req, res) {
     try {
-      const response = await this.draw.getLastData();
+      console.log(req.query)
+      const response = await this.draw.getLastData(req.query.offset);
       res.json({
         success: true,
         response

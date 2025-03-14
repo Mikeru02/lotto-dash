@@ -96,7 +96,7 @@ export default function Main(root) {
                 <div class="${styles['amount-options']}">
                         <div class="${styles['amount-row']}">
                             <button class="${styles['amount-box']} amount" data-val=20>20</button>
-                            <button class="${styles['amount-box']} amount" data-val520>50</button>
+                            <button class="${styles['amount-box']} amount" data-val=50>50</button>
                             <button class="${styles['amount-box']} amount" data-val=80>80</button>
                         </div>
                         <div class="${styles['amount-row']}">

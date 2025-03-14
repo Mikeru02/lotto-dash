@@ -14,4 +14,7 @@ drawRouter.get("/lastdraw", draw.getLastData.bind(draw));
 // Post Methods
 drawRouter.post("/", draw.create.bind(draw));
 
+// Patch Methods
+drawRouter.patch("/", draw.updateDraw.bind(draw));
+
 export default drawRouter;

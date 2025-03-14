@@ -11,19 +11,17 @@ export default function Header(root) {
           <div id="wallet-balance">
             <p>\u20B1 <span id="balance"></span></p>
           </div>
-          <a id="profile-btn">
-            <img src="https://res.cloudinary.com/dakq2u8n0/image/upload/v1740663929/ppp_tdpbik.jpg" alt="Profile" class="${styles['profile']}"> 
-          </a>
+          <img src="https://res.cloudinary.com/dakq2u8n0/image/upload/v1740663929/ppp_tdpbik.jpg" alt="Profile" class="${styles['profile']}" id="profile-btn"> 
         </div>
     </div>
 
     <div class="${styles['last-winning-draw']}" id="draw-container">
-        <div class="${styles['number-box']}">09</div>
-        <div class="${styles['number-box']}">22</div>
-        <div class="${styles['number-box']}">03</div>
-        <div class="${styles['number-box']}">07</div>
-        <div class="${styles['number-box']}">02</div>
-        <div class="${styles['number-box']}">04</div>
+        <div class="${styles['number-box']}"></div>
+        <div class="${styles['number-box']}"></div>
+        <div class="${styles['number-box']}"></div>
+        <div class="${styles['number-box']}"></div>
+        <div class="${styles['number-box']}"></div>
+        <div class="${styles['number-box']}"></div>
     </div>
     <p class="${styles['jackpot-container']}"> Jackpot: <span class="${styles['jackpot']}" id="jackpot"></span></p>
     <p class="${styles['next-draw']}">Next Draw: <span class="${styles['countdown']}" id="countdown"></span></p>

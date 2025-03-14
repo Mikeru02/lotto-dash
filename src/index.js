@@ -9,7 +9,7 @@ import drawNumbers from "./utils/drawNumbers.js";
 import checkBets from "./utils/checkBets.js";
 import getLastData from "./utils/getLastData.js";
 import checkPlayers from "./utils/players.js";
-import { createDraw } from "./utils/updateDatabase.js";
+import { createDraw, updateDraw } from "./utils/updateDatabase.js";
 
 const app = express();
 const server = createServer(app);
@@ -34,13 +34,14 @@ const uniCount = 60; // Change this to adjust countdown
 
 let bets = {};
 let currentPlayers = [];
-const lastData = await getLastData();
+const lastData = await getLastData(1);
 const data = lastData.data;
 let jackpot = Number(data.response.prizeMoney);
 const jackpotIncrement = 10
 let countDown = uniCount;
 let pastNumber = data.response.winningNumber.split(",");
 let currentNumber = null;
+let drawId = null;
 
 io.on("connection", (socket) => {
   console.log(`User connected at ${socket.id}`)
@@ -88,13 +89,20 @@ io.on("connection", (socket) => {
 // }
 
 if (process.env.PRIMARY_INSTANCE === "true") {
-  setInterval(() => {
+  (async () => {
+    const lastdata = await getLastData(0)
+    drawId = lastdata.data.response.drawId
+  })();
+  setInterval(async () => {
     const now = new Date();
     const seconds = now.getSeconds();
 
-    const countdownTime = (countDown - seconds).toString().padStart(2, "0");
-
-    if (countdownTime === "60") {
+    const countdownTime = ((countDown - seconds) % 60).toString().padStart(2, "0");
+    if (countdownTime === "59") {
+      console.log("Created draw");
+      drawId = await createDraw(jackpot)
+    }
+    if (countdownTime === "00") {
       if (!currentNumber) {
         currentNumber = drawNumbers();
         pastNumber = currentNumber;
@@ -104,10 +112,10 @@ if (process.env.PRIMARY_INSTANCE === "true") {
       let addJackpot = checkBets(bets, pastNumber);
       if (!addJackpot) {
         jackpot += jackpotIncrement
-        createDraw(pastNumber.toString(), jackpot)
+        updateDraw(drawId, pastNumber.toString(), jackpot)
       } else {
         jackpot += jackpotIncrement
-        createDraw(pastNumber.toString(), jackpot)
+        updateDraw(drawId, pastNumber.toString(), jackpot)
         jackpot = 100.00
       }
       io.emit("jackpot", jackpot);

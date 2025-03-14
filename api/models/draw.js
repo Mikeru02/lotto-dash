@@ -31,11 +31,24 @@ class Draw {
     }
   }
 
-  async getLastData(){
+  async update(drawId, winningNumber, prizeMoney) {
     try {
       const [result, ] = await this.db.execute(
-        "SELECT * FROM DrawHistory ORDER BY drawId DESC LIMIT 1",
-        []
+        "UPDATE DrawHistory SET winningNumber=?, prizeMoney=? WHERE drawId=?",
+        [winningNumber, prizeMoney, drawId]
+      );
+      return result;
+    } catch(err) {
+      console.error("<error> draw.update", err);
+      throw err;
+    }
+  }
+
+  async getLastData(offset){
+    try {
+      const [result, ] = await this.db.execute(
+        "SELECT * FROM DrawHistory ORDER BY drawId DESC LIMIT 1 OFFSET ?",
+        [offset]
       );
       return result?.[0];
     } catch(err) {

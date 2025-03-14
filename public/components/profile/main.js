@@ -80,8 +80,8 @@ export default function Main(root) {
             <span class="${styles['close-btn']}" id="close-withdraw-modal">&times;</span>
             <h2>Withdraw</h2>
             <div class="${styles['modal-body']}">
-                <h3>Wallet Balance: ₱500.00</h3>
-                <input type="number" id="#" name="#" placeholder="Enter Amount">
+                <h3>Wallet Balance: ₱<span id="wallet-balance"></span></h3>
+                <input type="number" id="amount-withdraw" name="#" placeholder="Enter Amount" min="100">
                 <button id="withdraw-action-btn" class="${styles['withdraw-btn']}">Withdraw</button>
             </div>
         </div>

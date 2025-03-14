@@ -2,6 +2,7 @@
 // import styles from "./component.module.css";
 import getBalance from "../../utils/getBalance";
 import deposit from "../../utils/deposit";
+import withdraw from "../../utils/withdraw";
 
 export default async function Events() {
   // Lagay mo her eyung events mo sa profile page
@@ -14,6 +15,7 @@ export default async function Events() {
   const nameInput = document.getElementById("newName");
   const backBtn = document.getElementById("backhome-btn");
   const walletBalanceSpan = document.getElementById("walletbalance");
+  document.getElementById("wallet-balance").innerHTML = walletBalance;
 
   const logoutBtn = document.getElementById("logout-btn")
   logoutBtn.addEventListener("click", function() {
@@ -86,13 +88,17 @@ export default async function Events() {
       }
   });
 
-  withdrawActionBtn.addEventListener('click', function() {
+  withdrawActionBtn.addEventListener('click', async function() {
       withdrawModal.style.display = 'none';
-
-      document.getElementById('withdraw-amount-input').value = ''; 
-
-
-      console.log('Withdrawal action has been processed!');
+      const withdrawalValue = document.getElementById('amount-withdraw').value
+      if (withdrawalValue < 100) {
+        window.alert("Minimum 100 per withdrawal")
+      } else {
+        await withdraw(withdrawalValue); 
+        console.log('Withdrawal action has been processed!');
+        let updatedbalance = await getBalance();
+        walletBalanceSpan.innerHTML = updatedbalance;
+      }
   });
 
   const depositModal = document.getElementById("deposit-modal");

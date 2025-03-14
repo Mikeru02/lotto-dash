@@ -207,6 +207,25 @@ class AccountController {
       res.end();
     }
   }
+
+  // Update wallet balance
+  async updateWalletBalance(req, res) {
+    try {
+      const { amount } = req.body || {};
+      const data = await this.user.updateWalletBalance(res.locals.username, amount);
+      res.json({
+        success: true,
+        data
+      })
+      res.end();
+    } catch(err) {
+      res.json({
+        success: false,
+        message: err.toString(),
+      });
+      res.end();
+    }
+  }
 }
 
 export default AccountController;

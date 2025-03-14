@@ -1,6 +1,7 @@
 // If need mo ng styles here kindly uncomment this 
 import styles from "./component.module.css";
 import getBalance from "../../utils/getBalance";
+import updateBalance from "../../utils/updateBalance";
 
 export default async function Events() {
   const socket = io("http://localhost:3000");
@@ -43,12 +44,16 @@ export default async function Events() {
     resetSelection();
   });
 
-  submitSelectionBtn.addEventListener("click", function() {
+  submitSelectionBtn.addEventListener("click", async function() {
     document.querySelectorAll(".input-num").forEach((div) => {
       bets.push(div.innerHTML);
     })
     socket.emit("bet", bets);
     submitSelectionBtn.disable = true;
+    const updatedBalance = parseInt(walletBalance) - 20;
+    await updateBalance(updatedBalance)
+    let updatedbalance = await getBalance();
+    balanceContainer.innerHTML = updatedbalance;
   })
 
   document.querySelectorAll(".input-num").forEach((div) => {

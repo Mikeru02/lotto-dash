@@ -155,6 +155,21 @@ class User {
       throw err;
     }
   }
+
+  // Update wallet balance
+  async updateWalletBalance(username, amount) {
+    try {
+      console.log("<debug api user.updateBalance>", amount, username)
+      const [results, ] = await this.db.execute(
+        "UPDATE Users SET walletBalance=? WHERE username=?",
+        [amount, username]
+      );
+      return results;
+    } catch(err) {
+      console.error("<error> user.updateWalletBalance", err);
+      throw err;
+    }
+  }
 }
 
 export default User;

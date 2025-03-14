@@ -22,5 +22,6 @@ accountRouter.post("/withdraw", authentication, account.withdraw.bind(account));
 
 // Patch Methods
 accountRouter.patch("/", authentication, account.update.bind(account));
+accountRouter.patch("/balance", authentication, account.updateWalletBalance.bind(account));
 
 export default accountRouter;

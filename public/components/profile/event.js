@@ -1,7 +1,7 @@
 // If need mo ng styles here kindly uncomment this 
 // import styles from "./component.module.css";
 import getBalance from "../../utils/getBalance";
-import updateBalance from "../../utils/updateBalance";
+import deposit from "../../utils/deposit";
 
 export default async function Events() {
   // Lagay mo her eyung events mo sa profile page
@@ -15,9 +15,16 @@ export default async function Events() {
   const backBtn = document.getElementById("backhome-btn");
   const walletBalanceSpan = document.getElementById("walletbalance");
 
+  const logoutBtn = document.getElementById("logout-btn")
+  logoutBtn.addEventListener("click", function() {
+    localStorage.removeItem("token");
+
+    window.app.pushRoute("/landing");
+  })
+
   document.querySelectorAll(".amount").forEach((div) => {
     div.addEventListener("click", async function() {
-        await updateBalance(div.getAttribute("data-val"));
+        await deposit(div.getAttribute("data-val"));
         depositModal.style.display = "none"
 
         let updatedbalance = await getBalance();

@@ -22,6 +22,7 @@ export default function Main(root) {
                     <img src="https://res.cloudinary.com/dakq2u8n0/image/upload/v1740663929/ppp_tdpbik.jpg" alt="Profile" class="${styles['avatar']}">
                     <h2 class="${styles['name']}">Hatdog Cheesedog</h2>
                     <button class="${styles['edit-btn']} edit-btn">Edit Profile</button>
+                    <button class="${styles['edit-btn']}" id="logout-btn">Log Out</button>
                 </div>                
 
                 <div class="${styles['wallet']}">

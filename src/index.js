@@ -99,7 +99,6 @@ if (process.env.PRIMARY_INSTANCE === "true") {
 
     const countdownTime = ((countDown - seconds) % 60).toString().padStart(2, "0");
     if (countdownTime === "59") {
-      console.log("Created draw");
       drawId = await createDraw(jackpot)
     }
     if (countdownTime === "00") {

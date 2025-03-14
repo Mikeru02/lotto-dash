@@ -61,11 +61,11 @@ class User {
     }
   }
 
-  async updateTranscation(userId, type, amount) {
+  async updateTranscation(userId, type, drawId, amount) {
     try {
       const [results, ] = await this.db.execute(
-        "INSERT INTO TransactionHistory (userId, type, amount, transactionDate) VALUES (?, ?, ?, NOW())",
-        [userId, type, amount]
+        "INSERT INTO TransactionHistory (userId, type, drawId, amount, transactionDate) VALUES (?, ?, ?, ?, NOW())",
+        [userId, type, drawId, amount]
       );
       return results.insertId;
     } catch(err) {
@@ -84,7 +84,7 @@ class User {
         [amount, username]
       );
 
-      const transaction = await this.updateTranscation(user.userId, "deposit", amount);
+      const transaction = await this.updateTranscation(user.userId, "deposit", null, amount);
 
       return transaction;
       
@@ -118,7 +118,7 @@ class User {
         [amount, username]
       );
 
-      const transaction = await this.updateTranscation(user.userId, "withdraw", amount);
+      const transaction = await this.updateTranscation(user.userId, "withdraw", null, amount);
 
       return transaction;
     } catch(err) {
@@ -138,6 +138,34 @@ class User {
       return results;
     } catch(err) {
       console.error("<error> user.getDeposit", err);
+      throw err;
+    }
+  }
+
+  async bet(username, betNumbers) {
+    try {
+      const user = await this.get(username);
+      const [result, ] = await this.db.execute(
+        "UPDATE Users SET walletBalance=walletBalance-? WHERE username=?",
+        [20, username]
+      );
+
+      const [lastdata, ] = await this.db.execute(
+        "SELECT * FROM DrawHistory ORDER BY drawId DESC LIMIT 1 OFFSET 0",
+      );
+
+      const data = lastdata?.[0];
+
+      const transaction = await this.updateTranscation(user.userId, "bet", data.drawId, 20.00);
+
+      const [betTransac, ] = await this.db.execute(
+        "INSERT INTO BetHistory (userId, drawId, betNumbers, betDate) VALUES (?, ?, ?, NOW())",
+        [user.userId, data.drawId, betNumbers]
+      );
+      
+      return transaction;
+    } catch(err) {
+      console.error("<error> user.bet", err);
       throw err;
     }
   }

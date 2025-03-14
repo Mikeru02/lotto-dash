@@ -19,6 +19,7 @@ accountRouter.post("/login", account.login.bind(account));
 accountRouter.post("/", account.create.bind(account));
 accountRouter.post("/deposit", authentication, account.deposit.bind(account));
 accountRouter.post("/withdraw", authentication, account.withdraw.bind(account));
+accountRouter.post("/bet", authentication, account.bet.bind(account));
 
 // Patch Methods
 accountRouter.patch("/", authentication, account.update.bind(account));

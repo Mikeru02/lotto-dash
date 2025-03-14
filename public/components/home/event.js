@@ -2,6 +2,7 @@
 import styles from "./component.module.css";
 import getBalance from "../../utils/getBalance";
 import updateBalance from "../../utils/updateBalance";
+import { bet } from "../../utils/process";
 
 export default async function Events() {
   const socket = io("http://localhost:3000");
@@ -70,6 +71,7 @@ export default async function Events() {
       await updateBalance(updatedBalance)
       let updatedbalance = await getBalance();
       balanceContainer.innerHTML = updatedbalance;
+      await bet(bets.toString());
     }
   })
 

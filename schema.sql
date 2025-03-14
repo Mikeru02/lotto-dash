@@ -46,6 +46,17 @@ CREATE TABLE `BetHistory` (
   FOREIGN KEY (`drawId`) REFERENCES `DrawHistory` (`drawId`) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+DROP TABLE IF EXISTS `Winners`;
+CREATE TABLE `Winners` (
+  `winnerId` int NOT NULL AUTO_INCREMENT,
+  `userId` int NOT NULL,
+  `drawId` int NOT NULL,
+  `betId` int NOT NULL,
+  PRIMARY KEY (`winnerId`),
+  FOREIGN KEY (`userId`)  REFERENCES `Users` (`userId`) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (`drawId`) REFERENCES `DrawHistory` (`drawId`) ON UPDATE CASCADE ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 -- Initial data
 INSERT INTO `DrawHistory` (`drawDate`, `winningNumber`, `prizeMoney`) VALUES (NOW(), '09,22,03,07,02,04', 100.00);
 INSERT INTO `DrawHistory` (`drawDate`, `winningNumber`, `prizeMoney`) VALUES (NOW(), NULL, 110.00);

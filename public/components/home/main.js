@@ -31,7 +31,6 @@ export default function Main(root) {
                     <img src="https://res.cloudinary.com/dakq2u8n0/image/upload/v1740659836/Screenshot_2025-02-27_203626-removebg-preview_mose29.png" alt="Winning Ticket" class="${styles['winner-icon']}">
                     <h4>Last Draw Winners</h4>
                     <hr>
-                    <p>Mwehehehe</p>
                 </div>
             </div>
             

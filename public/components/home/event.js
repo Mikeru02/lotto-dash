@@ -1,9 +1,13 @@
 // If need mo ng styles here kindly uncomment this 
 import styles from "./component.module.css";
+import getBalance from "../../utils/getBalance";
 
-export default function Events() {
+export default async function Events() {
   const socket = io("http://localhost:3000");
+  let walletBalance = await getBalance();
+  const balanceContainer = document.getElementById("balance");
   const drawContainer = document.getElementById("draw-container");
+  const profileBtn = document.getElementById("profile-btn");
   const drawChildren = drawContainer.children;
   const cancelBtn = document.getElementById("cancel");
   const saveBtn = document.getElementById("save");
@@ -13,6 +17,7 @@ export default function Events() {
   const numberBtn = document.getElementById("number-btn");
   const bets = [];
 
+  balanceContainer.innerHTML = walletBalance;
   generateBtn(numberBtn);
 
   document.querySelectorAll(".numbers-btn").forEach((div) => {
@@ -22,6 +27,10 @@ export default function Events() {
     }) 
   })
 
+  profileBtn.addEventListener("click", function() {
+    window.app.pushRoute("/profile");
+  });
+  
   cancelBtn.addEventListener("click", function() {
     closeModal();
   });
@@ -71,7 +80,8 @@ export default function Events() {
   })
 
   socket.on("reset", (arg) => {
-    resetSelection(); 
+    resetSelection();
+    playerContainer.innerHTML = "";
   });
   
   socket.on("addPlayer", (player) => {

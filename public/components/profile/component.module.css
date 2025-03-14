@@ -25,14 +25,15 @@
 
 .left-section {
   width: 20%;
-  position: relative;
+    display: flex;
+    /* position: relative; */
+    flex-direction: column;
+    align-items: center;
 }
 
 .logo {
-  position: absolute;
-  top: 20px;
-  left: 20px;
   width: 150px;
+  margin: 1rem;
 }
 
 .center-section {
@@ -344,4 +345,109 @@
 
 .withdraw-btn:hover {
   background-color: #ccc;
+}
+
+.amount-options {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  align-items: center; 
+  justify-content: flex-start; 
+  min-height: 100px; 
+}
+
+.amount-row {
+  display: flex;
+  gap: 40px;
+  justify-content: space-between;
+}
+
+.amount-box {
+  flex: 0 1 auto; 
+  background-color: #FAF9F6;
+  color: #262834;
+  min-width: 5rem;
+  min-height: 5rem;
+  text-align: center;
+  border-radius: 5px;
+  font-family: "Lalezar";
+  font-size: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+  border: none;
+  outline: none;
+  box-shadow: 3px 2px 8px rgba(0.2, 0, 0, 0.2); 
+}
+
+.amount-box:hover {
+  background-color: #c0c0c0;
+}
+
+.amount-box:active {
+  background-color: #a0a0a0;
+}
+
+.separator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.separator hr {
+  flex-grow: 1;
+  border: 1px solid #ccc;
+  margin: 0 10px;
+}
+
+.separator span {
+  font-size: 16px;
+  color: #777;
+}
+
+.custom-amount {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.amount-input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  box-shadow: 3px 2px 8px rgba(0.2, 0, 0, 0.2); 
+
+}
+
+.submit-container {
+  display: flex;
+  justify-content: center;
+}
+
+.submit-btn {
+  font-family: "Lalezar";
+  background: #82181F;
+  color: white;
+  padding: 5px 50px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 20px;
+  margin-bottom: 30px;
+  border: 3px solid transparent;
+  transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+  background: #FAF9F6;
+  color: #82181F;
+  border-color: #82181F
 }

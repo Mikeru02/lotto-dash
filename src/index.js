@@ -51,6 +51,10 @@ io.on("connection", (socket) => {
 
   socket.on("bet", (numbers) => {
     bets[socket.data.username] = numbers;
+    if (!currentPlayers.includes(socket.data.username)) {
+      currentPlayers.push(socket.data.username);
+      io.emit("currentPlayers", currentPlayers); // Emit only when a new player joins
+  }
   })
 
   socket.on("setUsername", (token) => {
@@ -58,7 +62,7 @@ io.on("connection", (socket) => {
     socket.data.username = decoded.username;
   })
 
-  io.emit("currentPlayers", currentPlayers);
+  socket.emit("currentPlayers", currentPlayers);
 
   
 })

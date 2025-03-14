@@ -8,7 +8,10 @@ export default function Header(root) {
      <div class="${styles['inner-header']}">
         <img src="https://res.cloudinary.com/dakq2u8n0/image/upload/v1740931230/image-removebg-preview_8_vjfdkm.png" alt="Logo" class="${styles['logo']}"> 
         <div class="${styles['profile-container']}">
-          <a href="/profile">
+          <div id="wallet-balance">
+            <p>\u20B1 <span id="balance"></span></p>
+          </div>
+          <a id="profile-btn">
             <img src="https://res.cloudinary.com/dakq2u8n0/image/upload/v1740663929/ppp_tdpbik.jpg" alt="Profile" class="${styles['profile']}"> 
           </a>
         </div>

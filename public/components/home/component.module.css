@@ -36,17 +36,15 @@
 
 .profile-container{
   display: flex;
-  position: relative;  
+  align-items: center;
+  justify-content: flex-end;
   width: 100%;         
   height: 100%;  
 } 
 
 .profile {
-  position: absolute;  
-  top: 10px;           
-  right: 10px;        
   height: 50px;
-  margin: 10px;
+  margin: 10px 20px;
   border-radius: 30px;
 }
 
@@ -103,8 +101,7 @@
 
 .number-selection {
   display: flex;
-  justify-content: center;
-  gap: 10px;
+  justify-content: space-evenly;
   margin: 10px 0;
 }
 

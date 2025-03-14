@@ -10,6 +10,7 @@ accountRouter.use(authorization);
 
 // Get Methods
 accountRouter.get("/", authentication, account.profile.bind(account));
+accountRouter.get("/balance", authentication, account.getWalletBalance.bind(account));
 accountRouter.get("/deposit", authentication, account.getDeposit.bind(account));
 accountRouter.get("/withdraw", authentication, account.getWithdrawwal.bind(account));
 

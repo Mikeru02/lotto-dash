@@ -10,6 +10,7 @@ export default function Main(root) {
         <!-- Left Section (20%) -->
         <div class="${styles['left-section']}">
             <img src="https://res.cloudinary.com/dakq2u8n0/image/upload/v1740931230/image-removebg-preview_8_vjfdkm.png" alt="Logo" class="${styles['logo']}">
+            <button id="backhome-btn">Back to Home</button>
         </div>
 
         <!-- Center Content Section (60%) -->
@@ -25,7 +26,7 @@ export default function Main(root) {
 
                 <div class="${styles['wallet']}">
                     <p class="${styles['wallet-title']}">Wallet Balance</p>
-                    <p class="${styles['wallet-amount']}">₱ 500.00</p>
+                    <p class="${styles['wallet-amount']}">₱ <span id="walletbalance"></span></p>
                     <div class="${styles['wallet-actions']}">
                         <button class="${styles['wallet-btn']}" id="cash-in-btn">Cash In</button>
                         <span>|</span>
@@ -81,6 +82,43 @@ export default function Main(root) {
                 <h3>Wallet Balance: ₱500.00</h3>
                 <input type="number" id="#" name="#" placeholder="Enter Amount">
                 <button id="withdraw-action-btn" class="${styles['withdraw-btn']}">Withdraw</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="${styles['modal']}" id="deposit-modal">
+        <div class="${styles['modal-content']}">
+            <span class="${styles['close-btn']}" id="close-deposit-modal">&times;</span>
+            <h2>Cash In</h2>
+            <hr>
+            <div class="${styles['modal-body']}">
+                <div class="${styles['amount-options']}">
+                        <div class="${styles['amount-row']}">
+                            <button class="${styles['amount-box']} amount" data-val=20>20</button>
+                            <button class="${styles['amount-box']} amount" data-val520>50</button>
+                            <button class="${styles['amount-box']} amount" data-val=80>80</button>
+                        </div>
+                        <div class="${styles['amount-row']}">
+                            <button class="${styles['amount-box']} amount" data-val=100>100</button>
+                            <button class="${styles['amount-box']} amount" data-val=200>200</button>
+                            <button class="${styles['amount-box']} amount" data-val=500>500</button>
+                        </div>
+                    </div>
+
+                    <div class="${styles['separator']}">
+                        <hr>
+                        <span>OR</span>
+                        <hr>
+                    </div>
+
+                    <div class="${styles['custom-amount']}">
+                        <p>Enter Amount</p>
+                        <input type="number" class="amount-input" placeholder="Enter Amount" min="1">
+                    </div>
+
+                    <div class="${styles['submit-container']}">
+                        <button class="${styles['submit-btn']}">SUBMIT</button>
+                    </div>
             </div>
         </div>
     </div>

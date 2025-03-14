@@ -1,14 +1,34 @@
 // If need mo ng styles here kindly uncomment this 
 // import styles from "./component.module.css";
+import getBalance from "../../utils/getBalance";
+import updateBalance from "../../utils/updateBalance";
 
-export default function Events() {
+export default async function Events() {
   // Lagay mo her eyung events mo sa profile page
+  let walletBalance = await getBalance();
   // Edit Profile Modal
   const modal = document.getElementById("editModal");
   const editBtn = document.querySelector(".edit-btn");
   const closeBtn = document.querySelector(".close-btn");
   const saveBtn = document.getElementById("saveBtn");
   const nameInput = document.getElementById("newName");
+  const backBtn = document.getElementById("backhome-btn");
+  const walletBalanceSpan = document.getElementById("walletbalance");
+
+  document.querySelectorAll(".amount").forEach((div) => {
+    div.addEventListener("click", async function() {
+        await updateBalance(div.getAttribute("data-val"));
+        depositModal.style.display = "none"
+
+        let updatedbalance = await getBalance();
+        walletBalanceSpan.innerHTML = updatedbalance;
+    })
+  })
+  walletBalanceSpan.innerHTML = walletBalance;
+
+  backBtn.addEventListener("click", function() {
+    window.app.pushRoute("/home");
+  })
 
   saveBtn.disabled = true;
   saveBtn.classList.remove("enabled");
@@ -68,8 +88,15 @@ export default function Events() {
       console.log('Withdrawal action has been processed!');
   });
 
+  const depositModal = document.getElementById("deposit-modal");
+  const closeDepositModal = document.getElementById("close-deposit-modal");
+
   document.getElementById('cash-in-btn').addEventListener('click', function() {
-      window.location.href = 'cashIn.html'; 
+    depositModal.style.display = 'flex';
   });
+
+  closeDepositModal.addEventListener("click", function() {
+    depositModal.style.display = 'none';
+  })
 
 }

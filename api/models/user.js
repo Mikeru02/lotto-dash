@@ -141,6 +141,20 @@ class User {
       throw err;
     }
   }
+
+  // Get wallet balance
+  async getWalletBalance(username) {
+    try {
+      const [results, ] = await this.db.execute(
+        "SELECT walletBalance FROM Users WHERE username=?",
+        [username]
+      );
+      return results?.[0];
+    } catch(err) {
+      console.error("<error> user.getWalletBalance", err);
+      throw err;
+    }
+  }
 }
 
 export default User;

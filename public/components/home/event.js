@@ -47,6 +47,7 @@ export default async function Events() {
 
   submitSelectionBtn.addEventListener("click", async function() {
     const balance = await getBalance();
+    console.log('Balance Var', balance)
     const numberSelection = document.querySelectorAll(".number-selection div");
     const selectedNumbers = [];
     numberSelection.forEach(div => {
@@ -63,11 +64,12 @@ export default async function Events() {
     } else {
       document.querySelectorAll(".input-num").forEach((div) => {
         bets.push(div.innerHTML);
-      })
+      });
+
       socket.emit("bet", bets);
       submitSelectionBtn.setAttribute("disabled", "true");
       resetSelectionBtn.setAttribute("disabled", "true");
-      const updatedBalance = parseInt(walletBalance) - 20;
+      const updatedBalance = parseInt(balance) - 20;
       await updateBalance(updatedBalance)
       let updatedbalance = await getBalance();
       balanceContainer.innerHTML = updatedbalance;

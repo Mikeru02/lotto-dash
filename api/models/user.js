@@ -145,11 +145,6 @@ class User {
   async bet(username, betNumbers) {
     try {
       const user = await this.get(username);
-      const [result, ] = await this.db.execute(
-        "UPDATE Users SET walletBalance=walletBalance-? WHERE username=?",
-        [20, username]
-      );
-
       const [lastdata, ] = await this.db.execute(
         "SELECT * FROM DrawHistory ORDER BY drawId DESC LIMIT 1 OFFSET 0",
       );
@@ -162,7 +157,7 @@ class User {
         "INSERT INTO BetHistory (userId, drawId, betNumbers, betDate) VALUES (?, ?, ?, NOW())",
         [user.userId, data.drawId, betNumbers]
       );
-      
+
       return transaction;
     } catch(err) {
       console.error("<error> user.bet", err);

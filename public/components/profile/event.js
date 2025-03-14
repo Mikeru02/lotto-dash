@@ -8,6 +8,7 @@ import { getProfile } from "../../utils/process";
 export default async function Events() {
   // Lagay mo her eyung events mo sa profile page
   let walletBalance = await getBalance();
+  console.log(walletBalance)
   const fullnameContainer = document.getElementById("fullname");
   const usernameContainer = document.getElementById("username");
 

@@ -8,20 +8,20 @@ export default function Header(root) {
      <div class="${styles['inner-header']}">
         <img src="https://res.cloudinary.com/dakq2u8n0/image/upload/v1740931230/image-removebg-preview_8_vjfdkm.png" alt="Logo" class="${styles['logo']}"> 
         <div class="${styles['profile-container']}">
-          <div id="wallet-balance">
-            <p>\u20B1 <span id="balance"></span></p>
+          <div id="wallet-balance" class="${styles['wallet-balance']}">
+            <p>Balance: \u20B1 <span id="balance"></span></p>
           </div>
           <img src="https://res.cloudinary.com/dakq2u8n0/image/upload/v1740663929/ppp_tdpbik.jpg" alt="Profile" class="${styles['profile']}" id="profile-btn"> 
         </div>
     </div>
 
     <div class="${styles['last-winning-draw']}" id="draw-container">
-        <div class="${styles['number-box']}"></div>
-        <div class="${styles['number-box']}"></div>
-        <div class="${styles['number-box']}"></div>
-        <div class="${styles['number-box']}"></div>
-        <div class="${styles['number-box']}"></div>
-        <div class="${styles['number-box']}"></div>
+        <div class="${styles['number-box']}">00</div>
+        <div class="${styles['number-box']}">00</div>
+        <div class="${styles['number-box']}">00</div>
+        <div class="${styles['number-box']}">00</div>
+        <div class="${styles['number-box']}">00</div>
+        <div class="${styles['number-box']}">00</div>
     </div>
     <p class="${styles['jackpot-container']}"> Jackpot: <span class="${styles['jackpot']}" id="jackpot"></span></p>
     <p class="${styles['next-draw']}">Next Draw: <span class="${styles['countdown']}" id="countdown"></span></p>

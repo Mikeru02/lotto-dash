@@ -8,16 +8,6 @@ export default function Main(root) {
     <div class="${styles['main-content']}">
         <div class="${styles['contents']}">
             <img src="https://res.cloudinary.com/dakq2u8n0/image/upload/v1741104136/Blue_and_Black_Simple_Coming_Soon_Banner_1_n0w5us.jpg" alt="Banner" class="${styles['banner']}">
-            <h4 class="${styles['last-winning-draw']}">Last Winning Draw</h4>
-            <hr>
-            <div class="last-winning-draw">
-                <div class="${styles['number-box']}">09</div>
-                <div class="${styles['number-box']}">22</div>
-                <div class="${styles['number-box']}">03</div>
-                <div class="${styles['number-box']}">07</div>
-                <div class="${styles['number-box']}">02</div>
-                <div class="${styles['number-box']}">04</div>
-            </div>
             <div class="${styles['winners']}">
                 <img src="https://res.cloudinary.com/dakq2u8n0/image/upload/v1740659836/Screenshot_2025-02-27_203626-removebg-preview_mose29.png" alt="Winning Ticket" class="${styles['winner-icon']}">
                 <h4>Last Draw Winners</h4>

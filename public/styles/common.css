@@ -146,6 +146,12 @@ body {
 }
 
 
+@media (max-width: 425px) {
+  .container{
+    max-width: 50%;
+    min-height: 20rem;
+  }
+}
 /*
 
 html, body {

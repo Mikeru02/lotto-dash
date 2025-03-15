@@ -26,5 +26,5 @@ export default function Header(root) {
   `;
   
   // If need mo ng css sa mismong header, uncomment mo yung next line 
-  root.className = styles['header'];
+  // root.className = styles['header'];
 }

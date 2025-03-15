@@ -204,6 +204,7 @@
   text-align: left; 
   margin-bottom: 30px;
   color: #262834;
+  font-size: 1rem;
 }
 
 /* ============= Footer ================ */
@@ -451,7 +452,20 @@
   border-color: #82181F
 }
 
+.img-action-btn {
+  position: absolute;
+  right: 1rem;
+}
+
+.img-btn{
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
 @media (max-width: 425px) {
+  .left-section{
+    display: none;
+  }
   .profile{
     padding: 30px 20px;
   }

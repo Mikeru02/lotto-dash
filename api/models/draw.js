@@ -24,7 +24,7 @@ class Draw {
         "SELECT * FROM DrawHistory WHERE drawId=?",
         [drawId] 
       );
-      return results;
+      return results?.[0];
     } catch(err) {
       console.error("<error> draw.get", err);
       throw err;

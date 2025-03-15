@@ -1,14 +1,16 @@
 // If need mo ng styles here kindly uncomment this 
-// import styles from "./component.module.css";
+import styles from "./component.module.css";
 import getBalance from "../../utils/getBalance";
 import deposit from "../../utils/deposit";
 import withdraw from "../../utils/withdraw";
-import { getProfile } from "../../utils/process";
+import { getBet, getDraw, getProfile } from "../../utils/process";
+import countMatchNumbers from "../../utils/count";
 
 export default async function Events() {
   // Lagay mo her eyung events mo sa profile page
   let walletBalance = await getBalance();
-  console.log(walletBalance)
+  const homeBtn = document.getElementById("home-btn");
+  const betHistory = document.getElementById("bet-history");
   const fullnameContainer = document.getElementById("fullname");
   const usernameContainer = document.getElementById("username");
 
@@ -17,6 +19,9 @@ export default async function Events() {
   fullnameContainer.innerHTML = user.data.fullname;
   usernameContainer.innerHTML = user.data.username;
 
+  homeBtn.addEventListener("click", function() {
+    window.app.pushRoute("/home");
+  })
 
   // Edit Profile Modal
   const modal = document.getElementById("editModal");
@@ -24,7 +29,6 @@ export default async function Events() {
   const closeBtn = document.querySelector(".close-btn");
   const saveBtn = document.getElementById("saveBtn");
   const nameInput = document.getElementById("newName");
-  const backBtn = document.getElementById("backhome-btn");
   const walletBalanceSpan = document.getElementById("walletbalance");
   const customAmount = document.getElementById("custom-amount");
   const customAmountBtn = document.getElementById("custom-amount-btn");
@@ -56,10 +60,6 @@ export default async function Events() {
 
 
   walletBalanceSpan.innerHTML = walletBalance;
-
-  backBtn.addEventListener("click", function() {
-    window.app.pushRoute("/home");
-  })
 
   saveBtn.disabled = true;
   saveBtn.classList.remove("enabled");
@@ -136,4 +136,30 @@ export default async function Events() {
     depositModal.style.display = 'none';
   })
 
+  const bethistory = await getBet();
+  console.log(bethistory.length)
+  if (bethistory.length <= 0) {
+    const div = document.createElement("div");
+    div.innerHTML = "No play history yet!"
+    betHistory.appendChild(div);
+  } else {
+    for (const key in bethistory) {
+      const betData = bethistory[key];
+      const drawData = await getDraw(betData.drawId);
+      const timestamp = Date.parse(drawData.drawDate);
+      const date = new Date(timestamp)
+      const countMatch = countMatchNumbers((betData.betNumbers).split(','), (drawData.winningNumber).split(','));
+      console.log(countMatch)
+      const div = document.createElement("div");
+      div.setAttribute("class", styles['history-card']);
+      div.innerHTML = `
+        <p>Draw No.: ${drawData.drawId}
+        <p>Draw Date: ${date.toDateString()}</p>
+        <p>Winning Numbers: <span id="winning">${drawData.winningNumber}</span></p>
+        <p>Selected Numbers: <span id="selected">${betData.betNumbers}</span></p>
+        <p>Match Status: <span id="matched">Matched ${countMatch} out of 6</span></p>
+      `
+      betHistory.appendChild(div);
+    }
+  }
 }

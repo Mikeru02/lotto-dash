@@ -208,6 +208,23 @@ class AccountController {
     }
   }
 
+  async getBet(req, res) {
+    try {
+      const data = await this.user.getBet(res.locals.username);
+      res.json({
+        success: true,
+        data
+      })
+      res.end();
+    } catch(err) {
+      res.json({
+        success: false,
+        message: err.toString(),
+      });
+      res.end();
+    }
+  }
+
   // Get wallet balance 
   async getWalletBalance(req, res) {
     try {

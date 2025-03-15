@@ -151,6 +151,7 @@ class User {
 
       const data = lastdata?.[0];
 
+      console.log(user.userId, data.drawId, betNumbers);
       const transaction = await this.updateTranscation(user.userId, "bet", data.drawId, 20.00);
 
       const [betTransac, ] = await this.db.execute(
@@ -161,6 +162,21 @@ class User {
       return transaction;
     } catch(err) {
       console.error("<error> user.bet", err);
+      throw err;
+    }
+  }
+
+  async getBet(username) {
+    try {
+      const user = await this.get(username);
+
+      const [results, ] = await this.db.execute(
+        "SELECT * FROM BetHistory WHERE userId=?",
+        [user.userId]
+      );
+      return results;
+    } catch(err) {
+      console.error("<error> user.getbet", err);
       throw err;
     }
   }

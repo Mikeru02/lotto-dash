@@ -13,6 +13,7 @@ accountRouter.get("/", authentication, account.profile.bind(account));
 accountRouter.get("/balance", authentication, account.getWalletBalance.bind(account));
 accountRouter.get("/deposit", authentication, account.getDeposit.bind(account));
 accountRouter.get("/withdraw", authentication, account.getWithdrawwal.bind(account));
+accountRouter.get("/bet", authentication, account.getBet.bind(account));
 
 // Post Methods
 accountRouter.post("/login", account.login.bind(account));

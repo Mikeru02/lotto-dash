@@ -27,8 +27,9 @@ class DrawController {
 
   async get(req, res) {
     try {
-      const { drawId } = req.body || {};
-      const response = this.draw.get(drawId);
+      const { drawId } = req.query || {};
+      const response = await this.draw.get(drawId);
+      console.log(response)
       res.json({
         success: true,
         response
@@ -47,7 +48,7 @@ class DrawController {
     try {
       const { drawId, winningNumber, prizeMoney } = req.body || {};
       console.log(req.body)
-      const response = this.draw.update(drawId, winningNumber, prizeMoney);
+      const response = await this.draw.update(drawId, winningNumber, prizeMoney);
       res.json({
         success: true,
         response

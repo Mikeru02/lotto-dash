@@ -1,5 +1,6 @@
 // Main to ng profile page
-
+import Home from "../../icons/home.svg";
+import Logout from "../../icons/logout.svg";
 import styles from "./component.module.css";
 
 export default function Main(root) {
@@ -10,7 +11,6 @@ export default function Main(root) {
         <!-- Left Section (20%) -->
         <div class="${styles['left-section']}">
             <img src="https://res.cloudinary.com/dakq2u8n0/image/upload/v1740931230/image-removebg-preview_8_vjfdkm.png" alt="Logo" class="${styles['logo']}">
-            <button id="backhome-btn">Back to Home</button>
         </div>
 
         <!-- Center Content Section (60%) -->
@@ -20,12 +20,17 @@ export default function Main(root) {
                 <div class="${styles['profile']}">
                     <div class="${styles['cover-photo']}"></div>
                     <img src="https://res.cloudinary.com/dakq2u8n0/image/upload/v1740663929/ppp_tdpbik.jpg" alt="Profile" class="${styles['avatar']}">
+                    <div class="${styles['img-action-btn']}">
+                        <img src=${Home} class="${styles['img-btn']}" id="home-btn">
+                        <img src=${Logout} class="${styles['img-btn']}" id="logout-btn">
+
+                    </div>
                     <div>
                     <h2 class="${styles['name']}" id="fullname"></h2>
                     <h3 class="${styles['name']}" id="username"></h3>
                     </div>
                     <button class="${styles['edit-btn']} edit-btn">Edit Profile</button>
-                    <button class="${styles['edit-btn']}" id="logout-btn">Log Out</button>
+
                 </div>                
 
                 <div class="${styles['wallet']}">
@@ -46,11 +51,7 @@ export default function Main(root) {
                 <!-- Play History -->
                 <div class="${styles['section']}">
                     <h3>Play History</h3>
-                    <div class="${styles['history-card']}">
-                        <p>Ticket Details: Draw Date & Time</p>
-                        <p>Winning Numbers: --</p>
-                        <p>Selected Numbers: --</p>
-                        <p>Match Status: Matched 3 out of 6</p>
+                    <div id="bet-history">
                     </div>
                 </div>
             </main>

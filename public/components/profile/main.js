@@ -57,7 +57,7 @@ export default function Main(root) {
         </div>
 
         <!-- Right Empty Section (20%) -->
-        <div class="right-section"></div>
+        <div class="${styles['right-section']}"></div>
 
     </div>
 

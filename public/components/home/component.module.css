@@ -12,6 +12,7 @@
 
 .inner-header {
   display: flex;
+  align-items: center;
 }
 
 .main-content {
@@ -418,7 +419,6 @@ input[type="number"] {
 .countdown, .jackpot {
   color: #EFB343;  
   text-align: center;
-  font-size: 25px;
 }
 
 .number-btn {
@@ -441,4 +441,92 @@ input[type="number"] {
 .wallet-balance {
   color: white;
   font-size: 1.5rem;
+}
+h2{
+  font-size: 2rem;
+}
+h3{
+  font-size: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .wallet-balance {
+    font-size: 1rem;
+  }
+
+  .jackpot-container {
+    font-size: 1rem;
+  }
+
+  .next-draw {
+    font-size: 1rem;
+  }
+
+  .number-box {
+    font-size: 1.5rem;
+  }
+
+  .empty, .selected {
+    height: 4rem;
+    width: 4rem;
+    font-size: 2rem;
+  }
+
+  h3 {
+    font-size: 1rem;
+  }
+
+  h2{
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 425px) {
+  .inner-header{
+    margin-bottom: 1rem;
+  }
+  .profile{
+    height: 3rem;
+    margin: .5rem .5rem;
+  }
+  .h3_player{
+    text-align: center;
+  }
+  .players{
+    min-height: 2rem;
+  }
+  .contents{
+    max-width: 80%;
+  }
+  .logo{
+    height: 3rem;
+  }
+  .players-winners-container{
+    flex-direction: column;
+    align-items: center;
+  }
+  .winner {
+    width: inherit;
+  }
+  .buttons {
+    gap: 1rem;
+  }
+  .number-box {
+    font-size: 1rem;
+    padding: 1rem 1rem;
+  }
+
+  .next-draw {
+    font-size: 0.9rem;
+  }
+
+  .empty, .selected {
+    height: 3rem;
+    width: 3rem;
+    font-size: 1rem;
+    padding: 0;
+  }
+
+
+
 }

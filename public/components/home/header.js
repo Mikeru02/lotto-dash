@@ -15,7 +15,7 @@ export default function Header(root) {
         </div>
     </div>
 
-    <div class="${styles['last-winning-draw']}" id="draw-container">
+    <div class="${styles['draw-container']}" id="draw-container">
         <div class="${styles['number-box']}">00</div>
         <div class="${styles['number-box']}">00</div>
         <div class="${styles['number-box']}">00</div>

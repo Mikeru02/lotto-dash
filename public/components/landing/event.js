@@ -10,7 +10,7 @@ export default function Events() {
   // Lagay mo her eyung events mo sa landing page
   const drawContainer = document.getElementById("draw-container");
   const drawChildren = drawContainer.children;
-  const socket = io("http://localhost:3000");
+  const socket = io();
   const loginBtn = document.getElementById('login-btn');
   const signupBtn = document.getElementById('signup-btn');
 

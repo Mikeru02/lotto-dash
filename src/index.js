@@ -3,6 +3,7 @@ import { createServer } from "node:http";
 import { fileURLToPath } from "node:url";
 import { dirname,join } from "node:path";
 import { Server } from "socket.io";
+import { io as Client } from "socket.io-client";
 import { jwtDecode } from "jwt-decode";
 
 import drawNumbers from "./utils/drawNumbers.js";
@@ -21,8 +22,6 @@ const io = new Server(server, {
   }
 }); 
 
-//const io = new Server(server);
-
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 app.use(express.static(join(__dirname, "../dist")));
@@ -32,6 +31,8 @@ app.get("*", (req, res) => {
 });
 
 const uniCount = 60; // Change this to adjust countdown
+const ports = [3000, 3001, 3002] // Add ports for scaling
+let isConnectedToPrimary = false;
 
 let bets = {};
 let currentPlayers = [];
@@ -43,10 +44,8 @@ let countDown = uniCount;
 let pastNumber = data.response.winningNumber.split(",");
 let currentNumber = null;
 let drawId = null;
-let socketVar = null;
 
 io.on("connection", (socket) => {
-  console.log(`User connected at ${socket.id}`)
   if (pastNumber) {
     io.emit("draw", pastNumber);
     io.emit("jackpot", jackpot)
@@ -67,28 +66,12 @@ io.on("connection", (socket) => {
 
   socket.emit("currentPlayers", currentPlayers);
 
-
+  socket.on("discovery", () => {
+    if (process.env.PRIMARY_INSTANCE === 'true') {
+      socket.emit("address", `http://localhost:${process.env.PORT}`);
+    }
+  })
 })
-
-// This block is for emergency use only
-// if (process.env.PRIMARY_INSTANCE === "true") {
-//   setInterval(() => {
-//     if (countDown > 0) {
-//       countDown--;
-//       io.emit("updateTime", countDown);
-//     } else {
-//       if (!currentNumber) {
-//         currentNumber = drawNumbers();
-//         pastNumber = currentNumber;
-//         currentNumber = null;
-//       }
-//       io.emit("draw", pastNumber);
-//       const strPastNumber = pastNumber.toString();
-//       createDraw(strPastNumber, 50000)
-//       countDown = uniCount;
-//       }
-//     }, 1000);
-// }
 
 if (process.env.PRIMARY_INSTANCE === "true") {
   (async () => {
@@ -145,8 +128,57 @@ if (process.env.PRIMARY_INSTANCE === "true") {
     checkPlayers(io, bets, currentPlayers);
     
   }, 1000);
+} else {
+
+  ports.forEach((port) => {
+    if (!isConnectedToPrimary) {
+      const discoverSocket = Client(`http://localhost:${port}`);
+
+      discoverSocket.on("connect", () => {
+        discoverSocket.emit("discovery");
+      });
+
+      discoverSocket.on("address", (url) => {
+        if (!isConnectedToPrimary) {
+          isConnectedToPrimary = true;
+          console.log(`INSTANCE localhost:${process.env.PORT} is connected to ${url}`)
+          const primaryServer = Client(url);
+
+          primaryServer.on("connect", () => {
+            console.log("Connected to primary server!");
+          });
+          primaryServer.on("draw", (data) => io.emit("draw", data));
+          primaryServer.on("jackpot", (data) => io.emit("jackpot", data));
+          primaryServer.on("reset", (data) => io.emit("reset", data));
+          primaryServer.on("winners", (data) => io.emit("winners", data));
+          primaryServer.on("updateTime", (data) => {io.emit("updateTime", data)})
+        }
+      })  
+    }
+  })
 }
 
 server.listen(process.env.PORT, () => {
   console.log(`This app is running on port: ${process.env.PORT}`);
 });
+
+
+// This block is for emergency use only
+// if (process.env.PRIMARY_INSTANCE === "true") {
+//   setInterval(() => {
+//     if (countDown > 0) {
+//       countDown--;
+//       io.emit("updateTime", countDown);
+//     } else {
+//       if (!currentNumber) {
+//         currentNumber = drawNumbers();
+//         pastNumber = currentNumber;
+//         currentNumber = null;
+//       }
+//       io.emit("draw", pastNumber);
+//       const strPastNumber = pastNumber.toString();
+//       createDraw(strPastNumber, 50000)
+//       countDown = uniCount;
+//       }
+//     }, 1000);
+// }

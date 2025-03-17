@@ -5,7 +5,7 @@ import updateBalance from "../../utils/updateBalance";
 import { bet } from "../../utils/process";
 
 export default async function Events() {
-  const socket = io("http://localhost:3000");
+  const socket = io();
   let walletBalance = await getBalance();
   const balanceContainer = document.getElementById("balance");
   const drawContainer = document.getElementById("draw-container");

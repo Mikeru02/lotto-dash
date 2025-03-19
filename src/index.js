@@ -1,4 +1,5 @@
 import express from "express";
+import "dotenv/config.js";
 import { createServer } from "node:http";
 import { fileURLToPath } from "node:url";
 import { dirname,join } from "node:path";
@@ -31,7 +32,7 @@ app.get("*", (req, res) => {
 });
 
 const uniCount = 60; // Change this to adjust countdown
-const ports = [3000, 3001, 3002] // Add ports for scaling
+const ports = process.env.PORTS.split(',') // Add ports for scaling
 let isConnectedToPrimary = false;
 
 let bets = {};
@@ -129,7 +130,6 @@ if (process.env.PRIMARY_INSTANCE === "true") {
     
   }, 1000);
 } else {
-
   ports.forEach((port) => {
     if (!isConnectedToPrimary) {
       const discoverSocket = Client(`http://localhost:${port}`);

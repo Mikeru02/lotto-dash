@@ -7,7 +7,7 @@ export async function createDraw(prizeMoney) {
       prizeMoney: prizeMoney
     }, {
       headers: {
-        "apikey": "lotto_dash",
+        "apikey": process.env.API_KEY,
         "Content-type": "application/json" 
       }
     });
@@ -25,7 +25,7 @@ export async function updateDraw(drawId, winningNumber, prizeMoney) {
       prizeMoney: prizeMoney
     }, {
       headers: {
-        "apikey": "lotto_dash",
+        "apikey": process.env.API_KEY,
         "Content-type": "application/json" 
       }
     })

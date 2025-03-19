@@ -6,7 +6,7 @@ export default async function payout(winners) {
             username: winners[key]
         }, {
             headers: {
-                "apikey": "lotto_dash",
+                "apikey": process.env.API_KEY,
                 "Content-type": "application/json"
             }
         })

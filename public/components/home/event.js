@@ -1,12 +1,39 @@
 // If need mo ng styles here kindly uncomment this 
-// import styles from "./component.module.css";
+import styles from "./component.module.css";
+import getBalance from "../../utils/getBalance";
+import updateBalance from "../../utils/updateBalance";
+import { bet } from "../../utils/process";
 
-export default function Events() {
+export default async function Events() {
+  const socket = io();
+  let walletBalance = await getBalance();
+  const balanceContainer = document.getElementById("balance");
+  const drawContainer = document.getElementById("draw-container");
+  const profileBtn = document.getElementById("profile-btn");
+  const drawChildren = drawContainer.children;
   const cancelBtn = document.getElementById("cancel");
   const saveBtn = document.getElementById("save");
   const resetSelectionBtn = document.getElementById("reset-selection");
   const submitSelectionBtn = document.getElementById("submit-selection");
+  const playerContainer = document.getElementById("players-container");
+  const numberBtn = document.getElementById("number-btn");
+  const winnersContainer = document.getElementById("winners")
+  let bets = [];
 
+  balanceContainer.innerHTML = walletBalance;
+  generateBtn(numberBtn);
+
+  document.querySelectorAll(".numbers-btn").forEach((div) => {
+    div.addEventListener("click", () => {
+      const input = document.getElementById("lottoNumber");
+      input.value = div.getAttribute("data-val");
+    }) 
+  })
+
+  profileBtn.addEventListener("click", function() {
+    window.app.pushRoute("/profile");
+  });
+  
   cancelBtn.addEventListener("click", function() {
     closeModal();
   });
@@ -19,11 +46,38 @@ export default function Events() {
     resetSelection();
   });
 
-  submitSelectionBtn.addEventListener("click", function() {
-    // TODO Add function to submit numbers here!
+  submitSelectionBtn.addEventListener("click", async function() {
+    const balance = await getBalance();
+    const numberSelection = document.querySelectorAll(".number-selection div");
+    const selectedNumbers = [];
+    numberSelection.forEach(div => {
+      if (div.textContent.trim() !== "") {
+          selectedNumbers.push(div.textContent.trim());
+      }
+    });
+    if (selectedNumbers.length < 6) {
+      window.alert("Please complete your 6-number combination before submitting!");
+      return;
+    }
+    else if (balance < 20) {
+      window.alert("Please cash in first before betting!")
+    } else {
+      document.querySelectorAll(".input-num").forEach((div) => {
+        bets.push(div.innerHTML);
+      });
+
+      socket.emit("bet", bets);
+      submitSelectionBtn.setAttribute("disabled", "true");
+      resetSelectionBtn.setAttribute("disabled", "true");
+      const updatedBalance = parseInt(balance) - 20;
+      await updateBalance(updatedBalance)
+      let updatedbalance = await getBalance();
+      balanceContainer.innerHTML = updatedbalance;
+      await bet(bets.toString());
+    }
   })
 
-  document.querySelectorAll("#input-num").forEach((div) => {
+  document.querySelectorAll(".input-num").forEach((div) => {
     div.addEventListener("click", function() {
       const index = this.getAttribute("data-index");
       openModal(index);
@@ -33,9 +87,75 @@ export default function Events() {
   document.getElementById("close-btn").addEventListener('click', function() {
     closeModal();
   })
+
+  // Socket Part
+
+  socket.emit("setUsername", localStorage.getItem("token"));
+
+  socket.on("updateTime", (time) => {
+    document.getElementById("countdown").textContent = time;
+  })
+
+  socket.on("draw", (numbers) => {
+    for (let i = 0; i < 6; i++) {
+      drawChildren[i].textContent = numbers[i];
+    }
+  })
+  socket.on("jackpot", (jackpot) => {
+    document.getElementById("jackpot").textContent = `\u20B1 ${jackpot}.00`;
+  })
+
+  socket.on("reset", async (arg) => {
+    resetSelection();
+    playerContainer.innerHTML = "";
+    bets = [];
+    let updatedbalance = await getBalance();
+    balanceContainer.innerHTML = updatedbalance;
+    resetSelectionBtn.removeAttribute("disabled");
+    submitSelectionBtn.removeAttribute("disabled");
+  });
+  
+  socket.on("addPlayer", (player) => {
+    const div = document.createElement("div");
+    div.innerHTML = player;
+    playerContainer.appendChild(div)
+  });
+
+  socket.on("currentPlayers", (players) => {
+    const div = document.createElement("div");
+    
+    for (const player in players) {
+      div.innerHTML = players[player];
+      playerContainer.appendChild(div);
+    }
+  });
+
+  socket.on("winners", (winners) => {
+    winnersContainer.innerHTML = "";
+    if (winners < 0) {
+      const div = document.createElement("div");
+      div.innerHTML = 'No Winners';
+      winnersContainer.appendChild(div);
+    }
+    for (const key in winners) {
+      const div = document.createElement("div");
+      div.innerHTML = winners[key];
+      winnersContainer.appendChild(div);
+    }
+  })
 }
 
 let selectedSlot = null;
+
+function generateBtn(numberBtn) {
+  for (let i = 0; i < 45; i++) {
+    const numberDiv = document.createElement("button");
+    numberDiv.innerHTML = i + 1;
+    numberDiv.classList.add("numbers-btn", `${styles['numbers-btn']}`);
+    numberDiv.setAttribute("data-val", i+1);
+    numberBtn.appendChild(numberDiv)
+  }
+}
 
 function openModal(index) {
     selectedSlot = index;
@@ -60,8 +180,8 @@ function saveNumber() {
         }
 
         numberSelection[selectedSlot].textContent = input;
-        numberSelection[selectedSlot].classList.remove("empty");
-        numberSelection[selectedSlot].classList.add("selected");
+        numberSelection[selectedSlot].classList.remove(`${styles['empty']}`);
+        numberSelection[selectedSlot].classList.add(`${styles['selected']}`);
         closeModal(); 
     } else {
         alert("Please enter a number between 1 and 45.");
@@ -73,8 +193,8 @@ function resetSelection() {
 
     numberSelection.forEach(function (div) {
         div.textContent = ""; 
-        div.classList.remove("selected"); 
-        div.classList.add("empty"); 
+        div.classList.remove(`${styles['selected']}`); 
+        div.classList.add(`${styles['empty']}`); 
     });
 
     document.getElementById("lottoNumber").value = ""; 

@@ -180,6 +180,79 @@ class AccountController {
         success: true,
         data
       })
+      res.end();
+    } catch(err) {
+      res.json({
+        success: false,
+        message: err.toString(),
+      });
+      res.end();
+    }
+  }
+
+  async bet(req, res) {
+    try {
+      const { betNumbers } = req.body || {};
+      const data = await this.user.bet(res.locals.username, betNumbers);
+      res.json({
+        success: true,
+        data
+      })
+      res.end();
+    } catch(err) {
+      res.json({
+        success: false,
+        message: err.toString(),
+      });
+      res.end();
+    }
+  }
+
+  async getBet(req, res) {
+    try {
+      const data = await this.user.getBet(res.locals.username);
+      res.json({
+        success: true,
+        data
+      })
+      res.end();
+    } catch(err) {
+      res.json({
+        success: false,
+        message: err.toString(),
+      });
+      res.end();
+    }
+  }
+
+  // Get wallet balance 
+  async getWalletBalance(req, res) {
+    try {
+      const data = await this.user.getWalletBalance(res.locals.username);
+      res.json({
+        success: true,
+        data
+      })
+      res.end();
+    } catch(err) {
+      res.json({
+        success: false,
+        message: err.toString(),
+      });
+      res.end();
+    }
+  }
+
+  // Update wallet balance
+  async updateWalletBalance(req, res) {
+    try {
+      const { amount } = req.body || {};
+      const data = await this.user.updateWalletBalance(res.locals.username, amount);
+      res.json({
+        success: true,
+        data
+      })
+      res.end();
     } catch(err) {
       res.json({
         success: false,

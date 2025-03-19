@@ -6,13 +6,9 @@
   box-sizing: border-box;
 }
 
-html {
-  font-size: 16px;
-  font-family: "Lalezar";
-}
-
 body {
   height: 100%;
+  font-size: 10px;
   margin: 0;
   padding:0;
   background: url('https://res.cloudinary.com/dakq2u8n0/image/upload/v1740929924/Screenshot_2025-03-02_233215_oc6hc2.png') no-repeat center center fixed;
@@ -22,6 +18,7 @@ body {
   overflow-x: hidden; 
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .container {
@@ -149,6 +146,12 @@ body {
 }
 
 
+@media (max-width: 425px) {
+  .container{
+    max-width: 50%;
+    min-height: 20rem;
+  }
+}
 /*
 
 html, body {

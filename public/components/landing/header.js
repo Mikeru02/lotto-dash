@@ -13,7 +13,7 @@ export default function Header(root) {
         </div>
     </div>
 
-    <div class="${styles['last-winning-draw']}">
+    <div class="${styles['last-winning-draw']}" id="draw-container">
         <div class="${styles['number-box']}">09</div>
         <div class="${styles['number-box']}">22</div>
         <div class="${styles['number-box']}">03</div>
@@ -21,9 +21,10 @@ export default function Header(root) {
         <div class="${styles['number-box']}">02</div>
         <div class="${styles['number-box']}">04</div>
     </div>
-    <p class="${styles['next-draw']}">Next Draw: <span id="countdown"></span></p>
+    <p class="${styles['jackpot-container']}"> Jackpot: <span class="${styles['jackpot']}" id="jackpot"></span></p>
+    <p class="${styles['next-draw']}">Next Draw: <span class="${styles['countdown']}" id="countdown"></span></p>
   `;
   
   // If need mo ng css sa mismong header, uncomment mo yung next line 
-  root.className = styles['header'];
+  // root.className = styles['header'];
 }

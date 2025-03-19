@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dakq2u8n0/image/upload/v1740928683/DALL_E_2025-03-02_01.09.35_-_A_high-energy_and_modern_logo_for_Lotto_Dash_an_online_lottery_platform._The_design_should_feature_sleek_futuristic_typography_with_a_motion_effec_zqtv9e.png">
+    <link href="https://fonts.googleapis.com/css2?family=Lalezar&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/main.css">
+
+</head>
+<body>
+
+    <!-- Header Section -->
+    <div class="header">
+        <img src="https://res.cloudinary.com/dakq2u8n0/image/upload/v1740931230/image-removebg-preview_8_vjfdkm.png" alt="Logo" class="logo"> 
+        <div class="profile-container">
+            <a href="profile.html">
+                <img src="https://res.cloudinary.com/dakq2u8n0/image/upload/v1740663929/ppp_tdpbik.jpg" alt="Profile" class="profile"> 
+            </a>
+        </div>
+    </div>
+
+    <div class="last-winning-draw">
+        <div class="number-box">09</div>
+        <div class="number-box">22</div>
+        <div class="number-box">03</div>
+        <div class="number-box">07</div>
+        <div class="number-box">02</div>
+        <div class="number-box">04</div>
+    </div>
+    <p class="next-draw">Next Draw: <span id="countdown"></span></p>
+
+    <!-- Main Section -->
+    <div class="main-content">
+        <div class="contents">
+            <h3>Numbers</h3>
+            <div class="number-selection">
+                <div class="empty" onclick="openModal(0)"></div>
+                <div class="empty" onclick="openModal(1)"></div>
+                <div class="empty" onclick="openModal(2)"></div>
+                <div class="empty" onclick="openModal(3)"></div>
+                <div class="empty" onclick="openModal(4)"></div>
+                <div class="empty" onclick="openModal(5)"></div>
+            </div>
+            
+            <div class="buttons">
+                <button class="reset-btn" onclick="resetSelection()"></button>
+                <button class="submit-btn" onclick="submitSelection()"></button>
+            </div>
+            
+            <h3>Players</h3>
+            <div class="players-winners-container">
+                <div class="players">
+                    <div class="player">
+                        <div class="player-name">Hatdog Cheesedog</div>
+                    </div>
+                    <div class="player">
+                        <div class="player-name">Jillian Cutie</div>
+                    </div>
+                    <div class="player">
+                        <div class="player-name">Mwehehehe</div>
+                    </div>
+                </div>
+
+                <div class="winners">
+                    <img src="https://res.cloudinary.com/dakq2u8n0/image/upload/v1740659836/Screenshot_2025-02-27_203626-removebg-preview_mose29.png" alt="Winning Ticket" class="winner-icon">
+                    <h4>Last Draw Winners</h4>
+                    <hr>
+                    <p>Mwehehehe</p>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        <div class="footer">
+            <img src="https://res.cloudinary.com/dakq2u8n0/image/upload/v1741104321/Screenshot_2025-03-05_000458_usyza2.png" alt="barcode" class="barcode"> 
+            <p>Ellorando, Rodien Jillian | Ponce, Michael Alexis</p>
+            <p>For educational purposes only | BSCS 3</p>
+            <p>All Rights Reserved 2025</p>
+        </div>
+        <!-- Modal -->
+        <div id="numberModal" class="modal" style="display:none;">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <img src="https://res.cloudinary.com/dakq2u8n0/image/upload/v1741191966/lucky_zqryhr.png" alt="win" class="win-logo"> 
+                <h3>Select a Number</h3>
+                <input type="number" id="lottoNumber" min="1" max="45" placeholder="Enter number (1-45)">
+                <button class="cancel-btn" onclick="closeModal()">CANCEL</button>
+                <button class="save-btn" onclick="saveNumber()">SAVE</button>           
+            </div>
+    </div>
+
+    <script src="js/home.js"></script>
+</body>
+</html>

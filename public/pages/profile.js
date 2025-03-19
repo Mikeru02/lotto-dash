@@ -14,5 +14,5 @@ export default function Profile() {
   Footer(footer);
 
   // If may events ka sa profile page kindly uncomment the next line 
-  // Events();
+  Events();
 }

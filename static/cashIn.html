@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lalezar&display=swap" rel="stylesheet">
+
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dakq2u8n0/image/upload/v1740928683/DALL_E_2025-03-02_01.09.35_-_A_high-energy_and_modern_logo_for_Lotto_Dash_an_online_lottery_platform._The_design_should_feature_sleek_futuristic_typography_with_a_motion_effec_zqtv9e.png">
+    <link rel="stylesheet" href="css/cashIn.css">
+</head>
+<body>
+
+    <!-- Background Image -->
+    <div class="background"></div>
+
+    <!-- Main Container (Holds Left, Center, Right Sections) -->
+    <div class="main-container">
+
+        <!-- Left Section (20%) -->
+        <div class="left-section">
+            <img src="https://res.cloudinary.com/dakq2u8n0/image/upload/v1740931230/image-removebg-preview_8_vjfdkm.png" alt="Logo" class="logo">
+        </div>
+
+        <!-- Center Content Section (60%) -->
+        <div class="center-section">
+            <main class="content">
+                <div class="cash-in-header">
+                    <button class="back-button">&#8592;</button>
+                    <div class="cash-in-box">Cash In</div>
+                </div>
+                <div class="cash-in-container">
+                    <p class="cash-in-label">Cash In Amount</p>
+                    <div class="amount-options">
+                        <div class="amount-row">
+                            <button class="amount-box">20</button>
+                            <button class="amount-box">50</button>
+                            <button class="amount-box">80</button>
+                        </div>
+                        <div class="amount-row">
+                            <button class="amount-box">100</button>
+                            <button class="amount-box">200</button>
+                            <button class="amount-box">500</button>
+                        </div>
+                    </div>
+
+                    <div class="separator">
+                        <hr>
+                        <span>OR</span>
+                        <hr>
+                    </div>
+
+                    <div class="custom-amount">
+                        <input type="number" class="amount-input" placeholder="Enter Amount" min="1">
+                    </div>
+
+                    <div class="submit-container">
+                        <button class="submit-btn" onclick="openModal()">SUBMIT</button>
+                    </div>
+                    
+                </div>
+            </main>
+        </div>        
+                
+        <!-- Modal Structure -->
+        <div id="cashInModal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeModal()">x</span>
+                <h2>Cash In</h2>
+                <p><span id="cashAmount">0</span></p>
+                <button class="submit-btn modal-submit" onclick="submitCashIn()">CONFIRM</button>
+            </div>
+        </div>
+               
+
+        <!-- Right Empty Section (20%) -->
+        <div class="right-section"></div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <img src="https://res.cloudinary.com/dakq2u8n0/image/upload/v1741104321/Screenshot_2025-03-05_000458_usyza2.png" alt="barcode" class="barcode"> 
+        <p>Ellorando, Rodien Jillian | Ponce, Michael Alexis</p>
+        <p>For educational purposes only | BSCS 3</p>
+        <p>All Rights Reserved 2025</p>
+    </div>
+
+    <script src="js/cashIn.js"></script>
+        
+
+</body>
+</html>

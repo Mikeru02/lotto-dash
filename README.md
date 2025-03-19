@@ -26,8 +26,8 @@ No current update!
 2. Create `.env` file
    ``` env
    PORT=4000                      # Port of the API
-   API_KEY=apikey                 # API Key
-   API_SECRET_KEY=apisecretkey    # API Secret Key
+   API_KEY=lotto_dash             # API Key
+   API_SECRET_KEY=lotto_dash      # API Secret Key
    PORTS=3000,3001,3002           # Ports of each instance of the application add more if neccessary
 
    DB_HOST=127.0.0.1              # Add ip address of the host database if local then use this

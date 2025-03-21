@@ -41,15 +41,17 @@ export default function Main(root) {
         <!-- Modal -->
         <div id="numberModal" class="${styles['modal']}">
             <div class="${styles['modal-content']}">
-                <span class="${styles['close']}" id="close-btn">&times;</span>
-                <img src="https://res.cloudinary.com/dakq2u8n0/image/upload/v1741191966/lucky_zqryhr.png" alt="win" class="${styles['win-logo']}"> 
-                <h3>Select a Number</h3>
-                <input type="number" id="lottoNumber" min="1" max="45" placeholder="Enter number (1-45)" disabled>
-                <div id="number-btn" class="${styles['number-btn']}"></div>
-                <div class="${styles['btns']}">
-                    <button class="${styles['cancel-btn']}" id="cancel">CANCEL</button>
-                    <button class="${styles['save-btn']}" id="save">SAVE</button>
-                </div>           
+                <div class="${styles['modal-inner']}">
+                    <span class="${styles['close']}" id="close-btn">&times;</span>
+                    <img src="https://res.cloudinary.com/dakq2u8n0/image/upload/v1741191966/lucky_zqryhr.png" alt="win" class="${styles['win-logo']}"> 
+                    <h3>Select a Number</h3>
+                    <input type="number" id="lottoNumber" min="1" max="45" placeholder="Enter number (1-45)" disabled>
+                    <div id="number-btn" class="${styles['number-btn']}"></div>
+                    <div class="${styles['btns']}">
+                        <button class="${styles['cancel-btn']}" id="cancel">CANCEL</button>
+                        <button class="${styles['save-btn']}" id="save">SAVE</button>
+                    </div>  
+                </div>         
             </div>
     </div>
   `;

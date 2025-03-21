@@ -8,6 +8,7 @@
 .logo {
   height: 50px;
   margin-right: 10px;
+  margin-left: 10px;
 }
 
 .inner-header {
@@ -292,43 +293,64 @@
 /* Modal Content */
 .modal-content {
   background-color: #fff;
-  padding: 30px; 
-  border-radius: 20px; 
+  padding: 30px;
+  border-radius: 20px;
   width: 100%;
-  max-width: 500px; 
+  max-width: 500px;
   height: auto;
-  max-height: 90%; 
-  overflow: auto;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  max-height: 90%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
   position: relative;
-  z-index: 1; 
-  min-height: 200px; 
+  z-index: 1;
+  min-height: 200px;
+  overflow: hidden; 
 }
 
 .modal-content::before {
   content: '';
   position: absolute;
-  top: 0; 
-  left: 0; 
-  right: 0; 
+  top: 0;
+  left: 0;
+  right: 0;
   bottom: 0;
-  z-index: -2; 
-  border-radius: 20px; 
-  padding: 5px; 
-  background: linear-gradient(to right, red, blue); 
+  z-index: -2;
+  border-radius: 20px;
+  padding: 5px;
+  background: linear-gradient(to right, red, blue);
+  box-sizing: border-box; 
 }
 
 .modal-content::after {
   content: '';
   position: absolute;
-  top: 5px; 
-  left: 5px; 
-  right: 5px; 
-  bottom: 5px; 
-  background: white; 
-  border-radius: 15px; 
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  background: white;
+  border-radius: 15px;
   z-index: -1; 
+  box-sizing: border-box;
+}
+
+.modal-inner {
+  position: relative;
+  z-index: 1;
+  overflow-y: auto;
+  max-height: 80vh;
+  border-radius: 15px; 
+  background-color: white;
+  box-sizing: border-box;
+}
+
+.modal-inner::-webkit-scrollbar {
+  display: none; 
+}
+
+.modal-inner {
+  -ms-overflow-style: none; 
+  scrollbar-width: none;   
 }
 
 body.modal-open {
@@ -345,6 +367,11 @@ body.modal-open {
   float: right;
   font-size: 28px;
   font-weight: bold;
+  position: sticky;
+  top: 10px; 
+  right: 10px; 
+  z-index: 2; 
+  cursor: pointer;
 }
 
 .close:hover,
@@ -428,14 +455,15 @@ input[type="number"] {
 }
 
 .numbers-btn {
-  width: 2rem;
-  height: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
   font-family: "Lalezar";
   margin: .5rem .5rem;
   background-color: #82181F;
   color: white;
   border-radius: .5rem;
   border: none;
+  font-size:15px;
 }
 
 .wallet-balance {
@@ -448,7 +476,7 @@ h2{
 h3{
   font-size: 1.5rem;
 }
-
+/* ------------------------------------------------------------------ */
 @media (max-width: 768px) {
   .wallet-balance {
     font-size: 1rem;
@@ -480,7 +508,7 @@ h3{
     font-size: 2rem;
   }
 }
-
+/* ------------------------------------------------------------------ */
 @media (max-width: 425px) {
   .inner-header{
     margin-bottom: 1rem;
@@ -513,20 +541,116 @@ h3{
   }
   .number-box {
     font-size: 1rem;
-    padding: 1rem 1rem;
+    padding: 0.8rem 1rem;
+    margin: 0 5px;
   }
-
   .next-draw {
     font-size: 0.9rem;
   }
-
   .empty, .selected {
     height: 3rem;
     width: 3rem;
     font-size: 1rem;
     padding: 0;
   }
+  input{
+    height: 30px;
+    width: 120px;
+    padding: 2px 15px;
+  }
+  .header-overlay{
+    font-size:20px;
+  }
+  .auth-p {
+    font-size: 12px;
+    padding:0 5px;
+  }
+  .ghost1 {
+    font-size: 12px;
+    padding: 10px 20px;
+  }
+  .ghost {
+    font-size: 12px;
+    padding: 10px 20px;
+  }
+  .close-btn {
+    font-size: 20px;
+    border-radius: 15px;
+    width:30px;
+    height:30px;
+    padding:0;
+  }
+  .footer {
+    font-size: 10px;
+    padding: 5px;
+  }  
+  .footer p {
+    font-size: 12px;
+  }  
+  .barcode {
+    height: 25px;
+  }
+  .win-logo{
+    height: 100px;
+  }
+  .numbers-btn {
+    font-size: 20px;
+  }
+}
 
+/* ------------------------------------------------------------------ */
+@media (max-width: 375px) {
+  .logo{
+    height: 2.5rem;
+  }
+  .number-box {
+    font-size: 1rem;
+    padding: 0.5rem 0.6rem;
+  }
+  .empty, .selected {
+    height: 2.5rem;
+    width: 2.5rem;
+  }
+  .winners {
+    padding: 20px;
+    border-radius: 20px;
+    text-align: center;
+    width: 200px;
+  }
+  .winners::before, .winners::after {
+    border-radius: 10px; 
+  }  
+  .winner-icon {
+    width: 50px; 
+    top: -30px; 
 
-
+  }
+  .winners h4 {
+    font-size: 1rem;
+  }
+  .winners hr {
+    margin: 8px auto;
+  }
+  .winners p {
+    font-size: 1.1rem;
+  }
+}
+/* ------------------------------------------------------------------ */
+@media (max-width: 320px) {
+  p {
+    font-size: 11px;
+  }
+  .empty, .selected {
+    height: 2rem;
+    width: 2rem;
+  }
+  h3{
+    font-size: 14px;
+  }
+  .numbers-btn {
+    font-size: 16px;
+  }
+  .profile {
+    height: 30px;
+  }
 }

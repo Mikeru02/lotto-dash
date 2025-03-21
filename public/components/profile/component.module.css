@@ -300,6 +300,10 @@
   border-radius: 5px;
 }
 
+label, p{
+  font-size: 16px;
+}
+
 .save-btn, .cancel-btn {
   background-color: #E7E7E7;
   color: #ffff;
@@ -460,8 +464,20 @@
 .img-btn{
   height: 1.5rem;
   width: 1.5rem;
+  margin: 0 .5rem;
 }
 
+/* ------------------------------------------------------------------ */
+@media (max-width: 768px) {
+  .avatar {
+    width: 120px;
+    height: 120px;
+    margin-top: 80px;
+  }
+  
+}
+
+/* ------------------------------------------------------------------ */
 @media (max-width: 425px) {
   .left-section{
     display: none;
@@ -477,5 +493,33 @@
   }
   .center-section{
     width: 100%;
+  }
+  .avatar {
+    width: 150px;
+    height: 150px;
+    margin-top: 70px;
+  }
+  h2{
+    font-size: 25px;;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+@media (max-width: 375px) {
+  .avatar {
+    width: 120px;
+    height: 120px;
+    margin-top: 80px;
+
+  }
+}
+
+/* ------------------------------------------------------------------ */
+@media (max-width: 320px) {
+  .avatar {
+    width: 100px;
+    height: 100px;
+    margin-top: 90px;
+
   }
 }

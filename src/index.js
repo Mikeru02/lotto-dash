@@ -16,12 +16,7 @@ import payout from "./utils/winnerPayout.js";
 
 const app = express();
 const server = createServer(app);
-const io = new Server(server, {
-  cors: {
-    origin: ["http://localhost:3000", "http://localhost:3001", "http://localhost:3002"],
-    methods: ["GET", "POST"]
-  }
-}); 
+const io = new Server(server); 
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -151,7 +146,7 @@ if (process.env.PRIMARY_INSTANCE === "true") {
           primaryServer.on("jackpot", (data) => io.emit("jackpot", data));
           primaryServer.on("reset", (data) => io.emit("reset", data));
           primaryServer.on("winners", (data) => io.emit("winners", data));
-          primaryServer.on("updateTime", (data) => {io.emit("updateTime", data)})
+          primaryServer.on("updateTime", (data) => io.emit("updateTime", data));
         }
       })  
     }

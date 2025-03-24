@@ -42,7 +42,7 @@ const data = lastData.data;
 let jackpot = Number(data.response.prizeMoney);
 const jackpotIncrement = 10
 let countDown = uniCount;
-let pastNumber = data.response?.winningNumber ? data.response.winningNumber.split(",") : [];
+let pastNumber = data.response.winningNumber.split(",");
 let currentNumber = null;
 let drawId = null;
 

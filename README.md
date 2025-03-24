@@ -5,7 +5,8 @@ It uses application programming interface (API) for CRUD operations. It also use
 structure.
 
 ## :zap: Update
-No current update!
+* Added docker compatibility!
+* Added load balancer!
 
 ## :bulb: Contributors
 * Michael Alexis Ponce - [@Mikeru02](https://github.com/Mikeru02)
@@ -16,6 +17,7 @@ No current update!
 * NPM - `10.7.0`
 * Browser - `Chromium 134`
 * WSL2
+* Docker Desktop
 
 ## :rocket: Usage
 ### Local Development
@@ -23,42 +25,73 @@ No current update!
    ``` bash
    npm install
    ```
-2. Create `.env` file
+2. Create `.env` in the root directory
    ``` env
-   PORT=4000                      # Port of the API
-   API_KEY=lotto_dash             # API Key
-   API_SECRET_KEY=lotto_dash      # API Secret Key
-   PORTS=3000,3001,3002           # Ports of each instance of the application add more if neccessary
+   # API related variables
+   API_PORT=4000
+   API_HOST=localhost
+   API_KEY=lotto_dash
+   API_SECRET_KEY=lotto_dash
 
-   DB_HOST=127.0.0.1              # Add ip address of the host database if local then use this
-   DB_USER=root                   # If you have a custom user, add the username here
-   DB_PASS=root                   # Add the password of the usr
-   DB_NAME=lotto_dash             # Add the database name here
-   DB_PORT=3306                   # Add port of the database
+   # Database related variables
+   DB_HOST=localhost
+   DB_USER=root
+   DB_PASS=root
+   DB_NAME=lotto_dash
+   DB_PORT=3306
+
+   # Socket related variables
+   SERVER_NAME=localhost
+   PORTS=localhost:3001,localhost:3002,localhost:3003
    ```
-3. Import database schema `schema.sql` to the mysql
+3. Create `.env` inside the public folder
+   ``` env
+   # Make sure your input here is same as the API variable
+   VITE_API_PORT=4000
+   VITE_API_HOST=localhost
+   VITE_API_KEY=lotto_dash
+   ```
+4. Import database schema `schema.sql` to the mysql
    ``` bash
    mysql -u {db_user} -p lotto_dash < schema.sql
    ```
-4. Run first the API to the other terminal instance
+5. Run first the API to the other terminal instance
    ``` bash
    npm run api
    ```
-5. Run the application instance
+6. Run the application instance
    ``` bash
    npm run start
    ```
-6. Access each instance
+7. Access each instance
    ``` bash
-   localhost:3000
-   localhosst:3001
+   localhost:3001
    localhost:3002
+   localhost:3003
+   ```
+### :whale: Docker Set Up
+1. Change environment variables in `docker-compose.yml` if you want to customize the current configuration
+2. Run this to build the image of the application and containerize it
+   ``` bash
+   docker-compose up --build
+   ```
+3. Access the application in browser
+   ``` bash
+   localhost
+   ```
+   To check individual instance of socketserver container
+   ``` bash
+   localhost:3001
+   localhost:3002
+   localhost:3003
    ```
 
 ### Note
 * Clone/download the reository first before starting any development
 * Remember to open the repository after cloning/downloading
 * Make sure the pre-requisites are met
+* Before developing in local, kindly add `../` this on the `src/index.js` on line `25` and `28` in the `"dist"` it should be `"../dist"` and `"../dist/index.html"`
+* Before containerizing remove the added `../` on the `src/index.js`
 * Preferably use mysql.service on wsl2, here are some [instructions](https://documentation.ubuntu.com/server/how-to/databases/install-mysql/index.html) on installing the mysql on the wsl. If you feel troubled, ask some AI models `how to install mysql on ubuntu`
 * If further issues arises kindly open a ticket then the contributors will work on it!
 

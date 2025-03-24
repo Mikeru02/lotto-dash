@@ -1,0 +1,101 @@
+services:
+  api:
+    build: 
+      context: .
+      dockerfile: api/Dockerfile
+    expose:
+      - 4000
+    environment:
+      - API_PORT=4000
+      - API_KEY=lotto_dash
+      - API_SECRET_KEY=lotto_dash
+      - DB_HOST=172.28.30.139
+      - DB_USER=lotto_api
+      - DB_PASS=lotto_api
+      - DB_NAME=lotto_dash
+      - DB_PORT=3306
+    ports:
+      - 4000:4000
+    networks:
+      - server-network
+  socketserver1:
+    build:
+      context: .
+      dockerfile: src/Dockerfile
+    expose:
+      - 3001
+    environment:
+      - API_PORT=4000
+      - API_HOST=api
+      - API_KEY=lotto_dash
+      - PORT=3001
+      - SERVER_NAME=socketserver1
+      - PORTS=socketserver1:3001,socketserver2:3002,socketserver3:3003
+      - PRIMARY_INSTANCE=true
+      - VITE_API_KEY=lotto_dash
+      - VITE_API_HOST=api
+      - VITE_API_PORT=4000
+    ports:
+      - 3001:3001
+    depends_on:
+      - api
+    networks:
+      - server-network
+  socketserver2:
+    build:
+      context: .
+      dockerfile: src/Dockerfile
+    expose:
+      - 3002
+    environment:
+      - API_PORT=4000
+      - API_HOST=api
+      - API_KEY=lotto_dash
+      - PORT=3002
+      - SERVER_NAME=socketserver2
+      - PORTS=socketserver1:3001,socketserver2:3002,socketserver3:3003
+      - VITE_API_KEY=lotto_dash
+      - VITE_API_HOST=api
+      - VITE_API_PORT=4000
+    ports:
+      - 3002:3002
+    depends_on:
+      - api
+    networks:
+      - server-network
+  socketserver3:
+    build:
+      context: .
+      dockerfile: src/Dockerfile
+    expose:
+      - 3003
+    environment:
+      - API_PORT=4000
+      - API_HOST=api
+      - API_KEY=lotto_dash
+      - PORT=3003
+      - SERVER_NAME=socketserver3
+      - PORTS=socketserver1:3001,socketserver2:3002,socketserver3:3003
+      - VITE_API_KEY=lotto_dash
+      - VITE_API_HOST=api
+      - VITE_API_PORT=4000
+    ports:
+      - 3003:3003
+    depends_on:
+      - api
+    networks:
+      - server-network
+  loadbalancer:
+    build: ./haproxy
+    ports:
+      - 80:80
+    depends_on:
+      - socketserver1
+      - socketserver2
+      - socketserver3
+    networks:
+      - server-network
+
+networks:
+  server-network:
+    driver: bridge

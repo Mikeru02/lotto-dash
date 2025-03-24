@@ -2,7 +2,7 @@ import axios from "axios";
 
 export async function getProfile() {
     try {
-    const response = await axios.get("http://localhost:4000/v1/account", {
+    const response = await axios.get(`http://${import.meta.env.VITE_API_HOST}:${import.meta.env.VITE_API_PORT}/v1/account`, {
         headers: {
             "apikey": "lotto_dash",
             "Content-type": "application/json",
@@ -18,7 +18,7 @@ export async function getProfile() {
 
 export async function bet(betNumbers) {
     try {
-        const response = await axios.post("http://localhost:4000/v1/account/bet", {
+        const response = await axios.post(`http://${import.meta.env.VITE_API_HOST}:${import.meta.env.VITE_API_PORT}/v1/account/bet`, {
             betNumbers: betNumbers
         }, {
             headers: {
@@ -35,7 +35,7 @@ export async function bet(betNumbers) {
 
 export async function getBet() {
     try {
-        const response = await axios.get("http://localhost:4000/v1/account/bet", {
+        const response = await axios.get(`http://${import.meta.env.VITE_API_HOST}:${import.meta.env.VITE_API_PORT}/v1/account/bet`, {
             headers: {
                 "apikey": "lotto_dash",
                 "token": localStorage.getItem("token"),
@@ -51,7 +51,7 @@ export async function getBet() {
 
 export async function getDraw(drawId) {
     try {
-        const response = await axios.get(`http://localhost:4000/v1/draw?drawId=${drawId}`, {
+        const response = await axios.get(`http://${import.meta.env.VITE_API_HOST}:${import.meta.env.VITE_API_PORT}/v1/draw?drawId=${drawId}`, {
             headers: {
                 "apikey": "lotto_dash",
                 "token": localStorage.getItem("token"),

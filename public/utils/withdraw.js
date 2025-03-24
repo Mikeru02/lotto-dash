@@ -2,7 +2,7 @@ import axios from "axios";
 
 export default async function withdraw(amount) {
     try {
-        const response = await axios.post("http://localhost:4000/v1/account/withdraw", {
+        const response = await axios.post(`http://${import.meta.env.VITE_API_HOST}:${import.meta.env.VITE_API_PORT}/v1/account/withdraw`, {
             amount: amount
         }, {
             headers: {

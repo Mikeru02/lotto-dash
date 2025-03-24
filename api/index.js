@@ -8,7 +8,7 @@ import morgan from "morgan";
 import v1 from "./routes/v1/index.js";
 
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.API_PORT || 4000;
 
 app.use(morgan("combined"));
 app.use(cookieParser());

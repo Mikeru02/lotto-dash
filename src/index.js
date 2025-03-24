@@ -16,18 +16,25 @@ import payout from "./utils/winnerPayout.js";
 
 const app = express();
 const server = createServer(app);
-const io = new Server(server); 
+const io = new Server(server, {
+  transports: ["websocket", "polling"]
+}); 
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-app.use(express.static(join(__dirname, "../dist")));
+app.use(express.static(join(__dirname, "dist")));
 
 app.get("*", (req, res) => {
-  res.sendFile(join(__dirname, "../dist/index.html"));
+  res.sendFile(join(__dirname, "dist/index.html"));
 });
 
+const portsLists = process.env.PORTS.split(",").map((url) => {
+  const [host, port] = url.split(":");
+  return { host, port };
+})
+
 const uniCount = 60; // Change this to adjust countdown
-const ports = process.env.PORTS.split(',') // Add ports for scaling
+// const ports = process.env.PORTS.split(',') // Add ports for scaling
 let isConnectedToPrimary = false;
 
 let bets = {};
@@ -64,7 +71,8 @@ io.on("connection", (socket) => {
 
   socket.on("discovery", () => {
     if (process.env.PRIMARY_INSTANCE === 'true') {
-      socket.emit("address", `http://localhost:${process.env.PORT}`);
+      console.log(`http://${process.env.SERVER_NAME}:${process.env.PORT}`)
+      socket.emit("address", `http://${process.env.SERVER_NAME}:${process.env.PORT}`);
     }
   })
 })
@@ -125,9 +133,11 @@ if (process.env.PRIMARY_INSTANCE === "true") {
     
   }, 1000);
 } else {
-  ports.forEach((port) => {
+  portsLists.forEach(({ host, port }) => {
     if (!isConnectedToPrimary) {
-      const discoverSocket = Client(`http://localhost:${port}`);
+      const discoverSocket = Client(`http://${host}:${port}`, {
+        transports: ["websocket", "polling"]
+      });
 
       discoverSocket.on("connect", () => {
         discoverSocket.emit("discovery");
@@ -137,7 +147,9 @@ if (process.env.PRIMARY_INSTANCE === "true") {
         if (!isConnectedToPrimary) {
           isConnectedToPrimary = true;
           console.log(`INSTANCE localhost:${process.env.PORT} is connected to ${url}`)
-          const primaryServer = Client(url);
+          const primaryServer = Client(url, {
+            transports: ["websocket", "polling"]
+          });
 
           primaryServer.on("connect", () => {
             console.log("Connected to primary server!");

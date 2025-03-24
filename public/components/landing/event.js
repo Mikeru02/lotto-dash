@@ -28,7 +28,7 @@ export default function Events() {
     loginBtn.addEventListener("click", async function(event) {
       event.preventDefault();
       try {
-        const response = await axios.post("http://localhost:4000/v1/account/login", {
+        const response = await axios.post(`http://${import.meta.env.VITE_API_HOST}:${import.meta.env.VITE_API_PORT}/v1/account/login`, {
           username: document.getElementById("username-login").value,
           password: document.getElementById("pass-login").value
         }, {
@@ -49,7 +49,7 @@ export default function Events() {
   signupBtn.addEventListener("click", async function(event) {
     event.preventDefault()
     try {
-      const response = await axios.post("http://localhost:4000/v1/account", {
+      const response = await axios.post(`http://${import.meta.env.VITE_API_HOST}:${import.meta.env.VITE_API_PORT}/v1/account`, {
         username: generateUsername(),
         fullname: document.getElementById("name-signup").value,
         email: document.getElementById("email-signup").value,

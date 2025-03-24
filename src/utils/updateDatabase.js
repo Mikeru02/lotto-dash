@@ -2,7 +2,7 @@ import axios from "axios";
 
 export async function createDraw(prizeMoney) {
   try {
-    const response = await axios.post("http://localhost:4000/v1/draw", {
+    const response = await axios.post(`http://${process.env.API_HOST}:${process.env.API_PORT}/v1/draw`, {
       winningNumber: null,
       prizeMoney: prizeMoney
     }, {
@@ -19,7 +19,7 @@ export async function createDraw(prizeMoney) {
 
 export async function updateDraw(drawId, winningNumber, prizeMoney) {
   try {
-    const response = await axios.patch("http://localhost:4000/v1/draw", {
+    const response = await axios.patch(`http://${process.env.API_HOST}:${process.env.API_PORT}/v1/draw`, {
       drawId: drawId,
       winningNumber: winningNumber,
       prizeMoney: prizeMoney

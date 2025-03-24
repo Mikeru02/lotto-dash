@@ -4,11 +4,11 @@
   "description": "In partial fullfilment for Parallel and Distributed Systems",
   "type": "module",
   "scripts": {
-    "dev": "nodemon --watch src src/index.js",
-    "api": "nodemon --watch api api/index.js",
+    "dev": "node src/index.js",
+    "api": "node api/index.js",
     "build_api": "parcel build api/index.js",
     "build_vite": "vite build --emptyOutDir",
-    "start": "npm run build_vite & PORT=3000 npm run dev & PORT=3001 npm run dev & PRIMARY_INSTANCE=true PORT=3002 npm run dev",
+    "start": "npm run build_vite & PORT=3001 npm run dev & PORT=3002 npm run dev & PRIMARY_INSTANCE=true PORT=3003 npm run dev",
     "multi": "PRIMARY_INSTANCE=true PORT=3000 npm run dev & PORT=3001 npm run dev & PORT=3002 npm run dev",
     "test": "echo \"Error: not test specified\" && exit 1"
   },

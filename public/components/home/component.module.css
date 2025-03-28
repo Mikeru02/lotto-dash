@@ -183,6 +183,7 @@
 
 .players-winners-container .player {
   justify-content: left; 
+  font-size: 15px;
 }
 
 .players-winners-container .winners {

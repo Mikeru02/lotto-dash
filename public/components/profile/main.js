@@ -29,7 +29,7 @@ export default function Main(root) {
                     <h2 class="${styles['name']}" id="fullname"></h2>
                     <h3 class="${styles['name']}" id="username"></h3>
                     </div>
-                    <button class="${styles['edit-btn']} edit-btn">Edit Profile</button>
+                    <!-- <button class="${styles['edit-btn']} edit-btn">Edit Profile</button> -->
 
                 </div>                
 
@@ -68,13 +68,13 @@ export default function Main(root) {
             <h2>Edit Profile</h2>
             <div class="${styles['modal-body']}">
                 <img src="https://res.cloudinary.com/dakq2u8n0/image/upload/v1740663929/ppp_tdpbik.jpg" alt="Profile" class="${styles['avatar']}">
-                <button class="change-photo-btn">Change Photo</button>
+                <button class="${styles['change-photo-btn']}">Change Photo</button>
                 <div>
                     <label for="newName">New Name:</label>
                     <input type="text" id="newName" name="newName" placeholder="Enter new name">
                 </div>
-                <button class="cancel-btn" onclick="closeModal()">Cancel</button>
-                <button id="saveBtn" class="save-btn" disabled>Save Changes</button>
+                <button class="${styles['cancel-btn']}" onclick="closeModal()">Cancel</button>
+                <button id="saveBtn" class="${styles['save-btn']}" disabled>Save Changes</button>
             </div>
         </div>
     </div>

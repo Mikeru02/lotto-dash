@@ -44,12 +44,12 @@ export default function Main(root) {
                         <div class="overlay">
                             <div class="overlay-panel overlay-left">
                                 <h1 class="${styles['header-overlay']}">Welcome Back!</h1>
-                                <p>Enter your personal details<br>and let your lucky journey start here!</p>
+                                <p class="${styles['auth-p']}">Enter your personal details<br>and let your lucky journey start here!</p>
                                 <button class="${styles['ghost']}" id="signIn">Log In</button>
                             </div>
                             <div class="overlay-panel overlay-right">
                                 <h1 class="${styles['header-overlay']}">Join with us</h1>
-                                <p>Get ready for fortune, start your journey with us today!</p>
+                                <p class="${styles['auth-p']}">Get ready for fortune, start your journey with us today!</p>
                                 <button class="${styles['ghost']}" id="signUp">Sign Up</button>
                             </div>
                         </div>

@@ -29,7 +29,6 @@ export default function Main(root) {
                     <h2 class="${styles['name']}" id="fullname"></h2>
                     <h3 class="${styles['name']}" id="username"></h3>
                     </div>
-                    <!-- <button class="${styles['edit-btn']} edit-btn">Edit Profile</button> -->
 
                 </div>                
 

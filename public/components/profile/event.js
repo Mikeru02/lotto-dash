@@ -25,7 +25,7 @@ export default async function Events() {
 
   // Edit Profile Modal
   const modal = document.getElementById("editModal");
-  const editBtn = document.querySelector(".edit-btn");
+  // const editBtn = document.querySelector(".edit-btn");
   const closeBtn = document.querySelector(".close-btn");
   const saveBtn = document.getElementById("saveBtn");
   const nameInput = document.getElementById("newName");
@@ -64,9 +64,9 @@ export default async function Events() {
   saveBtn.disabled = true;
   saveBtn.classList.remove("enabled");
 
-  editBtn.addEventListener("click", () => {
-      modal.style.display = "flex";
-  });
+  // editBtn.addEventListener("click", () => {
+  //     modal.style.display = "flex";
+  // });
 
   closeBtn.addEventListener("click", function() {
     modal.style.display = "none";

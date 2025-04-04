@@ -1,4 +1,36 @@
 services:
+  mysql_master:
+    image: mariadb:10.3
+    env_file:
+      - ./master/mysql_master.env
+    container_name: "mysql_master"
+    restart: "no"
+    ports:
+      - 4406:3306
+    volumes:
+      - ./master/conf/mysql.conf.cnf:/etc/mysql/conf.d/mysql.conf.cnf
+      - ./master/data:/var/lib/mysql
+      - ./db:/db
+    networks:
+      - server-network
+
+  mysql_slave:
+    image: mariadb:10.3
+    env_file:
+      - ./slave/mysql_slave.env
+    container_name: "mysql_slave"
+    restart: "no"
+    ports:
+      - 5506:3306
+    depends_on:
+      - mysql_master
+    volumes:
+      - ./slave/conf/mysql.conf.cnf:/etc/mysql/conf.d/mysql.conf.cnf
+      - ./slave/data:/var/lib/mysql
+      - ./db:/db
+    networks:
+      - server-network
+
   api:
     build: 
       context: .
@@ -9,13 +41,27 @@ services:
       - API_PORT=4000
       - API_KEY=lotto_dash
       - API_SECRET_KEY=lotto_dash
-      - DB_HOST=172.28.54.224
-      - DB_USER=lotto_api
-      - DB_PASS=lotto_api
-      - DB_NAME=lotto_dash
-      - DB_PORT=3306
+      - MASTER_DB_HOST=mysql_master
+      - MASTER_DB_USER=mydb_user
+      - MASTER_DB_PASS=mydb_pwd
+      - MASTER_DB_NAME=mydb
+      - MASTER_DB_PORT=3306
+      - SLAVE_DB_HOST=mysql_slave
+      - SLAVE_DB_USER=mydb_slave_user
+      - SLAVE_DB_PASS=mydb_slave_pwd
+      - SLAVE_DB_NAME=mydb
+      - SLAVE_DB_PORT=3306
+      
+      # - DB_HOST=172.28.30.139
+      # - DB_USER=lotto_api
+      # - DB_PASS=lotto_api
+      # - DB_NAME=lotto_dash
+      # - DB_PORT=3306
     ports:
       - 4000:4000
+    depends_on:
+      - mysql_master
+      - mysql_slave
     networks:
       - server-network
   socketserver1:

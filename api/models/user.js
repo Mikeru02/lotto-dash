@@ -1,15 +1,16 @@
-import { connection } from "../core/database.js";
+import { masterConnection, slaveConnection } from "../core/database.js";
 import { encryptPassword } from "../utils/hash.js";
 
 class User {
   constructor() {
-    this.db = connection;
+    this.masterDB = masterConnection;
+    this.slaveDB = slaveConnection;
   }
 
   // Create User
   async create(username, fullname, email, password) {
     try {
-      const [results, ] = await this.db.execute(
+      const [results, ] = await this.masterDB.execute(
         "INSERT INTO Users (username, fullname, emailaddress, password, created_at, updated_at) VALUES (?, ?, ?, ?, NOW(), NOW())",
         [username, fullname, email, encryptPassword(password)]
       );
@@ -23,7 +24,7 @@ class User {
   // Verify user
   async verify(username, password) {
     try {
-      const [results, ] = await this.db.execute(
+      const [results, ] = await this.slaveDB.execute(
         'SELECT * FROM Users WHERE username=? AND password=?',
         [username, encryptPassword(password)]
       );
@@ -37,7 +38,7 @@ class User {
   // Get user
   async get(username) {
     try{
-      const [results, ] = await this.db.execute(
+      const [results, ] = await this.slaveDB.execute(
         "SELECT * FROM Users WHERE username=?",
         [username]
       );
@@ -51,7 +52,7 @@ class User {
   // Update user
   async update(userId, username, fullname, email, password) {
     try {
-      const [results, ] = await this.db.execute(
+      const [results, ] = await this.masterDB.execute(
         "UPDATE Users SET username=?, fullname=?, emailaddress=?, password=?, updated_at=NOW() WHERE userId=?",
         [username, fullname, email, encryptPassword(password), userId]
       );
@@ -63,7 +64,7 @@ class User {
 
   async updateTranscation(userId, type, drawId, amount) {
     try {
-      const [results, ] = await this.db.execute(
+      const [results, ] = await this.masterDB.execute(
         "INSERT INTO TransactionHistory (userId, type, drawId, amount, transactionDate) VALUES (?, ?, ?, ?, NOW())",
         [userId, type, drawId, amount]
       );
@@ -77,9 +78,10 @@ class User {
   // Add cash to wallet 
   async deposit(username, amount) {
     try {
+      console.log("\n\n\n HIT TANGA \n\n")
       const user = await this.get(username);
 
-      const [results, ] = await this.db.execute(
+      const [results, ] = await this.masterDB.execute(
         "UPDATE Users SET walletbalance=walletbalance+? WHERE username=?",
         [amount, username]
       );
@@ -98,7 +100,7 @@ class User {
   async getDeposits(username) {
     try {
       const user = await this.get(username);
-      const [results, ] = await this.db.execute(
+      const [results, ] = await this.slaveDB.execute(
         "SELECT transactionId, amount, transactionDate FROM TransactionHistory WHERE type=? AND userId=?",
         ["deposit", user.userId]
       );
@@ -113,7 +115,7 @@ class User {
   async withdraw(username, amount) {
     try {
       const user = await this.get(username);
-      const [results, ] = await this.db.execute(
+      const [results, ] = await this.masterDB.execute(
         "UPDATE Users SET walletbalance=walletbalance-? WHERE username=?",
         [amount, username]
       );
@@ -131,7 +133,7 @@ class User {
   async getWithdrawals(username) {
     try {
       const user = await this.get(username);
-      const [results, ] = await this.db.execute(
+      const [results, ] = await this.slaveDB.execute(
         "SELECT transactionId, amount, transactionDate FROM TransactionHistory WHERE type=? AND userId=?",
         ["withdraw", user.userId]
       );
@@ -145,7 +147,7 @@ class User {
   async bet(username, betNumbers) {
     try {
       const user = await this.get(username);
-      const [lastdata, ] = await this.db.execute(
+      const [lastdata, ] = await this.slaveDB.execute(
         "SELECT * FROM DrawHistory ORDER BY drawId DESC LIMIT 1 OFFSET 0",
       );
 
@@ -154,7 +156,7 @@ class User {
       console.log(user.userId, data.drawId, betNumbers);
       const transaction = await this.updateTranscation(user.userId, "bet", data.drawId, 20.00);
 
-      const [betTransac, ] = await this.db.execute(
+      const [betTransac, ] = await this.masterDB.execute(
         "INSERT INTO BetHistory (userId, drawId, betNumbers, betDate) VALUES (?, ?, ?, NOW())",
         [user.userId, data.drawId, betNumbers]
       );
@@ -170,7 +172,7 @@ class User {
     try {
       const user = await this.get(username);
 
-      const [results, ] = await this.db.execute(
+      const [results, ] = await this.slaveDB.execute(
         "SELECT * FROM BetHistory WHERE userId=?",
         [user.userId]
       );
@@ -184,7 +186,7 @@ class User {
   // Get wallet balance
   async getWalletBalance(username) {
     try {
-      const [results, ] = await this.db.execute(
+      const [results, ] = await this.slaveDB.execute(
         "SELECT walletBalance FROM Users WHERE username=?",
         [username]
       );
@@ -199,7 +201,7 @@ class User {
   async updateWalletBalance(username, amount) {
     try {
       console.log("<debug api user.updateBalance>", amount, username)
-      const [results, ] = await this.db.execute(
+      const [results, ] = await this.masterDB.execute(
         "UPDATE Users SET walletBalance=? WHERE username=?",
         [amount, username]
       );

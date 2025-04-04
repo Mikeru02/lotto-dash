@@ -11,7 +11,7 @@ export default function Header(root) {
           <div id="wallet-balance" class="${styles['wallet-balance']}">
             <p>\u20B1 <span id="balance"></span></p>
           </div>
-          <img src="https://res.cloudinary.com/dakq2u8n0/image/upload/v1740663929/ppp_tdpbik.jpg" alt="Profile" class="${styles['profile']}" id="profile-btn"> 
+          <img src="https://res.cloudinary.com/dakq2u8n0/image/upload/v1743779611/pfp_pitlf7.jpg" alt="Profile" class="${styles['profile']}" id="profile-btn"> 
         </div>
     </div>
 

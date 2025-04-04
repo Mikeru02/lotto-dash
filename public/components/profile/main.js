@@ -19,7 +19,7 @@ export default function Main(root) {
                 <!-- Profile Section -->
                 <div class="${styles['profile']}">
                     <div class="${styles['cover-photo']}"></div>
-                    <img src="https://res.cloudinary.com/dakq2u8n0/image/upload/v1740663929/ppp_tdpbik.jpg" alt="Profile" class="${styles['avatar']}">
+                    <img src="https://res.cloudinary.com/dakq2u8n0/image/upload/v1743779611/pfp_pitlf7.jpg" alt="Profile" class="${styles['avatar']}">
                     <div class="${styles['img-action-btn']}">
                         <img src=${Home} class="${styles['img-btn']}" id="home-btn">
                         <img src=${Logout} class="${styles['img-btn']}" id="logout-btn">
@@ -29,7 +29,7 @@ export default function Main(root) {
                     <h2 class="${styles['name']}" id="fullname"></h2>
                     <h3 class="${styles['name']}" id="username"></h3>
                     </div>
-                    <!-- <button class="${styles['edit-btn']} edit-btn">Edit Profile</button> -->
+                    <button class="${styles['edit-btn']} edit-btn">Edit Profile</button>
 
                 </div>                
 

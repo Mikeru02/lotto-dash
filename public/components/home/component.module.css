@@ -193,6 +193,8 @@
 .players {
   gap: 30px;
   width: 50%;
+  color: #262834;
+  font-size: 16px;
 }
 
 .player {
@@ -210,7 +212,6 @@
   padding: 10px;
 
 }
-
 
 .winners {
   background: #FFFFFF;

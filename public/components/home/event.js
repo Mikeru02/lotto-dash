@@ -50,32 +50,39 @@ export default async function Events() {
     const balance = await getBalance();
     const numberSelection = document.querySelectorAll(".number-selection div");
     const selectedNumbers = [];
+    
     numberSelection.forEach(div => {
-      if (div.textContent.trim() !== "") {
-          selectedNumbers.push(div.textContent.trim());
-      }
+        if (div.textContent.trim() !== "") {
+            selectedNumbers.push(div.textContent.trim());
+        }
     });
-    if (selectedNumbers.length < 6) {
-      window.alert("Please complete your 6-number combination before submitting!");
-      return;
-    }
-    else if (balance < 20) {
-      window.alert("Please cash in first before betting!")
-    } else {
-      document.querySelectorAll(".input-num").forEach((div) => {
-        bets.push(div.innerHTML);
-      });
 
-      socket.emit("bet", bets);
-      submitSelectionBtn.setAttribute("disabled", "true");
-      resetSelectionBtn.setAttribute("disabled", "true");
-      const updatedBalance = parseInt(balance) - 20;
-      await updateBalance(updatedBalance)
-      let updatedbalance = await getBalance();
-      balanceContainer.innerHTML = updatedbalance;
-      await bet(bets.toString());
+    if (selectedNumbers.length < 6) {
+        window.alert("Please complete your 6-number combination before submitting!");
+        return;
+    } else if (balance < 20) {
+        window.alert("Please cash in first before betting!");
+    } else {
+        document.querySelectorAll(".input-num").forEach((div) => {
+            bets.push(div.innerHTML);
+        });
+
+        socket.emit("bet", bets);
+        submitSelectionBtn.setAttribute("disabled", "true");
+        resetSelectionBtn.setAttribute("disabled", "true");
+
+        document.querySelectorAll(".input-num").forEach((div) => {
+            div.style.pointerEvents = "none"; 
+            div.style.opacity = "0.5"; 
+        });
+        
+        const updatedBalance = parseInt(balance) - 20;
+        await updateBalance(updatedBalance);
+        let updatedbalance = await getBalance();
+        balanceContainer.innerHTML = updatedbalance;
+        await bet(bets.toString());
     }
-  })
+  });
 
   document.querySelectorAll(".input-num").forEach((div) => {
     div.addEventListener("click", function() {
@@ -102,7 +109,7 @@ export default async function Events() {
     }
   })
   socket.on("jackpot", (jackpot) => {
-    document.getElementById("jackpot").textContent = `\u20B1 ${jackpot}.00`;
+    document.getElementById("jackpot").textContent = `₱ ${jackpot}.00`;
   })
 
   socket.on("reset", async (arg) => {
@@ -111,10 +118,16 @@ export default async function Events() {
     bets = [];
     let updatedbalance = await getBalance();
     balanceContainer.innerHTML = updatedbalance;
+
+    document.querySelectorAll(".input-num").forEach((div) => {
+        div.style.pointerEvents = "auto"; 
+        div.style.opacity = "1";
+    });
+
     resetSelectionBtn.removeAttribute("disabled");
     submitSelectionBtn.removeAttribute("disabled");
   });
-  
+
   socket.on("addPlayer", (player) => {
     const div = document.createElement("div");
     div.innerHTML = player;
@@ -199,6 +212,7 @@ function resetSelection() {
 
     document.getElementById("lottoNumber").value = ""; 
 }
+
 
 // function generateWinningNumbers() {
 //     let numbers = new Set();

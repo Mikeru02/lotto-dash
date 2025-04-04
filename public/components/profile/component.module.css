@@ -95,6 +95,7 @@
 }
 
 .edit-btn {
+  display: none;
   background: #82181F;
   color: white;
   border: none;

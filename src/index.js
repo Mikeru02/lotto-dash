@@ -20,13 +20,23 @@ const io = new Server(server, {
   transports: ["websocket", "polling"]
 }); 
 
+const IS_CONTAINER = process.env.IS_CONTAINER;
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-app.use(express.static(join(__dirname, "dist")));
+if (IS_CONTAINER){
+  app.use(express.static(join(__dirname, "dist")));
 
-app.get("*", (req, res) => {
-  res.sendFile(join(__dirname, "dist/index.html"));
-});
+  app.get("*", (req, res) => {
+    res.sendFile(join(__dirname, "dist/index.html"));
+  });
+}else{
+  app.use(express.static(join(__dirname, "../dist")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(join(__dirname, "../dist/index.html"));
+  });
+}
 
 const portsLists = process.env.PORTS.split(",").map((url) => {
   const [host, port] = url.split(":");

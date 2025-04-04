@@ -108,6 +108,7 @@ services:
       - 3002:3002
     depends_on:
       - api
+      - socketserver1
     networks:
       - server-network
   socketserver3:
@@ -131,6 +132,7 @@ services:
       - 3003:3003
     depends_on:
       - api
+      - socketserver2
     networks:
       - server-network
   loadbalancer:

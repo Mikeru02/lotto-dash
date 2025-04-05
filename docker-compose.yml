@@ -78,6 +78,7 @@ services:
       - SERVER_NAME=socketserver1
       - PORTS=socketserver1:3001,socketserver2:3002,socketserver3:3003
       - PRIMARY_INSTANCE=true
+      - IS_CONTAINER=true
       - VITE_API_KEY=lotto_dash
       - VITE_API_HOST=api
       - VITE_API_PORT=4000
@@ -101,6 +102,7 @@ services:
       - SERVER_NAME=socketserver2
       - PORTS=socketserver1:3001,socketserver2:3002,socketserver3:3003
       - PRIMARY_INSTANCE=false
+      - IS_CONTAINER=true
       - VITE_API_KEY=lotto_dash
       - VITE_API_HOST=api
       - VITE_API_PORT=4000
@@ -125,6 +127,7 @@ services:
       - SERVER_NAME=socketserver3
       - PORTS=socketserver1:3001,socketserver2:3002,socketserver3:3003
       - PRIMARY_INSTANCE=false
+      - IS_CONTAINER=true
       - VITE_API_KEY=lotto_dash
       - VITE_API_HOST=api
       - VITE_API_PORT=4000

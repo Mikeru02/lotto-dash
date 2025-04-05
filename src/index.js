@@ -126,6 +126,7 @@ if (process.env.PRIMARY_INSTANCE === "true") {
     }
 
     const nextDraw = new Date(now.getTime() + countdownTime * 1000);
+
     nextDraw.setSeconds(0);
 
     const options = {
@@ -135,7 +136,8 @@ if (process.env.PRIMARY_INSTANCE === "true") {
         day: 'numeric', 
         hour: '2-digit', 
         minute: '2-digit', 
-        hour12: true 
+        hour12: true,
+        timeZone: 'Asia/Manila'
     };
     const formattedDate = new Intl.DateTimeFormat('en-US', options).format(nextDraw);
     const format = `${formattedDate} in ${countdownTime} second/s`;

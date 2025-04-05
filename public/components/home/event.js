@@ -5,6 +5,24 @@ import updateBalance from "../../utils/updateBalance";
 import { bet } from "../../utils/process";
 
 export default async function Events() {
+  window.addEventListener("load", async function () {
+    fetch(`http://${import.meta.env.VITE_API_HOST}:${import.meta.env.VITE_API_PORT}/v1/`)
+      .then(response => {
+        if (!response.ok) {
+          document.getElementById("server-down").style.display = "block";
+          document.getElementById("app").style.display = "none";
+        } else {
+          // If server is up, show the app
+          document.getElementById("server-down").style.display = "none";
+          document.getElementById("app").style.display = "block";
+        }
+      })
+      .catch(error => {
+        document.getElementById("server-down").style.display = "block";
+        document.getElementById("app").style.display = "none";
+      });
+  });
+  
   const socket = io();
   let walletBalance = await getBalance();
   const balanceContainer = document.getElementById("balance");

@@ -8,6 +8,23 @@ import countMatchNumbers from "../../utils/count";
 
 export default async function Events() {
   // Lagay mo her eyung events mo sa profile page
+  window.addEventListener("load", async function () {
+    fetch(`http://${import.meta.env.VITE_API_HOST}:${import.meta.env.VITE_API_PORT}/v1/`)
+      .then(response => {
+        if (!response.ok) {
+          document.getElementById("server-down").style.display = "block";
+          document.getElementById("app").style.display = "none";
+        } else {
+          // If server is up, show the app
+          document.getElementById("server-down").style.display = "none";
+          document.getElementById("app").style.display = "block";
+        }
+      })
+      .catch(error => {
+        document.getElementById("server-down").style.display = "block";
+        document.getElementById("app").style.display = "none";
+      });
+  });
   let walletBalance = await getBalance();
   const homeBtn = document.getElementById("home-btn");
   const betHistory = document.getElementById("bet-history");

@@ -139,6 +139,7 @@ services:
     build: ./haproxy
     ports:
       - 80:80
+      - 8404:8404
     depends_on:
       - socketserver1
       - socketserver2

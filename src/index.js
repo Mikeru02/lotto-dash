@@ -13,6 +13,7 @@ import getLastData from "./utils/getLastData.js";
 import checkPlayers from "./utils/players.js";
 import { createDraw, updateDraw } from "./utils/updateDatabase.js";
 import payout from "./utils/winnerPayout.js";
+import axios from "axios";
 
 const app = express();
 const server = createServer(app);
@@ -33,8 +34,8 @@ if (IS_CONTAINER){
 }else{
   app.use(express.static(join(__dirname, "../dist")));
 
-  app.get("*", (req, res) => {
-    res.sendFile(join(__dirname, "../dist/index.html"));
+  app.get("*", async (req, res) => {
+    res.sendFile(join(__dirname, "../dist/index.html"));    
   });
 }
 
@@ -42,7 +43,7 @@ const portsLists = process.env.PORTS.split(",").map((url) => {
   const [host, port] = url.split(":");
   return { host, port };
 })
-
+try{
 const uniCount = 60; // Change this to adjust countdown
 // const ports = process.env.PORTS.split(',') // Add ports for scaling
 let isConnectedToPrimary = false;
@@ -178,6 +179,9 @@ if (process.env.PRIMARY_INSTANCE === "true") {
 server.listen(process.env.PORT, () => {
   console.log(`This app is running on port: ${process.env.PORT}`);
 });
+} catch(err){
+  console.error(err)
+}
 
 
 // This block is for emergency use only

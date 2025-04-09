@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=Lalezar&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --background_color: #000;
+    --font_color: #fff;
+}
+
+body {
+    background-color: var(--background_color);
+    color: var(--font_color);
+    font-size: 16px;
+    font-family: 'Lalezar';
+}
+
+#responsive-container {
+    width: 768px;
+    height: 100vh;
+    margin: auto;
+    padding: 2rem;
+}

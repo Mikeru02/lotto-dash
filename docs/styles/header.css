@@ -7,15 +7,35 @@ header {
 }
 
 #logo-img {
-    width: 20rem;
+    width: 10rem;
     height: auto;
 }
 
 .title {
-    font-size: 4rem;
+    font-size: 2rem;
+    color: var(--primary)
+}
+
+.title span {
+    color: var(--accent3);
 }
 
 .description {
-    font-size: 1.5rem;
+    color: var(--primary);
+    font-size: 1rem;
     font-style: italic;
+    text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+    .title {
+        font-size: 2.5rem;
+    }
+    .description {
+        font-size: 1.5rem;
+    }
+    #logo-img {
+        width: 15rem;
+    }
+    
 }

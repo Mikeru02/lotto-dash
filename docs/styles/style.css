@@ -7,20 +7,34 @@
 }
 
 :root {
-    --background_color: #000;
-    --font_color: #fff;
+    --primary: #EAE2B7;
+    --accent1: #FCBF49;
+    --accent2: #F77F00;
+    --accent3: #D62828;
 }
 
 body {
-    background-color: var(--background_color);
-    color: var(--font_color);
+    background: url('https://res.cloudinary.com/dakq2u8n0/image/upload/v1740929924/Screenshot_2025-03-02_233215_oc6hc2.png') no-repeat center center fixed;
+    background-size: cover;
     font-size: 16px;
     font-family: 'Lalezar';
 }
 
 #responsive-container {
-    width: 768px;
+    width: 100vw;
     height: 100vh;
     margin: auto;
     padding: 2rem;
+}
+
+@media screen and (min-width: 768px) {
+    #responsive-container {
+        width: 90vw;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    #responsive-container {
+        width: 80vw;
+    }
 }
